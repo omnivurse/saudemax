@@ -1,0 +1,221 @@
+{
+  "layout": {
+    "sections": [
+      {
+        "type": "hero",
+        "style": {
+          "background": "bg-gradient-to-br from-blue-900 via-blue-800 to-green-700",
+          "overlay": "bg-black/20",
+          "glassmorphism": true,
+          "minHeight": "min-h-screen",
+          "display": "flex",
+          "alignItems": "items-center"
+        },
+        "content": {
+          "grid": "grid lg:grid-cols-2 gap-12 items-center",
+          "leftColumn": {
+            "animation": {
+              "initial": { "opacity": 0, "x": -50 },
+              "animate": { "opacity": 1, "x": 0 },
+              "transition": { "duration": 0.8 }
+            },
+            "textColor": "text-white",
+            "heading": {
+              "size": "text-5xl lg:text-7xl",
+              "weight": "font-bold",
+              "lineHeight": "leading-tight",
+              "marginBottom": "mb-6"
+            },
+            "subheading": {
+              "size": "text-xl lg:text-2xl",
+              "marginBottom": "mb-8",
+              "color": "text-blue-100"
+            },
+            "ctaButtons": {
+              "layout": "flex flex-col sm:flex-row gap-4",
+              "primary": {
+                "background": "bg-green-600 hover:bg-green-700",
+                "textColor": "text-white",
+                "padding": "px-8 py-4",
+                "size": "text-lg",
+                "weight": "font-medium",
+                "borderRadius": "rounded-lg"
+              },
+              "secondary": {
+                "background": "bg-white hover:bg-gray-50",
+                "textColor": "text-blue-700",
+                "padding": "px-8 py-4",
+                "size": "text-lg",
+                "weight": "font-medium",
+                "borderRadius": "rounded-lg"
+              }
+            }
+          },
+          "rightColumn": {
+            "animation": {
+              "initial": { "opacity": 0, "x": 50 },
+              "animate": { "opacity": 1, "x": 0 },
+              "transition": { "duration": 0.8, "delay": 0.2 }
+            },
+            "card": {
+              "background": "bg-white/10",
+              "backdropBlur": "backdrop-blur-md",
+              "borderRadius": "rounded-3xl",
+              "padding": "p-8",
+              "border": "border border-white/20"
+            }
+          }
+        }
+      },
+      {
+        "type": "stats",
+        "style": {
+          "background": "bg-white",
+          "padding": "py-16"
+        },
+        "content": {
+          "grid": "grid grid-cols-2 lg:grid-cols-4 gap-8",
+          "items": {
+            "animation": {
+              "initial": { "opacity": 0, "y": 20 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.5, "delay": "index * 0.1" },
+              "viewport": { "once": true }
+            },
+            "textAlign": "text-center",
+            "value": {
+              "size": "text-4xl lg:text-5xl",
+              "weight": "font-bold",
+              "color": "text-blue-700",
+              "marginBottom": "mb-2"
+            },
+            "label": {
+              "color": "text-gray-600"
+            }
+          }
+        }
+      },
+      {
+        "type": "features",
+        "style": {
+          "background": "bg-gray-50",
+          "padding": "py-20"
+        },
+        "content": {
+          "heading": {
+            "animation": {
+              "initial": { "opacity": 0, "y": 20 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6 },
+              "viewport": { "once": true }
+            },
+            "textAlign": "text-center",
+            "marginBottom": "mb-16",
+            "title": {
+              "size": "text-4xl lg:text-5xl",
+              "weight": "font-bold",
+              "color": "text-gray-900",
+              "marginBottom": "mb-4"
+            },
+            "subtitle": {
+              "size": "text-xl",
+              "color": "text-gray-600",
+              "maxWidth": "max-w-3xl",
+              "margin": "mx-auto"
+            }
+          },
+          "grid": "grid md:grid-cols-3 gap-8",
+          "cards": {
+            "animation": {
+              "initial": { "opacity": 0, "y": 30 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6, "delay": "index * 0.2" },
+              "viewport": { "once": true }
+            },
+            "textAlign": "text-center",
+            "height": "h-full",
+            "hover": true,
+            "icon": {
+              "size": "w-16 h-16",
+              "margin": "mx-auto mb-6",
+              "borderRadius": "rounded-full",
+              "background": "bg-gradient-to-br from-blue-100 to-green-100",
+              "display": "flex",
+              "alignItems": "items-center",
+              "justifyContent": "justify-center"
+            },
+            "title": {
+              "size": "text-2xl",
+              "weight": "font-bold",
+              "color": "text-gray-900",
+              "marginBottom": "mb-4"
+            },
+            "description": {
+              "size": "text-lg",
+              "color": "text-gray-600"
+            }
+          }
+        }
+      },
+      {
+        "type": "affiliate",
+        "style": {
+          "background": "bg-white",
+          "padding": "py-20"
+        },
+        "content": {
+          "heading": {
+            "animation": {
+              "initial": { "opacity": 0, "y": 20 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6 },
+              "viewport": { "once": true }
+            },
+            "textAlign": "text-center",
+            "marginBottom": "mb-16",
+            "title": {
+              "size": "text-4xl lg:text-5xl",
+              "weight": "font-bold",
+              "color": "text-gray-900",
+              "marginBottom": "mb-4"
+            },
+            "subtitle": {
+              "size": "text-xl",
+              "color": "text-gray-600",
+              "maxWidth": "max-w-3xl",
+              "margin": "mx-auto"
+            }
+          },
+          "grid": "grid lg:grid-cols-2 gap-12 items-center",
+          "leftColumn": {
+            "animation": {
+              "initial": { "opacity": 0, "x": -20 },
+              "whileInView": { "opacity": 1, "x": 0 },
+              "transition": { "duration": 0.6 },
+              "viewport": { "once": true }
+            },
+            "spacing": "space-y-6",
+            "heading": {
+              "size": "text-2xl",
+              "weight": "font-bold",
+              "color": "text-gray-900"
+            },
+            "text": {
+              "color": "text-gray-600"
+            },
+            "features": {
+              "spacing": "space-y-4",
+              "item": {
+                "display": "flex",
+                "alignItems": "items-start",
+                "spacing": "space-x-3"
+              }
+            }
+          },
+          "rightColumn": {
+            "animation": {
+              "initial": { "opacity": 0, "x": 20 },
+              "whileInView": { "opacity": 1, "x": 0 },
+              "transition": { "duration": 0.6, "delay": 0.2 },I'll help you export the layout and style from the HomePage component. This will give you the structure and styling that you can reuse in another Bolt project.
+
+<boltArtifact id="export-homepage-layout" title="Export HomePage Layout and Style">

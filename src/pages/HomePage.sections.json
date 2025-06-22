@@ -1,0 +1,317 @@
+{
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "style": {
+        "background": "bg-gradient-to-br from-blue-900 via-blue-800 to-green-700",
+        "minHeight": "min-h-screen",
+        "position": "relative",
+        "display": "flex",
+        "alignItems": "items-center"
+      },
+      "overlay": {
+        "enabled": true,
+        "style": "bg-black/20 absolute inset-0"
+      },
+      "glassmorphism": {
+        "enabled": true,
+        "elements": [
+          {
+            "position": "absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"
+          },
+          {
+            "position": "absolute bottom-20 right-20 w-96 h-96 bg-green-500/10 rounded-full blur-3xl"
+          }
+        ]
+      },
+      "content": {
+        "layout": "grid lg:grid-cols-2 gap-12 items-center",
+        "leftColumn": {
+          "animation": {
+            "initial": { "opacity": 0, "x": -50 },
+            "animate": { "opacity": 1, "x": 0 },
+            "transition": { "duration": 0.8 }
+          },
+          "textColor": "text-white",
+          "heading": {
+            "size": "text-5xl lg:text-7xl",
+            "weight": "font-bold",
+            "lineHeight": "leading-tight",
+            "marginBottom": "mb-6"
+          },
+          "subheading": {
+            "size": "text-xl lg:text-2xl",
+            "marginBottom": "mb-8",
+            "color": "text-blue-100"
+          },
+          "ctaButtons": {
+            "layout": "flex flex-col sm:flex-row gap-4",
+            "primary": {
+              "background": "bg-green-600 hover:bg-green-700",
+              "textColor": "text-white",
+              "padding": "px-8 py-4",
+              "size": "text-lg",
+              "weight": "font-medium",
+              "borderRadius": "rounded-lg"
+            },
+            "secondary": {
+              "background": "bg-white hover:bg-gray-50",
+              "textColor": "text-blue-700",
+              "padding": "px-8 py-4",
+              "size": "text-lg",
+              "weight": "font-medium",
+              "borderRadius": "rounded-lg"
+            }
+          }
+        },
+        "rightColumn": {
+          "animation": {
+            "initial": { "opacity": 0, "x": 50 },
+            "animate": { "opacity": 1, "x": 0 },
+            "transition": { "duration": 0.8, "delay": 0.2 }
+          },
+          "card": {
+            "background": "bg-white/10",
+            "backdropBlur": "backdrop-blur-md",
+            "borderRadius": "rounded-3xl",
+            "padding": "p-8",
+            "border": "border border-white/20"
+          }
+        }
+      }
+    },
+    {
+      "id": "stats",
+      "type": "stats",
+      "style": {
+        "background": "bg-white",
+        "padding": "py-16"
+      },
+      "content": {
+        "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "grid": "grid grid-cols-2 lg:grid-cols-4 gap-8",
+        "items": [
+          {
+            "value": "50,000+",
+            "label": "Active Members",
+            "animation": {
+              "delay": 0.1
+            }
+          },
+          {
+            "value": "98%",
+            "label": "Satisfaction Rate",
+            "animation": {
+              "delay": 0.2
+            }
+          },
+          {
+            "value": "$2.5B+",
+            "label": "Medical Bills Shared",
+            "animation": {
+              "delay": 0.3
+            }
+          },
+          {
+            "value": "24/7",
+            "label": "Support Available",
+            "animation": {
+              "delay": 0.4
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "features",
+      "type": "features",
+      "style": {
+        "background": "bg-gray-50",
+        "padding": "py-20"
+      },
+      "content": {
+        "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "heading": {
+          "title": "Why Choose SaudeMAX?",
+          "subtitle": "Discover the benefits that make SaudeMAX the preferred choice for healthcare"
+        },
+        "features": [
+          {
+            "icon": "Shield",
+            "title": "Affordable Rates",
+            "description": "Save up to 70% compared to traditional insurance",
+            "color": "text-blue-700"
+          },
+          {
+            "icon": "Users",
+            "title": "Strong Community",
+            "description": "Join a caring community of health-conscious members",
+            "color": "text-green-600"
+          },
+          {
+            "icon": "Heart",
+            "title": "Concierge Support",
+            "description": "Personal guidance to navigate your healthcare plan",
+            "color": "text-orange-600"
+          }
+        ]
+      }
+    },
+    {
+      "id": "affiliate",
+      "type": "affiliate",
+      "style": {
+        "background": "bg-white",
+        "padding": "py-20"
+      },
+      "content": {
+        "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "heading": {
+          "title": "Top Affiliate Partners",
+          "subtitle": "Join our growing network of affiliate partners who are helping more people access quality healthcare"
+        },
+        "leftColumn": {
+          "title": "Become a SaudeMAX Affiliate",
+          "description": "Join our affiliate program and earn competitive commissions while helping others access quality healthcare solutions.",
+          "features": [
+            {
+              "title": "Earn up to 15% commission",
+              "description": "On every successful referral"
+            },
+            {
+              "title": "Recurring revenue",
+              "description": "Earn from monthly subscriptions"
+            },
+            {
+              "title": "Marketing materials provided",
+              "description": "Get everything you need to succeed"
+            }
+          ],
+          "cta": {
+            "text": "Become an Affiliate",
+            "icon": "Users",
+            "link": "/affiliate/register"
+          }
+        }
+      }
+    },
+    {
+      "id": "healthPlan",
+      "type": "healthPlan",
+      "style": {
+        "background": "bg-gray-50",
+        "padding": "py-20"
+      },
+      "content": {
+        "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "heading": {
+          "title": "Health Plan for Brazilians",
+          "subtitle": "Comprehensive healthcare coverage designed specifically for the Brazilian community"
+        },
+        "features": [
+          {
+            "icon": "Ambulance",
+            "title": "Hospital Coverage",
+            "description": "Say goodbye to expensive and restrictive options.",
+            "color": "text-green-600"
+          },
+          {
+            "icon": "Stethoscope",
+            "title": "Telemedicine",
+            "description": "Fast online consultations.",
+            "color": "text-green-600"
+          },
+          {
+            "icon": "DollarSign",
+            "title": "Exam Discounts",
+            "description": "Discounts on exams and laboratories.",
+            "color": "text-green-600"
+          },
+          {
+            "icon": "Scissors",
+            "title": "Surgeries",
+            "description": "Pre-approved surgeries can be performed in Brazil or the United States.",
+            "color": "text-green-600"
+          },
+          {
+            "icon": "UserCheck",
+            "title": "Fast Approval",
+            "description": "No need for Social Security or Credit Score to be approved.",
+            "color": "text-green-600"
+          }
+        ],
+        "video": {
+          "src": "https://player.vimeo.com/video/1035717280?badge=0&autopause=0&player_id=0&app_id=58479&h=1bab1b87e8",
+          "title": "SaudeMAX - Health Plan for Brazilians"
+        }
+      }
+    },
+    {
+      "id": "pricing",
+      "type": "pricing",
+      "style": {
+        "background": "bg-white",
+        "padding": "py-20"
+      },
+      "content": {
+        "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "component": "PricingPreview"
+      }
+    },
+    {
+      "id": "testimonials",
+      "type": "testimonials",
+      "style": {
+        "background": "bg-blue-50",
+        "padding": "py-20"
+      },
+      "content": {
+        "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "heading": {
+          "title": "What Our Members Say"
+        },
+        "testimonials": [
+          {
+            "text": "SaudeMAX saved our family thousands while providing excellent coverage.",
+            "author": "Maria Santos",
+            "location": "São Paulo, SP",
+            "rating": 5
+          },
+          {
+            "text": "SaudeMAX saved our family thousands while providing excellent coverage.",
+            "author": "Maria Santos",
+            "location": "São Paulo, SP",
+            "rating": 5
+          },
+          {
+            "text": "SaudeMAX saved our family thousands while providing excellent coverage.",
+            "author": "Maria Santos",
+            "location": "São Paulo, SP",
+            "rating": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "style": {
+        "background": "bg-gradient-to-r from-blue-700 to-green-600",
+        "padding": "py-20"
+      },
+      "content": {
+        "container": "max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8",
+        "heading": "Ready to Join Our Community?",
+        "subheading": "Start your application today and Cut Your Medical Costs and Gain Peace of Mind",
+        "cta": {
+          "text": "Start Application",
+          "icon": "ArrowRight",
+          "link": "/enrollment",
+          "variant": "secondary",
+          "size": "lg"
+        }
+      }
+    }
+  ]
+}
