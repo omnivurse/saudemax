@@ -10,6 +10,7 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!supabaseUrl || !supabaseServiceKey) {
   console.error('Missing Supabase environment variables');
   console.error('Make sure VITE_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in your .env file');
+  console.error('Run the setup-supabase.js script to configure your environment');
   process.exit(1);
 }
 
