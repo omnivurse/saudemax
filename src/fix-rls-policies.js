@@ -102,8 +102,7 @@ async function fixRlsPolicies() {
         DROP TRIGGER IF EXISTS on_agent_role_update ON public.roles;
         CREATE TRIGGER on_agent_role_update
           AFTER INSERT OR UPDATE ON public.roles
-          FOR EACH ROW
-          WHEN (NEW.role = 'agent')
+          FOR EACH ROW WHEN (NEW.role = 'agent')
           EXECUTE FUNCTION public.handle_agent_role();
       `
     });

@@ -28,7 +28,8 @@ async function createUser() {
         role: 'agent'
       },
       app_metadata: {
-        role: 'agent'
+        role: 'agent',
+        affiliate_access: true
       }
     });
 
