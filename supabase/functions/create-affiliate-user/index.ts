@@ -270,21 +270,9 @@ serve(async (req) => {
       // Continue anyway since the user and affiliate were created successfully
     }
 
-    // Create user profile record
-    console.log(`[${requestId}] Creating user profile record`);
-    const { error: userProfileError } = await supabase
-      .from('users')
-      .insert({
-        id: userData.user.id,
-        email: email,
-        full_name: fullName,
-        role: 'affiliate'
-      });
-
-    if (userProfileError) {
-      console.error(`[${requestId}] Error creating user profile record:`, userProfileError);
-      // Continue anyway since the core functionality is working
-    }
+    // REMOVED: The redundant user profile record creation
+    // This was causing the "Database error creating new user" error
+    // The user record is now created automatically by database triggers
 
     console.log(`[${requestId}] Request completed successfully`);
     return new Response(
