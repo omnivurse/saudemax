@@ -327,7 +327,7 @@ export const TestPage: React.FC = () => {
                   console.error('Error fetching affiliate profile:', err);
                   const resultElement = document.getElementById('affiliate-result');
                   if (resultElement) {
-                    resultElement.textContent = \`Error: ${err.message}`;
+                    resultElement.textContent = `Error: ${err.message}`;
                   }
                 }
               }}>
@@ -340,6 +340,44 @@ export const TestPage: React.FC = () => {
             </div>
           </Card>
         )}
+
+        {/* Roles Table Status */}
+        <Card className="p-6">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Roles Table Status</h2>
+          
+          <div className="space-y-4">
+            <Button onClick={async () => {
+              try {
+                const { data, error } = await supabase
+                  .from('roles')
+                  .select('*')
+                  .limit(10);
+                  
+                if (error) {
+                  throw error;
+                }
+                
+                // Display the result
+                const resultElement = document.getElementById('roles-result');
+                if (resultElement) {
+                  resultElement.textContent = JSON.stringify(data, null, 2);
+                }
+              } catch (err: any) {
+                console.error('Error fetching roles:', err);
+                const resultElement = document.getElementById('roles-result');
+                if (resultElement) {
+                  resultElement.textContent = `Error: ${err.message}`;
+                }
+              }
+            }}>
+              Check Roles Table
+            </Button>
+            
+            <pre id="roles-result" className="mt-1 p-2 bg-gray-100 rounded-lg overflow-x-auto text-xs min-h-[100px]">
+              Click the button above to check the roles table
+            </pre>
+          </div>
+        </Card>
       </div>
     </div>
   );
