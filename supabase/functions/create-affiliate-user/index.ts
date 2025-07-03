@@ -3,7 +3,9 @@ import { createClient } from "npm:@supabase/supabase-js@2.39.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-request-id",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Max-Age": "86400",
 };
 
 interface CreateAffiliateUserRequest {
@@ -17,6 +19,7 @@ interface CreateAffiliateUserRequest {
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
+    console.log("Handling CORS preflight request");
     return new Response(null, {
       status: 204,
       headers: corsHeaders,
@@ -24,22 +27,47 @@ serve(async (req) => {
   }
 
   try {
+    // Log request details for debugging
+    const requestId = req.headers.get("X-Request-ID") || "unknown";
+    console.log(`Processing request ${requestId}`);
+    
     // Get environment variables
     const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
     
     if (!supabaseUrl || !supabaseServiceKey) {
+      console.error(`[${requestId}] Missing Supabase environment variables`);
       throw new Error("Missing Supabase environment variables");
     }
 
     // Create Supabase admin client
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    console.log(`[${requestId}] Supabase client created`);
 
     // Parse request body
-    const { email, password, fullName, payoutEmail, payoutMethod }: CreateAffiliateUserRequest = await req.json();
+    let requestBody;
+    try {
+      requestBody = await req.json();
+      console.log(`[${requestId}] Request body parsed:`, JSON.stringify(requestBody));
+    } catch (parseError) {
+      console.error(`[${requestId}] Error parsing request body:`, parseError);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: "Invalid request format" 
+        }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    const { email, password, fullName, payoutEmail, payoutMethod }: CreateAffiliateUserRequest = requestBody;
 
     // Validate required fields
     if (!email || !password || !fullName || !payoutEmail || !payoutMethod) {
+      console.error(`[${requestId}] Missing required fields`);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -53,10 +81,11 @@ serve(async (req) => {
     }
 
     // Check if user already exists
+    console.log(`[${requestId}] Checking if user exists: ${email}`);
     const { data: existingUser, error: checkError } = await supabase.auth.admin.listUsers();
     
     if (checkError) {
-      console.error("Error checking existing users:", checkError);
+      console.error(`[${requestId}] Error checking existing users:`, checkError);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -72,6 +101,7 @@ serve(async (req) => {
     // Check if email already exists
     const emailExists = existingUser.users.some(user => user.email === email);
     if (emailExists) {
+      console.error(`[${requestId}] Email already exists: ${email}`);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -84,11 +114,12 @@ serve(async (req) => {
       );
     }
 
-    // Check if affiliate code would be unique
+    // Generate affiliate code
     const firstInitial = fullName.charAt(0).toUpperCase();
     const lastName = fullName.split(' ').pop() || '';
     const randomDigits = Math.floor(1000 + Math.random() * 9000);
     const affiliateCode = `AF-${firstInitial}${lastName.toUpperCase()}${randomDigits}`;
+    console.log(`[${requestId}] Generated affiliate code: ${affiliateCode}`);
 
     // Check if affiliate code already exists
     const { data: existingAffiliate, error: affiliateCheckError } = await supabase
@@ -98,7 +129,7 @@ serve(async (req) => {
       .single();
 
     if (affiliateCheckError && affiliateCheckError.code !== 'PGRST116') {
-      console.error("Error checking affiliate code:", affiliateCheckError);
+      console.error(`[${requestId}] Error checking affiliate code:`, affiliateCheckError);
     }
 
     // If affiliate code exists, generate a new one
@@ -106,9 +137,11 @@ serve(async (req) => {
     if (existingAffiliate) {
       const newRandomDigits = Math.floor(1000 + Math.random() * 9000);
       finalAffiliateCode = `AF-${firstInitial}${lastName.toUpperCase()}${newRandomDigits}`;
+      console.log(`[${requestId}] Generated new affiliate code: ${finalAffiliateCode}`);
     }
 
     // Create user with admin API (allows setting app_metadata)
+    console.log(`[${requestId}] Creating user: ${email}`);
     const { data: userData, error: userError } = await supabase.auth.admin.createUser({
       email,
       password,
@@ -122,7 +155,7 @@ serve(async (req) => {
     });
 
     if (userError) {
-      console.error("User creation error:", userError);
+      console.error(`[${requestId}] User creation error:`, userError);
       
       // Provide specific error messages based on error type
       if (userError.message.includes('email')) {
@@ -162,6 +195,7 @@ serve(async (req) => {
     }
 
     if (!userData.user) {
+      console.error(`[${requestId}] User creation failed - no user data returned`);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -174,9 +208,14 @@ serve(async (req) => {
       );
     }
 
+    console.log(`[${requestId}] User created successfully: ${userData.user.id}`);
+
+    // Generate referral link
     const referralLink = `${new URL(req.url).origin}?ref=${finalAffiliateCode}`;
+    console.log(`[${requestId}] Generated referral link: ${referralLink}`);
 
     // Create affiliate record
+    console.log(`[${requestId}] Creating affiliate record`);
     const { data: affiliateData, error: affiliateError } = await supabase
       .from('affiliates')
       .insert({
@@ -192,13 +231,14 @@ serve(async (req) => {
       .single();
 
     if (affiliateError) {
-      console.error("Affiliate creation error:", affiliateError);
+      console.error(`[${requestId}] Affiliate creation error:`, affiliateError);
       
       // If affiliate creation fails, we should delete the user to avoid orphaned accounts
       try {
         await supabase.auth.admin.deleteUser(userData.user.id);
+        console.log(`[${requestId}] Cleaned up user after affiliate creation failure`);
       } catch (deleteError) {
-        console.error("Failed to cleanup user after affiliate creation failure:", deleteError);
+        console.error(`[${requestId}] Failed to cleanup user after affiliate creation failure:`, deleteError);
       }
       
       return new Response(
@@ -213,7 +253,10 @@ serve(async (req) => {
       );
     }
 
+    console.log(`[${requestId}] Affiliate record created successfully`);
+
     // Create a role record for the user
+    console.log(`[${requestId}] Creating role record`);
     const { error: roleError } = await supabase
       .from('roles')
       .insert({
@@ -222,11 +265,12 @@ serve(async (req) => {
       });
 
     if (roleError) {
-      console.error("Error creating role record:", roleError);
+      console.error(`[${requestId}] Error creating role record:`, roleError);
       // Continue anyway since the user and affiliate were created successfully
     }
 
     // Create user profile record
+    console.log(`[${requestId}] Creating user profile record`);
     const { error: userProfileError } = await supabase
       .from('users')
       .insert({
@@ -237,10 +281,11 @@ serve(async (req) => {
       });
 
     if (userProfileError) {
-      console.error("Error creating user profile record:", userProfileError);
+      console.error(`[${requestId}] Error creating user profile record:`, userProfileError);
       // Continue anyway since the core functionality is working
     }
 
+    console.log(`[${requestId}] Request completed successfully`);
     return new Response(
       JSON.stringify({
         success: true,

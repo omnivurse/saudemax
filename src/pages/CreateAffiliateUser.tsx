@@ -38,22 +38,32 @@ export const CreateAffiliateUser: React.FC = () => {
       console.log("Submitting to Edge Function...");
       console.log("Supabase URL:", supabase.supabaseUrl);
       
+      // Generate a unique request ID for debugging
+      const requestId = Math.random().toString(36).substring(2, 15);
+      console.log("Request ID:", requestId);
+      
       // Call the Edge Function to create the affiliate user
       const response = await fetch(`${supabase.supabaseUrl}/functions/v1/create-affiliate-user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabase.supabaseKey}`
+          'Authorization': `Bearer ${supabase.supabaseKey}`,
+          'X-Request-ID': requestId,
+          'Cache-Control': 'no-cache, no-store, must-revalidate'
         },
         body: JSON.stringify(formData)
       });
 
+      console.log("Response status:", response.status);
+      
       if (!response.ok) {
         const errorData = await response.json();
+        console.error("Error response:", errorData);
         throw new Error(errorData.error || "Failed to create affiliate account");
       }
 
       const result = await response.json();
+      console.log("Success response:", result);
 
       setSuccess({
         message: "Affiliate account created successfully!",
