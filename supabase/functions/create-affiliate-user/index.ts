@@ -147,7 +147,8 @@ serve(async (req) => {
       password,
       email_confirm: true, // Auto-confirm email
       user_metadata: {
-        full_name: fullName
+        full_name: fullName,
+        role: 'affiliate'
       },
       app_metadata: {
         role: 'affiliate'

@@ -9,6 +9,7 @@ import { supabase } from '../../lib/supabase';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { checkCreateAffiliateUserFunction, diagnoseCreateAffiliateUserFunction } from '../../lib/checkEdgeFunctionStatus';
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Full name must be at least 2 characters" }),
@@ -30,6 +31,9 @@ export const AffiliateRegister: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [functionStatus, setFunctionStatus] = useState<any | null>(null);
+  const [isCheckingFunction, setIsCheckingFunction] = useState(false);
+  const [showDiagnostics, setShowDiagnostics] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -55,6 +59,14 @@ export const AffiliateRegister: React.FC = () => {
       // Generate a unique request ID for debugging
       const requestId = Math.random().toString(36).substring(2, 15);
       console.log("Request ID:", requestId);
+      
+      // First, check if the function is accessible
+      const status = await checkCreateAffiliateUserFunction();
+      setFunctionStatus(status);
+      
+      if (!status.accessible) {
+        throw new Error(`Function is not accessible: ${status.message}`);
+      }
       
       // Call the Edge Function to create the affiliate user
       const response = await fetch(`${supabase.supabaseUrl}/functions/v1/create-affiliate-user`, {
@@ -103,8 +115,25 @@ export const AffiliateRegister: React.FC = () => {
         navigate('/agent');
       }, 2000);
     } catch (err: any) {
-      console.error("Registration error:", err);
+      console.error("Error details:", {
+        name: err.name,
+        message: err.message,
+        stack: err.stack,
+        cause: err.cause
+      });
+      
       setError(err.message || "Failed to create account. Please try again.");
+      
+      // If we get a network error, run diagnostics
+      if (err.message.includes('Failed to fetch')) {
+        setShowDiagnostics(true);
+        try {
+          const diagnosis = await diagnoseCreateAffiliateUserFunction();
+          setFunctionStatus(diagnosis);
+        } catch (diagErr) {
+          console.error("Error running diagnostics:", diagErr);
+        }
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -211,12 +240,68 @@ export const AffiliateRegister: React.FC = () => {
               {error && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                   <p className="text-red-800 text-sm">{error}</p>
+                  {error.includes('Failed to fetch') && (
+                    <div className="mt-2">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={async () => {
+                          setShowDiagnostics(true);
+                          setIsCheckingFunction(true);
+                          try {
+                            const diagnosis = await diagnoseCreateAffiliateUserFunction();
+                            setFunctionStatus(diagnosis);
+                          } catch (diagErr) {
+                            console.error("Error running diagnostics:", diagErr);
+                          } finally {
+                            setIsCheckingFunction(false);
+                          }
+                        }}
+                        loading={isCheckingFunction}
+                      >
+                        Run Diagnostics
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
 
               {success && (
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
                   <p className="text-green-800 text-sm">{success}</p>
+                </div>
+              )}
+
+              {showDiagnostics && functionStatus && (
+                <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <h4 className="font-medium text-yellow-800 mb-2">Function Diagnostics</h4>
+                  <p className="text-yellow-800 text-sm mb-2">{functionStatus.message}</p>
+                  
+                  {functionStatus.diagnosis && (
+                    <p className="text-yellow-800 text-sm mb-2"><strong>Diagnosis:</strong> {functionStatus.diagnosis}</p>
+                  )}
+                  
+                  {functionStatus.possibleIssues && (
+                    <div className="mb-2">
+                      <p className="text-yellow-800 text-sm font-medium">Possible Issues:</p>
+                      <ul className="list-disc pl-5 text-yellow-800 text-sm">
+                        {functionStatus.possibleIssues.map((issue: string, i: number) => (
+                          <li key={i}>{issue}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  
+                  {functionStatus.recommendations && (
+                    <div>
+                      <p className="text-yellow-800 text-sm font-medium">Recommendations:</p>
+                      <ul className="list-disc pl-5 text-yellow-800 text-sm">
+                        {functionStatus.recommendations.map((rec: string, i: number) => (
+                          <li key={i}>{rec}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
 

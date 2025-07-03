@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { checkCreateAffiliateUserFunction, diagnoseCreateAffiliateUserFunction } from '../lib/checkDeploymentStatus';
+import { checkCreateAffiliateUserFunction, diagnoseCreateAffiliateUserFunction } from '../lib/checkEdgeFunctionStatus';
 
 export const TestPage: React.FC = () => {
   const [supabaseStatus, setSupabaseStatus] = useState<'checking' | 'connected' | 'error'>('checking');
