@@ -21,7 +21,7 @@ const EmailConfirmed: React.FC = () => {
           Your account has been verified. You can now access your affiliate dashboard and start referring!
         </p>
         <Button asChild className="w-full max-w-xs">
-          <Link to="/agent">Go to Dashboard</Link>
+          <Link to="/affiliate">Go to Dashboard</Link>
         </Button>
       </motion.div>
     </div>

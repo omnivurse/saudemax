@@ -120,7 +120,7 @@ export const CreateAffiliateUser: React.FC = () => {
                 
                 <div className="mt-4">
                   <Button 
-                    onClick={() => window.location.href = '/agent-login'}
+                    onClick={() => window.location.href = '/affiliate-login'}
                     className="w-full"
                   >
                     Go to Login Page
