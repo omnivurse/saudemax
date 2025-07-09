@@ -62,14 +62,10 @@ export const AffiliateDashboard: React.FC = () => {
           console.error('Error fetching user role:', userDataError);
         }
         
-        // Accept both 'affiliate' and 'agent' roles for backward compatibility
         const isAffiliate = 
           userData?.role === 'affiliate' || 
-          userData?.role === 'agent' || 
           user.app_metadata?.role === 'affiliate' || 
-          user.app_metadata?.role === 'agent' || 
-          user.user_metadata?.role === 'affiliate' || 
-          user.user_metadata?.role === 'agent';
+          user.user_metadata?.role === 'affiliate';
           
         if (!isAffiliate) {
           throw new Error('Unauthorized: User is not an affiliate');
