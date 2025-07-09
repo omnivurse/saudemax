@@ -178,7 +178,7 @@ function App() {
           <Route 
             path="/affiliate" 
             element={
-              <ProtectedRoute allowedRoles={['affiliate', 'admin']}>
+              <ProtectedRoute allowedRoles={['affiliate', 'admin', 'agent']}>
                 <AffiliateDashboard />
               </ProtectedRoute>
             } 
@@ -188,7 +188,7 @@ function App() {
           <Route 
             path="/dashboard/affiliate" 
             element={
-              <ProtectedRoute allowedRoles={['affiliate', 'admin']}>
+              <ProtectedRoute allowedRoles={['affiliate', 'admin', 'agent']}>
                 <AffiliateDashboard />
               </ProtectedRoute>
             } 
@@ -198,7 +198,7 @@ function App() {
           <Route 
             path="/member/dashboard" 
             element={
-              <ProtectedRoute allowedRoles={['member']}>
+              <ProtectedRoute allowedRoles={['affiliate', 'admin', 'agent']}>
                 <MemberDashboard />
               </ProtectedRoute>
             } 

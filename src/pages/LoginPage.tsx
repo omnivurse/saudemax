@@ -43,9 +43,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ isAffiliateLogin = false }
       
       const redirectPath =
         role === 'admin' ? '/admin' :
-        role === 'advisor' ? '/advisor' :
         role === 'affiliate' ? '/affiliate' :
-        '/member/dashboard';
 
       console.log('Redirecting user with role:', role, 'to path:', redirectPath);
       navigate(redirectPath, { replace: true });

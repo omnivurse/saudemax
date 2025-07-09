@@ -57,8 +57,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // Normal role check
     if (role === user.role) return true;
     
-    // Special case: treat 'affiliate' as having 'affiliate' permissions
-    if (role === 'affiliate' && user.role === 'affiliate') return true;
+    // Special case: treat 'agent' as having 'affiliate' permissions
+    if (role === 'affiliate' && (user.role === 'affiliate' || user.role === 'agent')) return true;
     
     return false;
   })) {
@@ -68,8 +68,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // Redirect to appropriate dashboard based on user role
     const redirectPath = 
       role === 'admin' ? '/admin' : 
-      role === 'advisor' ? '/advisor' : 
-      role === 'affiliate' ? '/affiliate' :
+      role === 'affiliate' || role === 'agent' ? '/affiliate' :
       '/member/dashboard';
     
     return <Navigate to={redirectPath} replace />;
