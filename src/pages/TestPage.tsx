@@ -329,7 +329,7 @@ export const TestPage: React.FC = () => {
                   console.error('Error fetching affiliate profile:', err);
                   const resultElement = document.getElementById('affiliate-result');
                   if (resultElement) {
-                    resultElement.textContent = `Error: ${err.message}`;
+                    resultElement.textContent = \`Error: ${err.message}`;
                   }
                 }
               }}>
@@ -368,7 +368,7 @@ export const TestPage: React.FC = () => {
                 console.error('Error fetching roles:', err);
                 const resultElement = document.getElementById('roles-result');
                 if (resultElement) {
-                  resultElement.textContent = `Error: ${err.message}`;
+                  resultElement.textContent = \`Error: ${err.message}`;
                 }
               }
             }}>
