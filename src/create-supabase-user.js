@@ -26,11 +26,10 @@ async function createUser() {
       email_confirm: true,
       user_metadata: {
         full_name: 'Agent Demo',
-        role: 'agent'
+        role: 'affiliate'
       },
       app_metadata: {
-        role: 'agent',
-        affiliate_access: true
+        role: 'affiliate'
       }
     });
 
@@ -47,7 +46,7 @@ async function createUser() {
         id: userData.user.id,
         email: userData.user.email,
         full_name: 'Agent Demo',
-        role: 'agent',
+        role: 'affiliate',
         is_active: true
       })
       .select()
@@ -64,7 +63,7 @@ async function createUser() {
       .from('roles')
       .insert({
         id: userData.user.id,
-        role: 'agent'
+        role: 'affiliate'
       })
       .select()
       .single();
@@ -80,8 +79,8 @@ async function createUser() {
       .from('affiliates')
       .insert({
         user_id: userData.user.id,
-        affiliate_code: 'DEMO-AGENT',
-        referral_link: 'https://saudemax.com?ref=DEMO-AGENT',
+        affiliate_code: 'DEMO-AFFILIATE',
+        referral_link: 'https://saudemax.com?ref=DEMO-AFFILIATE',
         email: userData.user.email,
         status: 'active',
         commission_rate: 15.00,

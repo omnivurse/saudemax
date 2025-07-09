@@ -66,9 +66,6 @@ export const AffiliateDashboard: React.FC = () => {
           userData?.role === 'affiliate' || 
           user.app_metadata?.role === 'affiliate' || 
           user.user_metadata?.role === 'affiliate';
-        
-        if (!isAffiliate) {
-          setError('Access denied. You do not have affiliate permissions.');
           return;
         }
       } catch (err: any) {
@@ -93,8 +90,7 @@ export const AffiliateDashboard: React.FC = () => {
 
   // Navigation items
   const navigation = [
-    { name: 'Book of Business', key: 'book', icon: Briefcase },
-    { name: 'Enrollment Pipeline', key: 'pipeline', icon: Users },
+    { name: 'Dashboard', key: 'dashboard', icon: Briefcase },
     { name: 'Referral Metrics', key: 'referrals', icon: BarChartIcon },
     { name: 'Promo Tools', key: 'promo', icon: Image },
     { name: 'Withdraw Tracker', key: 'withdrawals', icon: DollarSign },
