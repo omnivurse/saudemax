@@ -202,7 +202,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ isAffiliateLogin = false }
               <div className="mt-8 p-4 bg-blue-50 rounded-lg">
                 <h4 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials:</h4>
                 <div className="text-xs text-blue-800 space-y-1">
-                  <div>Email: agentdemo@saudemax.com</div>
+                  <div>Email: affiliate@saudemax.com</div>
                   <div>Password: vinnie19</div>
                 </div>
               </div>
