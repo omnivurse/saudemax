@@ -66,6 +66,9 @@ export const AffiliateDashboard: React.FC = () => {
           userData?.role === 'affiliate' || 
           user.app_metadata?.role === 'affiliate' || 
           user.user_metadata?.role === 'affiliate';
+          
+        if (!isAffiliate) {
+          throw new Error('Unauthorized: User is not an affiliate');
           return;
         }
       } catch (err: any) {
