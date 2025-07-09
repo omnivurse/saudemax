@@ -30,6 +30,7 @@ export const useAuthProvider = () => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   // Function to set user from Supabase user data
   const setUserFromSupabaseUser = useCallback(async (supabaseUser: SupabaseUser) => {
@@ -72,26 +73,27 @@ export const useAuthProvider = () => {
         .from('users')
         .select('*')
         .eq('id', supabaseUser.id)
-        .single();
+        .limit(1);
 
       // If we have user data in the database, use it
-      if (data && !error) {
+      if (data && data.length > 0 && !error) {
+        const userData = data[0];
         const userData: User = {
           id: supabaseUser.id,
-          email: data.email || supabaseUser.email || '',
-          name: data.full_name || supabaseUser.user_metadata?.full_name || supabaseUser.email?.split('@')[0] || 'User',
-          role: data.role as User['role'],
-          preferredLanguage: data.preferred_language || 'en',
-          avatar_url: data.avatar_url,
-          createdAt: new Date(data.created_at),
-          updatedAt: new Date(data.updated_at || data.created_at),
-          last_login: data.last_login ? new Date(data.last_login) : undefined,
+          email: userData.email || supabaseUser.email || '',
+          name: userData.full_name || supabaseUser.user_metadata?.full_name || supabaseUser.email?.split('@')[0] || 'User',
+          role: userData.role as User['role'],
+          preferredLanguage: userData.preferred_language || 'en',
+          avatar_url: userData.avatar_url,
+          createdAt: new Date(userData.created_at),
+          updatedAt: new Date(userData.updated_at || userData.created_at),
+          last_login: userData.last_login ? new Date(userData.last_login) : undefined,
           user_metadata: supabaseUser.user_metadata
         };
         setUser(userData);
         
         // Update last_login if it's been more than an hour since the last update
-        const lastLoginTime = data.last_login ? new Date(data.last_login).getTime() : 0;
+        const lastLoginTime = userData.last_login ? new Date(userData.last_login).getTime() : 0;
         const oneHourAgo = Date.now() - (60 * 60 * 1000);
         
         if (lastLoginTime < oneHourAgo) {
@@ -124,25 +126,6 @@ export const useAuthProvider = () => {
           user_metadata: supabaseUser.user_metadata
         };
         setUser(userData);
-        
-        // Try to create a user record if it doesn't exist
-        if (error && error.code === 'PGRST116') {
-          try {
-            await supabase
-              .from('users')
-              .insert({
-                id: supabaseUser.id,
-                email: supabaseUser.email,
-                full_name: supabaseUser.user_metadata?.full_name || supabaseUser.email?.split('@')[0] || 'User',
-                role: role,
-                preferred_language: 'en',
-                last_login: new Date().toISOString(),
-                is_active: true
-              });
-          } catch (insertError) {
-            console.error('Error creating user record:', insertError);
-          }
-        }
       }
     } catch (error) {
       console.error('Error setting user from Supabase user:', error);
@@ -155,6 +138,7 @@ export const useAuthProvider = () => {
     testSupabaseConnection().then((connected) => {
       if (!connected) {
         console.error('Failed to connect to Supabase');
+        setAuthError('Failed to connect to authentication service');
         setLoading(false);
         return;
       }
@@ -165,9 +149,20 @@ export const useAuthProvider = () => {
         if (session?.user) {
           setUserFromSupabaseUser(session.user);
         }
+        setAuthError(null);
         setLoading(false);
       }).catch((error) => {
         console.error('Error getting initial session:', error);
+        // Handle refresh token errors gracefully
+        if (error.message?.includes('refresh_token_not_found') || 
+            error.message?.includes('Invalid Refresh Token')) {
+          console.log('Refresh token expired, clearing session');
+          setSession(null);
+          setUser(null);
+          setAuthError('Session expired. Please log in again.');
+        } else {
+          setAuthError('Authentication error. Please try again.');
+        }
         setLoading(false);
       });
 
@@ -176,12 +171,24 @@ export const useAuthProvider = () => {
         data: { subscription },
       } = supabase.auth.onAuthStateChange(async (event, session) => {
         console.log('Auth state change:', event);
+        
+        // Handle auth errors
+        if (event === 'TOKEN_REFRESHED' && !session) {
+          console.log('Token refresh failed, clearing session');
+          setAuthError('Session expired. Please log in again.');
+          setSession(null);
+          setUser(null);
+          setLoading(false);
+          return;
+        }
+        
         setSession(session);
         if (session?.user) {
           await setUserFromSupabaseUser(session.user);
         } else {
           setUser(null);
         }
+        setAuthError(null);
         setLoading(false);
       });
 
@@ -260,6 +267,7 @@ export const useAuthProvider = () => {
 
   const login = async (email: string, password: string) => {
     setLoading(true);
+    setAuthError(null);
     try {
       // Test connection first
       const connected = await testSupabaseConnection();
@@ -296,6 +304,7 @@ export const useAuthProvider = () => {
         errorMessage = error.message;
       }
       
+      setAuthError(errorMessage);
       throw new Error(errorMessage);
     } finally {
       setLoading(false);
@@ -308,6 +317,7 @@ export const useAuthProvider = () => {
       if (error) throw error;
       setUser(null);
       setSession(null);
+      setAuthError(null);
       
       // Clear any impersonation data
       localStorage.removeItem('saudemax_impersonation');
@@ -386,6 +396,7 @@ export const useAuthProvider = () => {
     logout,
     updateProfile,
     session,
-    checkRole
+    checkRole,
+    authError
   };
 };

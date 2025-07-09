@@ -61,10 +61,10 @@ export const hasRole = async (role: string | string[]): Promise<boolean> => {
         .from('users')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .limit(1);
         
-      if (!error && data) {
-        userRole = data.role;
+      if (!error && data && data.length > 0) {
+        userRole = data[0].role;
       }
     }
     

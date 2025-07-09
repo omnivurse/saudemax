@@ -39,7 +39,7 @@ export const useRolePermissions = () => {
           .from('roles')
           .select('role')
           .eq('id', user.id)
-          .single();
+          .limit(1);
           
         if (roleError) {
           // If roles query fails, try to get role from users table
@@ -47,13 +47,17 @@ export const useRolePermissions = () => {
             .from('users')
             .select('role')
             .eq('id', user.id)
-            .single();
+            .limit(1);
             
           if (userError) {
             throw new Error('Failed to get user role');
           }
           
-          const userRole = userData.role;
+          if (!userData || userData.length === 0) {
+            throw new Error('User role not found');
+          }
+          
+          const userRole = userData[0].role;
           
           // Get permissions for this role
           const { data: permissionsData, error: permissionsError } = await supabase
@@ -67,7 +71,11 @@ export const useRolePermissions = () => {
           
           setPermissions(permissionsData || []);
         } else {
-          const userRole = roleData.role;
+          if (!roleData || roleData.length === 0) {
+            throw new Error('User role not found');
+          }
+          
+          const userRole = roleData[0].role;
           
           // Get permissions for this role
           const { data: permissionsData, error: permissionsError } = await supabase

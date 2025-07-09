@@ -19,6 +19,15 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const auth = useAuthProvider();
   
+  // Handle auth errors by showing them to the user
+  React.useEffect(() => {
+    if (auth.authError) {
+      // Clear any existing session storage that might be causing issues
+      localStorage.removeItem('sb-keboagyjbhkvsznlnjsi-auth-token');
+      sessionStorage.removeItem('sb-keboagyjbhkvsznlnjsi-auth-token');
+    }
+  }, [auth.authError]);
+  
   // Wrap the original login and logout methods to add audit logging
   const authWithAuditLogging = {
     ...auth,

@@ -39,12 +39,14 @@ export const TestPage: React.FC = () => {
             .from('users')
             .select('*')
             .eq('id', user.id)
-            .single();
+            .limit(1);
             
           if (userError) {
             console.error('Error fetching user data:', userError);
+          } else if (userData && userData.length > 0) {
+            setPublicUser(userData[0]);
           } else {
-            setPublicUser(userData);
+            console.warn('No user data found in public.users table');
           }
         }
       } catch (err: any) {
@@ -312,7 +314,7 @@ export const TestPage: React.FC = () => {
                     .from('affiliates')
                     .select('*')
                     .eq('user_id', authUser.id)
-                    .single();
+                    .limit(1);
                     
                   if (error) {
                     throw error;
@@ -321,7 +323,7 @@ export const TestPage: React.FC = () => {
                   // Display the result
                   const resultElement = document.getElementById('affiliate-result');
                   if (resultElement) {
-                    resultElement.textContent = JSON.stringify(data, null, 2);
+                    resultElement.textContent = JSON.stringify(data && data.length > 0 ? data[0] : null, null, 2);
                   }
                 } catch (err: any) {
                   console.error('Error fetching affiliate profile:', err);
