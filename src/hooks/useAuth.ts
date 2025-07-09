@@ -78,7 +78,7 @@ export const useAuthProvider = () => {
       // If we have user data in the database, use it
       if (data && data.length > 0 && !error) {
         const userData = data[0];
-        const userData: User = {
+        const userObject: User = {
           id: supabaseUser.id,
           email: userData.email || supabaseUser.email || '',
           name: userData.full_name || supabaseUser.user_metadata?.full_name || supabaseUser.email?.split('@')[0] || 'User',
