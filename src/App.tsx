@@ -36,7 +36,6 @@ import AdminImpersonation from './pages/AdminImpersonation';
 import AdminEmailTemplates from './pages/AdminEmailTemplates';
 import EmailConfirmed from './pages/affiliate/EmailConfirmed';
 import CreateAffiliateUser from './pages/CreateAffiliateUser';
-import { TestPage } from './pages/TestPage';
 import './i18n';
 
 function App() {
@@ -46,9 +45,6 @@ function App() {
       <ImpersonationBanner />
       <div className="min-h-screen bg-white flex flex-col">
         <Routes>
-          {/* Test Page */}
-          <Route path="/test" element={<TestPage />} />
-          
           {/* Login Routes */}
           <Route 
             path="/login" 
