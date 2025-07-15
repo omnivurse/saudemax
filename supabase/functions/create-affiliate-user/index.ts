@@ -2,10 +2,10 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.39.0";
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-request-id",
+  "Access-Control-Allow-Origin": "*", // Allow requests from any origin
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-request-id, cache-control",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Max-Age": "86400",
+  "Access-Control-Max-Age": "86400"
 };
 
 interface CreateAffiliateUserRequest {
@@ -19,6 +19,7 @@ interface CreateAffiliateUserRequest {
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
+    console.log("Handling CORS preflight request");
     console.log("Handling CORS preflight request");
     return new Response(null, {
       status: 204,
@@ -44,8 +45,28 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     console.log(`[${requestId}] Supabase client created`);
 
-    // Parse request body
+    // Parse request body with better error handling
     let requestBody;
+    try {
+      const bodyText = await req.text();
+      console.log(`[${requestId}] Raw request body:`, bodyText);
+      requestBody = JSON.parse(bodyText);
+      console.log(`[${requestId}] Request body parsed:`, requestBody);
+    } catch (parseError) {
+      console.error(`[${requestId}] Error parsing request body:`, parseError);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: `Invalid request format: ${parseError.message}` 
+        }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    const { email, password, fullName, payoutEmail, payoutMethod }: CreateAffiliateUserRequest = requestBody;
     try {
       const bodyText = await req.text();
       console.log(`[${requestId}] Raw request body:`, bodyText);
@@ -69,6 +90,7 @@ serve(async (req) => {
 
     // Validate required fields
     if (!email || !password || !fullName || !payoutEmail || !payoutMethod) {
+      console.error(`[${requestId}] Missing required fields`);
       console.error(`[${requestId}] Missing required fields`);
       return new Response(
         JSON.stringify({ 

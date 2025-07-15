@@ -48,12 +48,14 @@ export const CreateAffiliateUser: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${supabase.supabaseKey}`,
-          'X-Request-ID': requestId
+          'X-Request-ID': requestId,
+          'Cache-Control': 'no-cache, no-store, must-revalidate'
         },
         body: JSON.stringify(formData)
       });
 
       console.log("Response status:", response.status);
+      console.log("Response headers:", Object.fromEntries([...response.headers.entries()]));
       
       if (!response.ok) {
         const errorData = await response.json();

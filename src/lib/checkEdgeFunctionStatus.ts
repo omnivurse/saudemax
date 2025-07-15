@@ -8,12 +8,13 @@ import { supabase } from './supabase';
 export async function checkEdgeFunctionStatus(functionName: string) {
   try {
     // First, try to invoke the function with a simple OPTIONS request
-    // This will tell us if the function exists and is accessible
+    // This will tell us if the function exists and CORS is properly configured
     const response = await fetch(`${supabase.supabaseUrl}/functions/v1/${functionName}`, {
       method: 'OPTIONS',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${supabase.supabaseKey}`
+        'Authorization': `Bearer ${supabase.supabaseKey}`,
+        throw new Error('Unable to connect to Supabase. Check your internet connection and Supabase URL.');
       }
     });
 

@@ -74,7 +74,8 @@ export const AffiliateRegister: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${supabase.supabaseKey}`,
-          'X-Request-ID': requestId
+          'X-Request-ID': requestId,
+          'Cache-Control': 'no-cache, no-store, must-revalidate'
         },
         body: JSON.stringify({
           email: data.email,
@@ -126,6 +127,11 @@ export const AffiliateRegister: React.FC = () => {
       // If we get a network error, run diagnostics
       if (err.message.includes('Failed to fetch')) {
         setShowDiagnostics(true);
+        console.error("Network error details:", {
+          supabaseUrl: supabase.supabaseUrl,
+          hasKey: !!supabase.supabaseKey,
+          requestId
+        });
         try {
           const diagnosis = await diagnoseCreateAffiliateUserFunction();
           setFunctionStatus(diagnosis);
@@ -166,7 +172,7 @@ export const AffiliateRegister: React.FC = () => {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
+        <motion.div id="affiliate-register-header"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
