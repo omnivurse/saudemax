@@ -75,7 +75,6 @@ export const AffiliateRegister: React.FC = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${supabase.supabaseKey}`,
           'X-Request-ID': requestId
-          // Removed Cache-Control header
         },
         body: JSON.stringify({
           email: data.email,

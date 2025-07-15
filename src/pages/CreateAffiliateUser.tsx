@@ -48,8 +48,7 @@ export const CreateAffiliateUser: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${supabase.supabaseKey}`,
-          'X-Request-ID': requestId,
-          'Cache-Control': 'no-cache, no-store, must-revalidate'
+          'X-Request-ID': requestId
         },
         body: JSON.stringify(formData)
       });
