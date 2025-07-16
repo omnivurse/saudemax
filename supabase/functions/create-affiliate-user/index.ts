@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2.39.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*", // Allow requests from any origin
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-request-id, cache-control",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Max-Age": "86400"
 };
@@ -32,7 +32,7 @@ serve(async (req) => {
     const requestId = req.headers.get("X-Request-ID") || "unknown";
     console.log(`Processing request ${requestId}. Method: ${req.method}`);
     
-    // Get environment variables
+    // Get environment variables and validate them
     const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
     
@@ -47,26 +47,6 @@ serve(async (req) => {
 
     // Parse request body with better error handling
     let requestBody;
-    try {
-      const bodyText = await req.text();
-      console.log(`[${requestId}] Raw request body:`, bodyText);
-      requestBody = JSON.parse(bodyText);
-      console.log(`[${requestId}] Request body parsed:`, requestBody);
-    } catch (parseError) {
-      console.error(`[${requestId}] Error parsing request body:`, parseError);
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: `Invalid request format: ${parseError.message}` 
-        }),
-        { 
-          status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    const { email, password, fullName, payoutEmail, payoutMethod }: CreateAffiliateUserRequest = requestBody;
     try {
       const bodyText = await req.text();
       console.log(`[${requestId}] Raw request body:`, bodyText);
