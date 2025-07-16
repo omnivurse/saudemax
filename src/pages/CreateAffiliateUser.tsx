@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle, AlertCircle, User, Mail, Lock, CreditCard } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { supabase } from '../lib/supabase';
+import { createAffiliateUser, diagnoseCreateAffiliateFunction } from '../lib/affiliateUtils';
 
 export const CreateAffiliateUser: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -35,35 +35,15 @@ export const CreateAffiliateUser: React.FC = () => {
     setSuccess(null);
 
     try {
-      console.log("Submitting to Edge Function...");
-      console.log("Supabase URL:", supabase.supabaseUrl);
-      
-      // Generate a unique request ID for debugging
-      const requestId = Math.random().toString(36).substring(2, 15);
-      console.log("Request ID:", requestId);
-      
-      // Call the Edge Function to create the affiliate user
-      const response = await fetch(`${supabase.supabaseUrl}/functions/v1/create-affiliate-user`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabase.supabaseKey}`,
-          'X-Request-ID': requestId,
-          'Cache-Control': 'no-cache, no-store, must-revalidate'
-        },
-        body: JSON.stringify(formData)
+      // Create affiliate user using the utility function
+      const result = await createAffiliateUser({
+        email: formData.email,
+        password: formData.password,
+        fullName: formData.fullName,
+        payoutEmail: formData.payoutEmail,
+        payoutMethod: formData.payoutMethod
       });
-
-      console.log("Response status:", response.status);
-      console.log("Response headers:", Object.fromEntries([...response.headers.entries()]));
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error response:", errorData);
-        throw new Error(errorData.error || "Failed to create affiliate account");
-      }
-
-      const result = await response.json();
       console.log("Success response:", result);
 
       setSuccess({
@@ -75,6 +55,16 @@ export const CreateAffiliateUser: React.FC = () => {
     } catch (err: any) {
       console.error("Error creating affiliate user:", err);
       setError(err.message || "Failed to create account. Please try again.");
+      
+      // Run diagnostics if there was a network error
+      if (err.message.includes('Failed to fetch')) {
+        try {
+          const diagResults = await diagnoseCreateAffiliateFunction();
+          console.log("Diagnostics:", diagResults);
+        } catch (diagErr) {
+          console.error("Error running diagnostics:", diagErr);
+        }
+      }
     } finally {
       setLoading(false);
     }

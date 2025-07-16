@@ -5,7 +5,7 @@ import { UserPlus, DollarSign, Users, TrendingUp, Mail, CreditCard } from 'lucid
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useAuth } from '../../components/auth/AuthProvider';
-import { supabase } from '../../lib/supabase';
+import { createAffiliateUser, diagnoseCreateAffiliateFunction } from '../../lib/affiliateUtils';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -52,50 +52,17 @@ export const AffiliateRegister: React.FC = () => {
     setError(null);
     setSuccess(null);
 
-    try {
-      console.log("Submitting to Edge Function...");
-      console.log("Supabase URL:", supabase.supabaseUrl);
-      
-      // Generate a unique request ID for debugging
-      const requestId = Math.random().toString(36).substring(2, 15);
-      console.log("Request ID:", requestId);
-      
-      // First, check if the function is accessible
-      const status = await checkCreateAffiliateUserFunction();
-      setFunctionStatus(status);
-      
-      if (!status.accessible) {
-        throw new Error(`Function is not accessible: ${status.message}`);
-      }
-      
-      // Call the Edge Function to create the affiliate user
-      const response = await fetch(`${supabase.supabaseUrl}/functions/v1/create-affiliate-user`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabase.supabaseKey}`,
-          'X-Request-ID': requestId,
-          'Cache-Control': 'no-cache, no-store, must-revalidate'
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-          fullName: data.fullName,
-          payoutEmail: data.payoutEmail,
-          payoutMethod: data.payoutMethod
-        })
+    try {      
+      // Create the affiliate user
+      const result = await createAffiliateUser({
+        email: data.email,
+        password: data.password,
+        fullName: data.fullName,
+        payoutEmail: data.payoutEmail,
+        payoutMethod: data.payoutMethod
       });
 
-      console.log("Response status:", response.status);
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error response:", errorData);
-        throw new Error(errorData.error || "Failed to create affiliate account");
-      }
-
-      const result = await response.json();
-      console.log("Success response:", result);
+      console.log("Success response:", result);  
 
       setSuccess("Account created successfully! Please check your email to confirm your account.");
       
@@ -127,13 +94,9 @@ export const AffiliateRegister: React.FC = () => {
       // If we get a network error, run diagnostics
       if (err.message.includes('Failed to fetch')) {
         setShowDiagnostics(true);
-        console.error("Network error details:", {
-          supabaseUrl: supabase.supabaseUrl,
-          hasKey: !!supabase.supabaseKey,
-          requestId
-        });
+        
         try {
-          const diagnosis = await diagnoseCreateAffiliateUserFunction();
+          const diagnosis = await diagnoseCreateAffiliateFunction();
           setFunctionStatus(diagnosis);
         } catch (diagErr) {
           console.error("Error running diagnostics:", diagErr);
