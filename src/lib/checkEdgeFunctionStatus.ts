@@ -13,8 +13,12 @@ export async function checkEdgeFunctionStatus(functionName: string) {
       method: 'OPTIONS',
       headers: {
       }
-      throw new Error('Unable to connect to Supabase. Check your internet connection and Supabase URL.');
     });
+
+    // If we couldn't connect to Supabase, throw an error
+    if (!response) {
+      throw new Error('Unable to connect to Supabase. Check your internet connection and Supabase URL.');
+    }
 
     // If we couldn't connect to Supabase, throw an error
     if (!response) {
