@@ -12,6 +12,7 @@ export async function checkEdgeFunctionStatus(functionName: string) {
     const response = await fetch(`${supabase.supabaseUrl}/functions/v1/${functionName}`, {
       method: 'OPTIONS',
       headers: {
+      }
       throw new Error('Unable to connect to Supabase. Check your internet connection and Supabase URL.');
     });
 
