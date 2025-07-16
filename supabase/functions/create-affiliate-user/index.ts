@@ -1,9 +1,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.39.0";
 
+// Simplified CORS headers with all necessary settings
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*", // Allow requests from any origin
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-request-id, cache-control",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Max-Age": "86400"
 };
@@ -19,9 +20,7 @@ interface CreateAffiliateUserRequest {
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
-    console.log("Handling CORS preflight request");
-    console.log("Handling CORS preflight request");
-    return new Response(null, {
+    return new Response("ok", {
       status: 204,
       headers: corsHeaders,
     });
@@ -38,7 +37,16 @@ serve(async (req) => {
     
     if (!supabaseUrl || !supabaseServiceKey) {
       console.error(`[${requestId}] Missing Supabase environment variables`);
-      throw new Error("Missing Supabase environment variables");
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: "Missing Supabase environment variables" 
+        }),
+        { 
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
     }
 
     // Create Supabase admin client
@@ -86,7 +94,7 @@ serve(async (req) => {
 
     // Check if user already exists
     console.log(`[${requestId}] Checking if user exists: ${email}`);
-    const { data: existingUser, error: checkError } = await supabase.auth.admin.listUsers();
+    const { data: existingUsers, error: checkError } = await supabase.auth.admin.listUsers();
     
     if (checkError) {
       console.error(`[${requestId}] Error checking existing users:`, checkError);
@@ -103,7 +111,7 @@ serve(async (req) => {
     }
 
     // Check if email already exists
-    const emailExists = existingUser.users.some(user => user.email === email);
+    const emailExists = existingUsers.users.some(user => user.email === email);
     if (emailExists) {
       console.error(`[${requestId}] Email already exists: ${email}`);
       return new Response(

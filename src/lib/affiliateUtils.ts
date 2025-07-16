@@ -13,13 +13,20 @@ export async function createAffiliateUser(userData: {
   payoutMethod: 'paypal' | 'bank_transfer' | 'crypto';
 }) {
   try {
+    const supabaseUrl = supabase.supabaseUrl;
+    const supabaseKey = supabase.supabaseKey;
+    
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error('Supabase URL or key is missing');
+    }
+    
     const response = await fetch(
-      `${supabase.supabaseUrl}/functions/v1/create-affiliate-user`, 
+      `${supabaseUrl}/functions/v1/create-affiliate-user`, 
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabase.supabaseKey}`,
+          'Authorization': `Bearer ${supabaseKey}`,
           'X-Request-ID': Math.random().toString(36).substring(2, 15)
         },
         body: JSON.stringify(userData)
@@ -27,7 +34,13 @@ export async function createAffiliateUser(userData: {
     );
 
     if (!response.ok) {
-      const errorData = await response.json();
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        // If response is not JSON
+        errorData = { error: `HTTP error ${response.status}: ${response.statusText}` };
+      }
       throw new Error(errorData.error || 'Failed to create affiliate user');
     }
 
@@ -47,12 +60,7 @@ export async function diagnoseCreateAffiliateFunction() {
     // Make a simple OPTIONS request to check if the function is accessible
     const response = await fetch(
       `${supabase.supabaseUrl}/functions/v1/create-affiliate-user`,
-      {
-        method: 'OPTIONS',
-        headers: {
-          'Authorization': `Bearer ${supabase.supabaseKey}`
-        }
-      }
+      { method: 'OPTIONS' }
     );
     
     // Return diagnostic information
