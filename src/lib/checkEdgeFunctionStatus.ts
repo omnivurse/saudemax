@@ -14,9 +14,13 @@ export async function checkEdgeFunctionStatus(functionName: string) {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${supabase.supabaseKey}`,
-        throw new Error('Unable to connect to Supabase. Check your internet connection and Supabase URL.');
       }
     });
+
+    // If we couldn't connect to Supabase, throw an error
+    if (!response) {
+      throw new Error('Unable to connect to Supabase. Check your internet connection and Supabase URL.');
+    }
 
     // If we get a 204 No Content, the function exists and CORS is properly configured
     if (response.status === 204) {
