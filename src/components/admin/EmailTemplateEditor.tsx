@@ -141,15 +141,6 @@ export const EmailTemplateEditor: React.FC<EmailTemplateEditorProps> = ({
     return previewHtml;
   };
 
-  // Extract placeholders from a template
-  const extractPlaceholders = (template: string): string[] => {
-    const placeholderRegex = /{{([^{}]+)}}/g;
-    const matches = template.match(placeholderRegex) || [];
-    return matches
-      .map(match => match.replace(/{{|}}/g, '').trim())
-      .filter(placeholder => !placeholder.startsWith('#') && !placeholder.startsWith('/'));
-  };
-
   return (
     <Card className="p-6 border-blue-200 bg-blue-50">
       <div className="flex justify-between items-start mb-4">
