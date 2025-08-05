@@ -1,0 +1,1508 @@
+{
+  "meta": {
+    "title": "SaudeMAX Complete Landing Page Design Export",
+    "description": "Comprehensive design system export for the entire user experience from header to footer",
+    "version": "2.0.0",
+    "framework": "React + TypeScript + Tailwind CSS + Framer Motion",
+    "export_timestamp": "2025-01-27T00:00:00Z",
+    "includes": [
+      "Header with navigation",
+      "Complete homepage sections",
+      "Footer",
+      "WhatsApp chat button",
+      "All animations and interactions",
+      "Complete design system tokens"
+    ]
+  },
+
+  "layout_structure": {
+    "container": "min-h-screen bg-white flex flex-col",
+    "sections": [
+      {
+        "id": "header",
+        "order": 1,
+        "component": "Header"
+      },
+      {
+        "id": "main_content",
+        "order": 2,
+        "component": "HomePage",
+        "className": "flex-1"
+      },
+      {
+        "id": "footer", 
+        "order": 3,
+        "component": "Footer"
+      },
+      {
+        "id": "whatsapp_chat",
+        "order": 4,
+        "component": "WhatsAppChatButton",
+        "position": "fixed"
+      }
+    ]
+  },
+
+  "header": {
+    "component": "Header",
+    "className": "bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50",
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "layout": "flex justify-between items-center py-4",
+    
+    "logo": {
+      "component": "Link",
+      "href": "{{homepage_url}}",
+      "className": "flex items-center space-x-2",
+      "image": {
+        "src": "/SAUDEMAX_logo1 (1) copy.png",
+        "alt": "SAUDEMAX",
+        "className": "h-8 w-auto"
+      }
+    },
+
+    "navigation": {
+      "desktop": {
+        "className": "hidden md:flex items-center space-x-8",
+        "items": [
+          {
+            "name": "{{nav_home}}",
+            "href": "{{home_url}}",
+            "className": "relative px-3 py-2 text-sm font-medium transition-colors text-gray-700 hover:text-blue-700"
+          },
+          {
+            "name": "{{nav_plans}}",
+            "href": "{{plans_url}}",
+            "className": "relative px-3 py-2 text-sm font-medium transition-colors text-gray-700 hover:text-blue-700"
+          },
+          {
+            "name": "Rules",
+            "href": "{{rules_url}}",
+            "className": "relative px-3 py-2 text-sm font-medium transition-colors text-gray-700 hover:text-blue-700"
+          },
+          {
+            "name": "{{nav_about}}",
+            "href": "{{about_url}}",
+            "className": "relative px-3 py-2 text-sm font-medium transition-colors text-gray-700 hover:text-blue-700"
+          },
+          {
+            "name": "{{nav_contact}}",
+            "href": "{{contact_url}}",
+            "className": "relative px-3 py-2 text-sm font-medium transition-colors text-gray-700 hover:text-blue-700"
+          }
+        ],
+        "active_indicator": {
+          "className": "absolute bottom-0 left-0 right-0 h-0.5 bg-blue-700",
+          "animation": {
+            "layoutId": "activeTab",
+            "initial": false,
+            "transition": { "type": "spring", "stiffness": 500, "damping": 30 }
+          }
+        }
+      },
+
+      "actions": {
+        "className": "hidden md:flex items-center space-x-4",
+        "items": [
+          {
+            "type": "language_toggle",
+            "icon": "Globe",
+            "className": "p-2 text-gray-600 hover:text-blue-700 transition-colors",
+            "title": "Toggle Language"
+          },
+          {
+            "type": "affiliate_register_button",
+            "text": "Become Affiliate",
+            "href": "{{affiliate_register_url}}",
+            "icon": "Users",
+            "className": "px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-700 transition-colors border border-gray-300 rounded-lg hover:border-blue-700 flex items-center"
+          },
+          {
+            "type": "login_button",
+            "text": "{{nav_login}}",
+            "href": "{{login_url}}",
+            "className": "px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-700 transition-colors border border-gray-300 rounded-lg hover:border-blue-700"
+          },
+          {
+            "type": "affiliate_login_button",
+            "text": "Affiliate Login",
+            "href": "{{affiliate_login_url}}",
+            "icon": "LogIn",
+            "className": "px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-700 transition-colors border border-gray-300 rounded-lg hover:border-blue-700 flex items-center"
+          },
+          {
+            "type": "enroll_button",
+            "text": "{{nav_enroll}}",
+            "href": "{{enrollment_url}}",
+            "className": "px-6 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 transition-colors rounded-lg"
+          }
+        ]
+      },
+
+      "mobile": {
+        "menu_button": {
+          "className": "md:hidden p-2 text-gray-600 hover:text-blue-700 transition-colors",
+          "icon": "Menu"
+        },
+        "menu_overlay": {
+          "className": "md:hidden border-t border-gray-100 py-4",
+          "animation": {
+            "initial": { "opacity": 0, "height": 0 },
+            "animate": { "opacity": 1, "height": "auto" },
+            "exit": { "opacity": 0, "height": 0 },
+            "transition": { "duration": 0.2 }
+          },
+          "navigation": {
+            "className": "flex flex-col space-y-4",
+            "items": "{{desktop_navigation_items}}",
+            "actions": {
+              "className": "flex items-center justify-between pt-4 border-t border-gray-100",
+              "language_toggle": {
+                "className": "flex items-center space-x-2 text-gray-600 hover:text-blue-700",
+                "icon": "Globe"
+              },
+              "action_buttons": {
+                "className": "flex flex-col space-y-2",
+                "items": "{{desktop_action_items}}"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "homepage_sections": [
+    {
+      "id": "hero",
+      "order": 1,
+      "className": "relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-green-700 flex items-center",
+      "overlay": {
+        "className": "absolute inset-0 bg-black/20"
+      },
+      "glassmorphism_effects": [
+        {
+          "className": "absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"
+        },
+        {
+          "className": "absolute bottom-20 right-20 w-96 h-96 bg-green-500/10 rounded-full blur-3xl"
+        }
+      ],
+      "content": {
+        "container": "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20",
+        "layout": "grid lg:grid-cols-2 gap-12 items-center",
+        "left_column": {
+          "className": "text-white",
+          "animation": {
+            "initial": { "opacity": 0, "x": -50 },
+            "animate": { "opacity": 1, "x": 0 },
+            "transition": { "duration": 0.8 }
+          },
+          "heading": {
+            "className": "text-5xl lg:text-7xl font-bold leading-tight mb-6",
+            "content": "{{hero_title}}"
+          },
+          "subheading": {
+            "className": "text-xl lg:text-2xl mb-8 text-blue-100",
+            "content": "{{hero_subtitle}}"
+          },
+          "buttons": {
+            "className": "flex flex-col sm:flex-row gap-4",
+            "primary": {
+              "text": "{{hero_primary_button_text}}",
+              "href": "{{hero_primary_button_url}}",
+              "className": "flex-1 inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500",
+              "icon": "ArrowRight"
+            },
+            "secondary": {
+              "text": "{{hero_secondary_button_text}}",
+              "href": "{{hero_secondary_button_url}}",
+              "className": "flex-1 inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-blue-700 bg-white hover:bg-gray-50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+            }
+          }
+        },
+        "right_column": {
+          "className": "relative",
+          "animation": {
+            "initial": { "opacity": 0, "x": 50 },
+            "animate": { "opacity": 1, "x": 0 },
+            "transition": { "duration": 0.8, "delay": 0.2 }
+          },
+          "card": {
+            "className": "bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20",
+            "content": {
+              "header": {
+                "className": "text-center mb-6",
+                "title": {
+                  "className": "text-2xl font-bold text-white mb-2",
+                  "content": "{{hero_card_title}}"
+                },
+                "subtitle": {
+                  "className": "text-blue-100",
+                  "content": "{{hero_card_subtitle}}"
+                }
+              },
+              "steps": {
+                "className": "space-y-4",
+                "items": [
+                  {
+                    "icon": "Check",
+                    "text": "{{hero_step_1}}"
+                  },
+                  {
+                    "icon": "Check",
+                    "text": "{{hero_step_2}}"
+                  },
+                  {
+                    "icon": "Check",
+                    "text": "{{hero_step_3}}"
+                  }
+                ]
+              },
+              "button": {
+                "text": "{{hero_card_button_text}}",
+                "href": "{{hero_card_button_url}}",
+                "className": "mt-6",
+                "variant": "primary"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "stats",
+      "order": 2,
+      "className": "py-16 bg-white",
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "layout": "grid grid-cols-2 lg:grid-cols-4 gap-8",
+      "items": [
+        {
+          "animation": {
+            "initial": { "opacity": 0, "y": 20 },
+            "whileInView": { "opacity": 1, "y": 0 },
+            "transition": { "duration": 0.5, "delay": 0.0 },
+            "viewport": { "once": true }
+          },
+          "className": "text-center",
+          "value": {
+            "className": "text-4xl lg:text-5xl font-bold text-blue-700 mb-2",
+            "content": "{{stat_1_value}}"
+          },
+          "label": {
+            "className": "text-gray-600",
+            "content": "{{stat_1_label}}"
+          }
+        },
+        {
+          "animation": {
+            "initial": { "opacity": 0, "y": 20 },
+            "whileInView": { "opacity": 1, "y": 0 },
+            "transition": { "duration": 0.5, "delay": 0.1 },
+            "viewport": { "once": true }
+          },
+          "className": "text-center",
+          "value": {
+            "className": "text-4xl lg:text-5xl font-bold text-blue-700 mb-2",
+            "content": "{{stat_2_value}}"
+          },
+          "label": {
+            "className": "text-gray-600",
+            "content": "{{stat_2_label}}"
+          }
+        },
+        {
+          "animation": {
+            "initial": { "opacity": 0, "y": 20 },
+            "whileInView": { "opacity": 1, "y": 0 },
+            "transition": { "duration": 0.5, "delay": 0.2 },
+            "viewport": { "once": true }
+          },
+          "className": "text-center",
+          "value": {
+            "className": "text-4xl lg:text-5xl font-bold text-blue-700 mb-2",
+            "content": "{{stat_3_value}}"
+          },
+          "label": {
+            "className": "text-gray-600",
+            "content": "{{stat_3_label}}"
+          }
+        },
+        {
+          "animation": {
+            "initial": { "opacity": 0, "y": 20 },
+            "whileInView": { "opacity": 1, "y": 0 },
+            "transition": { "duration": 0.5, "delay": 0.3 },
+            "viewport": { "once": true }
+          },
+          "className": "text-center",
+          "value": {
+            "className": "text-4xl lg:text-5xl font-bold text-blue-700 mb-2",
+            "content": "{{stat_4_value}}"
+          },
+          "label": {
+            "className": "text-gray-600",
+            "content": "{{stat_4_label}}"
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "features",
+      "order": 3,
+      "className": "py-20 bg-gray-50",
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "heading": {
+        "animation": {
+          "initial": { "opacity": 0, "y": 20 },
+          "whileInView": { "opacity": 1, "y": 0 },
+          "transition": { "duration": 0.6 },
+          "viewport": { "once": true }
+        },
+        "className": "text-center mb-16",
+        "title": {
+          "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
+          "content": "{{features_title}}"
+        },
+        "subtitle": {
+          "className": "text-xl text-gray-600 max-w-3xl mx-auto",
+          "content": "{{features_subtitle}}"
+        }
+      },
+      "grid": {
+        "className": "grid md:grid-cols-3 gap-8",
+        "items": [
+          {
+            "animation": {
+              "initial": { "opacity": 0, "y": 30 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6, "delay": 0.0 },
+              "viewport": { "once": true }
+            },
+            "card": {
+              "className": "text-center h-full",
+              "hover": true,
+              "icon": {
+                "name": "{{feature_1_icon}}",
+                "className": "w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center",
+                "iconClassName": "w-8 h-8 text-blue-700"
+              },
+              "title": {
+                "className": "text-2xl font-bold text-gray-900 mb-4",
+                "content": "{{feature_1_title}}"
+              },
+              "description": {
+                "className": "text-gray-600 text-lg",
+                "content": "{{feature_1_description}}"
+              }
+            }
+          },
+          {
+            "animation": {
+              "initial": { "opacity": 0, "y": 30 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6, "delay": 0.2 },
+              "viewport": { "once": true }
+            },
+            "card": {
+              "className": "text-center h-full",
+              "hover": true,
+              "icon": {
+                "name": "{{feature_2_icon}}",
+                "className": "w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center",
+                "iconClassName": "w-8 h-8 text-green-600"
+              },
+              "title": {
+                "className": "text-2xl font-bold text-gray-900 mb-4",
+                "content": "{{feature_2_title}}"
+              },
+              "description": {
+                "className": "text-gray-600 text-lg",
+                "content": "{{feature_2_description}}"
+              }
+            }
+          },
+          {
+            "animation": {
+              "initial": { "opacity": 0, "y": 30 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6, "delay": 0.4 },
+              "viewport": { "once": true }
+            },
+            "card": {
+              "className": "text-center h-full",
+              "hover": true,
+              "icon": {
+                "name": "{{feature_3_icon}}",
+                "className": "w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center",
+                "iconClassName": "w-8 h-8 text-orange-600"
+              },
+              "title": {
+                "className": "text-2xl font-bold text-gray-900 mb-4",
+                "content": "{{feature_3_title}}"
+              },
+              "description": {
+                "className": "text-gray-600 text-lg",
+                "content": "{{feature_3_description}}"
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "affiliate_section",
+      "order": 4,
+      "className": "py-20 bg-white",
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "heading": {
+        "animation": {
+          "initial": { "opacity": 0, "y": 20 },
+          "whileInView": { "opacity": 1, "y": 0 },
+          "transition": { "duration": 0.6 },
+          "viewport": { "once": true }
+        },
+        "className": "text-center mb-16",
+        "title": {
+          "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
+          "content": "{{affiliate_section_title}}"
+        },
+        "subtitle": {
+          "className": "text-xl text-gray-600 max-w-3xl mx-auto",
+          "content": "{{affiliate_section_subtitle}}"
+        }
+      },
+      "grid": {
+        "className": "grid lg:grid-cols-2 gap-12 items-center",
+        "left_column": {
+          "animation": {
+            "initial": { "opacity": 0, "x": -20 },
+            "whileInView": { "opacity": 1, "x": 0 },
+            "transition": { "duration": 0.6 },
+            "viewport": { "once": true }
+          },
+          "content": {
+            "className": "space-y-6",
+            "heading": {
+              "className": "text-2xl font-bold text-gray-900",
+              "content": "{{affiliate_cta_title}}"
+            },
+            "description": {
+              "className": "text-gray-600",
+              "content": "{{affiliate_cta_description}}"
+            },
+            "benefits": {
+              "className": "space-y-4",
+              "items": [
+                {
+                  "icon": "Check",
+                  "title": "{{affiliate_benefit_1_title}}",
+                  "description": "{{affiliate_benefit_1_description}}"
+                },
+                {
+                  "icon": "Check",
+                  "title": "{{affiliate_benefit_2_title}}",
+                  "description": "{{affiliate_benefit_2_description}}"
+                },
+                {
+                  "icon": "Check",
+                  "title": "{{affiliate_benefit_3_title}}",
+                  "description": "{{affiliate_benefit_3_description}}"
+                }
+              ]
+            },
+            "button": {
+              "className": "pt-4",
+              "text": "{{affiliate_cta_button_text}}",
+              "href": "{{affiliate_cta_button_url}}",
+              "icon": "Users",
+              "variant": "primary"
+            }
+          }
+        },
+        "right_column": {
+          "animation": {
+            "initial": { "opacity": 0, "x": 20 },
+            "whileInView": { "opacity": 1, "x": 0 },
+            "transition": { "duration": 0.6, "delay": 0.2 },
+            "viewport": { "once": true }
+          },
+          "component": "AffiliateLeaderboardWidget",
+          "props": {
+            "limit": 5,
+            "showEarnings": true
+          }
+        }
+      }
+    },
+
+    {
+      "id": "health_plan_video",
+      "order": 5,
+      "className": "py-20 bg-gray-50",
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "heading": {
+        "animation": {
+          "initial": { "opacity": 0, "y": 20 },
+          "whileInView": { "opacity": 1, "y": 0 },
+          "transition": { "duration": 0.6 },
+          "viewport": { "once": true }
+        },
+        "className": "text-center mb-16",
+        "title": {
+          "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
+          "content": "{{health_plan_title}}"
+        },
+        "subtitle": {
+          "className": "text-xl text-gray-600 max-w-3xl mx-auto",
+          "content": "{{health_plan_subtitle}}"
+        }
+      },
+      "grid": {
+        "className": "grid lg:grid-cols-2 gap-12 items-center",
+        "left_column": {
+          "animation": {
+            "initial": { "opacity": 0, "x": -20 },
+            "whileInView": { "opacity": 1, "x": 0 },
+            "transition": { "duration": 0.6 },
+            "viewport": { "once": true }
+          },
+          "className": "space-y-8",
+          "features": [
+            {
+              "icon": "Ambulance",
+              "title": "{{health_feature_1_title}}",
+              "description": "{{health_feature_1_description}}"
+            },
+            {
+              "icon": "Stethoscope",
+              "title": "{{health_feature_2_title}}",
+              "description": "{{health_feature_2_description}}"
+            },
+            {
+              "icon": "DollarSign",
+              "title": "{{health_feature_3_title}}",
+              "description": "{{health_feature_3_description}}"
+            },
+            {
+              "icon": "Scissors",
+              "title": "{{health_feature_4_title}}",
+              "description": "{{health_feature_4_description}}"
+            },
+            {
+              "icon": "UserCheck",
+              "title": "{{health_feature_5_title}}",
+              "description": "{{health_feature_5_description}}"
+            }
+          ]
+        },
+        "right_column": {
+          "animation": {
+            "initial": { "opacity": 0, "x": 20 },
+            "whileInView": { "opacity": 1, "x": 0 },
+            "transition": { "duration": 0.6, "delay": 0.2 },
+            "viewport": { "once": true }
+          },
+          "className": "relative",
+          "video": {
+            "className": "relative rounded-2xl overflow-hidden shadow-2xl",
+            "iframe": {
+              "src": "{{vimeo_video_url}}",
+              "className": "aspect-video w-full h-full",
+              "attributes": {
+                "frameBorder": "0",
+                "allow": "autoplay; fullscreen; picture-in-picture; clipboard-write",
+                "title": "SaudeMAX - Health Plan for Brazilians"
+              }
+            },
+            "fallback_overlay": {
+              "className": "absolute inset-0 bg-gradient-to-br from-blue-600 to-green-600 rounded-2xl flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none",
+              "content": {
+                "icon": "Play",
+                "title": "{{video_fallback_title}}",
+                "description": "{{video_fallback_description}}",
+                "button": {
+                  "text": "{{video_fallback_button_text}}",
+                  "href": "{{video_external_url}}",
+                  "icon": "ExternalLink"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "pricing_preview",
+      "order": 6,
+      "className": "py-20 bg-white",
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "component": "PricingPreview",
+      "props": {
+        "showAllLink": true,
+        "limit": 4,
+        "iua": "1500"
+      }
+    },
+
+    {
+      "id": "testimonials",
+      "order": 7,
+      "className": "py-20 bg-blue-50",
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "heading": {
+        "animation": {
+          "initial": { "opacity": 0, "y": 20 },
+          "whileInView": { "opacity": 1, "y": 0 },
+          "transition": { "duration": 0.6 },
+          "viewport": { "once": true }
+        },
+        "className": "text-center mb-16",
+        "title": {
+          "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
+          "content": "{{testimonials_title}}"
+        }
+      },
+      "grid": {
+        "className": "grid md:grid-cols-2 lg:grid-cols-3 gap-8",
+        "items": [
+          {
+            "animation": {
+              "initial": { "opacity": 0, "y": 30 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6, "delay": 0.0 },
+              "viewport": { "once": true }
+            },
+            "card": {
+              "className": "h-full",
+              "stars": {
+                "count": 5,
+                "className": "flex mb-4",
+                "starClassName": "w-5 h-5 text-yellow-400 fill-current"
+              },
+              "quote": {
+                "className": "text-gray-700 mb-6 text-lg",
+                "content": "{{testimonial_1_quote}}"
+              },
+              "author": {
+                "className": "flex items-center space-x-3",
+                "avatar": {
+                  "className": "w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center",
+                  "initial": "{{testimonial_1_initial}}"
+                },
+                "info": {
+                  "name": {
+                    "className": "font-semibold text-gray-900",
+                    "content": "{{testimonial_1_author}}"
+                  },
+                  "location": {
+                    "className": "text-gray-600",
+                    "content": "{{testimonial_1_location}}"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "animation": {
+              "initial": { "opacity": 0, "y": 30 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6, "delay": 0.1 },
+              "viewport": { "once": true }
+            },
+            "card": {
+              "className": "h-full",
+              "stars": {
+                "count": 5,
+                "className": "flex mb-4",
+                "starClassName": "w-5 h-5 text-yellow-400 fill-current"
+              },
+              "quote": {
+                "className": "text-gray-700 mb-6 text-lg",
+                "content": "{{testimonial_2_quote}}"
+              },
+              "author": {
+                "className": "flex items-center space-x-3",
+                "avatar": {
+                  "className": "w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center",
+                  "initial": "{{testimonial_2_initial}}"
+                },
+                "info": {
+                  "name": {
+                    "className": "font-semibold text-gray-900",
+                    "content": "{{testimonial_2_author}}"
+                  },
+                  "location": {
+                    "className": "text-gray-600",
+                    "content": "{{testimonial_2_location}}"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "animation": {
+              "initial": { "opacity": 0, "y": 30 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6, "delay": 0.2 },
+              "viewport": { "once": true }
+            },
+            "card": {
+              "className": "h-full",
+              "stars": {
+                "count": 5,
+                "className": "flex mb-4",
+                "starClassName": "w-5 h-5 text-yellow-400 fill-current"
+              },
+              "quote": {
+                "className": "text-gray-700 mb-6 text-lg",
+                "content": "{{testimonial_3_quote}}"
+              },
+              "author": {
+                "className": "flex items-center space-x-3",
+                "avatar": {
+                  "className": "w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center",
+                  "initial": "{{testimonial_3_initial}}"
+                },
+                "info": {
+                  "name": {
+                    "className": "font-semibold text-gray-900",
+                    "content": "{{testimonial_3_author}}"
+                  },
+                  "location": {
+                    "className": "text-gray-600",
+                    "content": "{{testimonial_3_location}}"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "cta_section",
+      "order": 8,
+      "className": "py-20 bg-gradient-to-r from-blue-700 to-green-600",
+      "container": "max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8",
+      "animation": {
+        "initial": { "opacity": 0, "y": 20 },
+        "whileInView": { "opacity": 1, "y": 0 },
+        "transition": { "duration": 0.6 },
+        "viewport": { "once": true }
+      },
+      "content": {
+        "title": {
+          "className": "text-4xl lg:text-5xl font-bold text-white mb-6",
+          "content": "{{cta_title}}"
+        },
+        "subtitle": {
+          "className": "text-xl text-blue-100 mb-8",
+          "content": "{{cta_subtitle}}"
+        },
+        "button": {
+          "text": "{{cta_button_text}}",
+          "href": "{{cta_button_url}}",
+          "className": "px-8 py-4 text-lg font-medium text-blue-700 bg-white hover:bg-gray-50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white",
+          "icon": "ArrowRight"
+        }
+      }
+    }
+  ],
+
+  "footer": {
+    "component": "Footer",
+    "className": "bg-gray-900 text-white",
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12",
+    "grid": {
+      "className": "grid grid-cols-1 md:grid-cols-4 gap-8",
+      "sections": [
+        {
+          "id": "brand",
+          "title": "Brand Section",
+          "logo": {
+            "src": "/SAUDEMAX_logo1 (1) copy.png",
+            "alt": "SAUDEMAX",
+            "className": "h-8 w-auto filter brightness-0 invert"
+          },
+          "description": {
+            "className": "text-gray-400 max-w-sm",
+            "content": "{{footer_brand_description}}"
+          },
+          "social_media": {
+            "className": "flex space-x-4",
+            "links": [
+              {
+                "platform": "facebook",
+                "href": "{{social_facebook_url}}",
+                "icon": "Facebook",
+                "className": "text-gray-400 hover:text-white transition-colors"
+              },
+              {
+                "platform": "twitter",
+                "href": "{{social_twitter_url}}",
+                "icon": "Twitter", 
+                "className": "text-gray-400 hover:text-white transition-colors"
+              },
+              {
+                "platform": "instagram",
+                "href": "{{social_instagram_url}}",
+                "icon": "Instagram",
+                "className": "text-gray-400 hover:text-white transition-colors"
+              }
+            ]
+          }
+        },
+        {
+          "id": "quick_links",
+          "title": "Quick Links",
+          "heading": {
+            "className": "text-lg font-semibold mb-4",
+            "content": "{{footer_quick_links_title}}"
+          },
+          "links": [
+            {
+              "text": "{{footer_link_plans}}",
+              "href": "{{footer_plans_url}}",
+              "className": "text-gray-400 hover:text-white transition-colors"
+            },
+            {
+              "text": "{{footer_link_about}}",
+              "href": "{{footer_about_url}}",
+              "className": "text-gray-400 hover:text-white transition-colors"
+            },
+            {
+              "text": "{{footer_link_contact}}",
+              "href": "{{footer_contact_url}}",
+              "className": "text-gray-400 hover:text-white transition-colors"
+            },
+            {
+              "text": "{{footer_link_faq}}",
+              "href": "{{footer_faq_url}}",
+              "className": "text-gray-400 hover:text-white transition-colors"
+            }
+          ]
+        },
+        {
+          "id": "support",
+          "title": "Support",
+          "heading": {
+            "className": "text-lg font-semibold mb-4",
+            "content": "{{footer_support_title}}"
+          },
+          "links": [
+            {
+              "text": "{{footer_link_help}}",
+              "href": "{{footer_help_url}}",
+              "className": "text-gray-400 hover:text-white transition-colors"
+            },
+            {
+              "text": "{{footer_link_claims}}",
+              "href": "{{footer_claims_url}}",
+              "className": "text-gray-400 hover:text-white transition-colors"
+            },
+            {
+              "text": "{{footer_link_providers}}",
+              "href": "{{footer_providers_url}}",
+              "className": "text-gray-400 hover:text-white transition-colors"
+            },
+            {
+              "text": "{{footer_link_portal}}",
+              "href": "{{footer_portal_url}}",
+              "className": "text-gray-400 hover:text-white transition-colors"
+            }
+          ]
+        },
+        {
+          "id": "contact_info",
+          "title": "Contact Us",
+          "heading": {
+            "className": "text-lg font-semibold mb-4",
+            "content": "{{footer_contact_title}}"
+          },
+          "contact_items": [
+            {
+              "type": "phone",
+              "icon": "Phone",
+              "iconClassName": "w-5 h-5 text-green-500",
+              "text": "{{footer_phone_number}}",
+              "href": "{{footer_phone_url}}"
+            },
+            {
+              "type": "email",
+              "icon": "Mail",
+              "iconClassName": "w-5 h-5 text-green-500",
+              "text": "{{footer_email_address}}",
+              "href": "{{footer_email_url}}"
+            },
+            {
+              "type": "address",
+              "icon": "MapPin",
+              "iconClassName": "w-5 h-5 text-green-500",
+              "text": "{{footer_address_text}}"
+            }
+          ]
+        }
+      ]
+    },
+    "bottom_bar": {
+      "className": "border-t border-gray-800 mt-8 pt-8 text-center text-gray-400",
+      "copyright": "{{footer_copyright_text}}",
+      "links": [
+        {
+          "text": "{{footer_privacy_policy}}",
+          "href": "{{footer_privacy_url}}"
+        },
+        {
+          "text": "{{footer_terms_service}}",
+          "href": "{{footer_terms_url}}"
+        }
+      ]
+    }
+  },
+
+  "whatsapp_chat": {
+    "component": "WhatsAppChatButton",
+    "position": "fixed bottom-6 right-6 z-50",
+    "phone_number": "{{whatsapp_phone_number}}",
+    "message": "{{whatsapp_default_message}}",
+    "button": {
+      "className": "w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group",
+      "style": {
+        "background": "linear-gradient(135deg, #25D366 0%, #128C7E 100%)",
+        "boxShadow": "0 4px 20px rgba(37, 211, 102, 0.4)"
+      },
+      "icon": {
+        "type": "whatsapp_svg",
+        "className": "group-hover:scale-110 transition-transform duration-200",
+        "size": "24x24",
+        "fill": "currentColor"
+      },
+      "pulse_animation": {
+        "className": "absolute inset-0 rounded-full bg-green-400 opacity-75 animate-ping"
+      },
+      "hover_animations": {
+        "whileHover": { "scale": 1.1 },
+        "whileTap": { "scale": 0.95 }
+      }
+    },
+    "tooltip": {
+      "text": "{{whatsapp_tooltip_text}}",
+      "className": "absolute bottom-full right-0 mb-3 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg whitespace-nowrap",
+      "arrow": {
+        "className": "absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"
+      },
+      "animation": {
+        "initial": { "opacity": 0, "x": 10, "scale": 0.9 },
+        "animate": { "opacity": 1, "x": 0, "scale": 1 },
+        "exit": { "opacity": 0, "x": 10, "scale": 0.9 },
+        "transition": { "duration": 0.2 }
+      }
+    }
+  },
+
+  "components": {
+    "Button": {
+      "baseClassName": "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2",
+      "variants": {
+        "primary": "bg-blue-700 hover:bg-blue-800 text-white focus:ring-blue-500",
+        "secondary": "bg-green-600 hover:bg-green-700 text-white focus:ring-green-500",
+        "outline": "border-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white focus:ring-blue-500",
+        "ghost": "text-gray-700 hover:bg-gray-100 focus:ring-gray-500"
+      },
+      "sizes": {
+        "sm": "px-4 py-2 text-sm",
+        "md": "px-6 py-3 text-base",
+        "lg": "px-8 py-4 text-lg"
+      },
+      "hover_effects": {
+        "whileHover": { "scale": 1.02 },
+        "whileTap": { "scale": 0.98 }
+      }
+    },
+    
+    "Card": {
+      "baseClassName": "bg-white rounded-xl border border-gray-200",
+      "variants": {
+        "default": "p-6",
+        "hover": "hover:shadow-lg transition-all duration-300",
+        "gradient": "bg-gradient-to-br from-blue-50 to-green-50 border-blue-200"
+      },
+      "hover_animation": {
+        "initial": { "scale": 1, "boxShadow": "0 4px 6px -1px rgba(0, 0, 0, 0.1)" },
+        "hover": { 
+          "scale": 1.02, 
+          "boxShadow": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+        }
+      }
+    },
+
+    "PricingPreview": {
+      "description": "Component that displays plan pricing cards",
+      "props": {
+        "showAllLink": "boolean - Show link to full plans page",
+        "limit": "number - Number of plans to display",
+        "iua": "string - IUA level to display (1500, 3000, 6000)"
+      }
+    },
+
+    "AffiliateLeaderboardWidget": {
+      "description": "Component that displays top affiliate performers",
+      "props": {
+        "limit": "number - Number of affiliates to show",
+        "showEarnings": "boolean - Whether to display earnings amounts"
+      }
+    }
+  },
+
+  "animations": {
+    "page_transitions": {
+      "fadeIn": {
+        "initial": { "opacity": 0 },
+        "animate": { "opacity": 1 },
+        "transition": { "duration": 0.5 }
+      },
+      "slideUp": {
+        "initial": { "opacity": 0, "y": 20 },
+        "animate": { "opacity": 1, "y": 0 },
+        "transition": { "duration": 0.5 }
+      },
+      "slideInLeft": {
+        "initial": { "opacity": 0, "x": -50 },
+        "animate": { "opacity": 1, "x": 0 },
+        "transition": { "duration": 0.8 }
+      },
+      "slideInRight": {
+        "initial": { "opacity": 0, "x": 50 },
+        "animate": { "opacity": 1, "x": 0 },
+        "transition": { "duration": 0.8 }
+      },
+      "staggerChildren": {
+        "initial": { "opacity": 0, "y": 30 },
+        "whileInView": { "opacity": 1, "y": 0 },
+        "viewport": { "once": true }
+      }
+    },
+    "micro_interactions": {
+      "button_hover": {
+        "whileHover": { "scale": 1.02 },
+        "whileTap": { "scale": 0.98 }
+      },
+      "card_hover": {
+        "whileHover": { "scale": 1.02, "transition": { "duration": 0.2 } }
+      },
+      "icon_bounce": {
+        "whileHover": { "scale": 1.1, "rotate": 5 }
+      }
+    }
+  },
+
+  "design_tokens": {
+    "colors": {
+      "primary": {
+        "50": "#eff6ff",
+        "100": "#dbeafe", 
+        "200": "#bfdbfe",
+        "300": "#93c5fd",
+        "400": "#60a5fa",
+        "500": "#3b82f6",
+        "600": "#2563eb",
+        "700": "#1d4ed8",
+        "800": "#1e40af",
+        "900": "#1e3a8a"
+      },
+      "secondary": {
+        "50": "#ecfdf5",
+        "100": "#d1fae5",
+        "200": "#a7f3d0",
+        "300": "#6ee7b7",
+        "400": "#34d399",
+        "500": "#10b981",
+        "600": "#059669",
+        "700": "#047857",
+        "800": "#065f46",
+        "900": "#064e3b"
+      },
+      "gradients": {
+        "hero_background": "bg-gradient-to-br from-blue-900 via-blue-800 to-green-700",
+        "cta_background": "bg-gradient-to-r from-blue-700 to-green-600",
+        "whatsapp_button": "linear-gradient(135deg, #25D366 0%, #128C7E 100%)",
+        "card_icon_background": "bg-gradient-to-br from-blue-100 to-green-100",
+        "avatar_background": "bg-gradient-to-br from-blue-500 to-green-500"
+      }
+    },
+    
+    "typography": {
+      "font_family": "font-family: Arial, sans-serif",
+      "headings": {
+        "h1": "text-5xl lg:text-7xl font-bold leading-tight",
+        "h2": "text-4xl lg:text-5xl font-bold",
+        "h3": "text-2xl font-bold",
+        "h4": "text-xl font-semibold",
+        "h5": "text-lg font-semibold"
+      },
+      "body": {
+        "large": "text-xl",
+        "medium": "text-base",
+        "small": "text-sm",
+        "extra_small": "text-xs"
+      },
+      "line_heights": {
+        "heading": "leading-tight",
+        "body": "leading-relaxed",
+        "tight": "leading-snug"
+      }
+    },
+
+    "spacing": {
+      "sections": {
+        "default": "py-20",
+        "compact": "py-16",
+        "hero": "py-20",
+        "header": "py-4",
+        "footer": "py-12"
+      },
+      "containers": {
+        "default": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "narrow": "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8",
+        "text": "max-w-3xl mx-auto"
+      },
+      "component_gaps": {
+        "xs": "gap-2",
+        "sm": "gap-4", 
+        "md": "gap-6",
+        "lg": "gap-8",
+        "xl": "gap-12"
+      }
+    },
+
+    "borders": {
+      "radius": {
+        "sm": "rounded-md",
+        "default": "rounded-lg",
+        "lg": "rounded-xl",
+        "xl": "rounded-2xl",
+        "3xl": "rounded-3xl",
+        "full": "rounded-full"
+      },
+      "widths": {
+        "thin": "border",
+        "medium": "border-2",
+        "thick": "border-4"
+      }
+    },
+
+    "shadows": {
+      "sm": "shadow-sm",
+      "default": "shadow",
+      "md": "shadow-md", 
+      "lg": "shadow-lg",
+      "xl": "shadow-xl",
+      "2xl": "shadow-2xl",
+      "custom_whatsapp": "0 4px 20px rgba(37, 211, 102, 0.4)"
+    },
+
+    "backdrop_effects": {
+      "blur_sm": "backdrop-blur-sm",
+      "blur_md": "backdrop-blur-md",
+      "glass_morphism": "bg-white/95 backdrop-blur-md"
+    }
+  },
+
+  "responsive_design": {
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px", 
+      "xl": "1280px",
+      "2xl": "1536px"
+    },
+    "grid_systems": {
+      "mobile": "grid-cols-1",
+      "tablet": "md:grid-cols-2",
+      "desktop": "lg:grid-cols-3",
+      "wide": "xl:grid-cols-4"
+    },
+    "text_scaling": {
+      "mobile": "text-4xl",
+      "desktop": "lg:text-5xl",
+      "hero_mobile": "text-5xl",
+      "hero_desktop": "lg:text-7xl"
+    }
+  },
+
+  "accessibility": {
+    "focus_styles": {
+      "ring": "focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+      "outline": "focus:outline-none"
+    },
+    "aria_labels": {
+      "whatsapp_button": "Chat with us on WhatsApp",
+      "mobile_menu": "Toggle mobile menu",
+      "language_toggle": "Toggle Language"
+    },
+    "keyboard_navigation": {
+      "tab_index": "0",
+      "focus_visible": "focus-visible:ring-2"
+    }
+  },
+
+  "content_placeholders": {
+    "header": {
+      "nav_home": "Home",
+      "nav_plans": "Plans", 
+      "nav_about": "About",
+      "nav_contact": "Contact",
+      "nav_login": "Login",
+      "nav_enroll": "Enroll Now",
+      "homepage_url": "/",
+      "home_url": "/",
+      "plans_url": "/plans",
+      "rules_url": "/rules",
+      "about_url": "/about",
+      "contact_url": "/contact",
+      "login_url": "/login",
+      "affiliate_login_url": "/affiliate-login",
+      "affiliate_register_url": "/affiliate/register",
+      "enrollment_url": "/enrollment"
+    },
+
+    "hero": {
+      "hero_title": "Flexible Healthcare Plans for Brazilians in the USA",
+      "hero_subtitle": "Join thousands of families who have found quality health sharing solutions",
+      "hero_primary_button_text": "View Plans",
+      "hero_primary_button_url": "/plans",
+      "hero_secondary_button_text": "Learn More", 
+      "hero_secondary_button_url": "/about",
+      "hero_card_title": "Join Today",
+      "hero_card_subtitle": "Start your application in minutes",
+      "hero_step_1": "Quick 5-minute signup",
+      "hero_step_2": "Choose your perfect plan",
+      "hero_step_3": "Get coverage immediately",
+      "hero_card_button_text": "Get Started",
+      "hero_card_button_url": "/enrollment"
+    },
+
+    "stats": {
+      "stat_1_value": "50,000+",
+      "stat_1_label": "Active Members",
+      "stat_2_value": "98%", 
+      "stat_2_label": "Satisfaction Rate",
+      "stat_3_value": "$2.5B+",
+      "stat_3_label": "Medical Bills Shared",
+      "stat_4_value": "24/7",
+      "stat_4_label": "Support Available"
+    },
+
+    "features": {
+      "features_title": "Why Choose SaudeMAX?",
+      "features_subtitle": "Discover the benefits that make SaudeMAX the preferred choice for healthcare",
+      "feature_1_icon": "Shield",
+      "feature_1_title": "Affordable Rates",
+      "feature_1_description": "Save up to 70% compared to traditional insurance",
+      "feature_2_icon": "Users",
+      "feature_2_title": "Strong Community", 
+      "feature_2_description": "Join a caring community of health-conscious members",
+      "feature_3_icon": "Heart",
+      "feature_3_title": "Concierge Support",
+      "feature_3_description": "Personal guidance to navigate your healthcare plan"
+    },
+
+    "affiliate": {
+      "affiliate_section_title": "Top Affiliate Partners",
+      "affiliate_section_subtitle": "Join our growing network of affiliate partners who are helping more people access quality healthcare",
+      "affiliate_cta_title": "Become a SaudeMAX Affiliate",
+      "affiliate_cta_description": "Join our affiliate program and earn competitive commissions while helping others access quality healthcare solutions.",
+      "affiliate_benefit_1_title": "Earn up to 15% commission",
+      "affiliate_benefit_1_description": "On every successful referral",
+      "affiliate_benefit_2_title": "Recurring revenue",
+      "affiliate_benefit_2_description": "Earn from monthly subscriptions", 
+      "affiliate_benefit_3_title": "Marketing materials provided",
+      "affiliate_benefit_3_description": "Get everything you need to succeed",
+      "affiliate_cta_button_text": "Become an Affiliate",
+      "affiliate_cta_button_url": "/affiliate/register"
+    },
+
+    "health_plan": {
+      "health_plan_title": "Health Plan for Brazilians",
+      "health_plan_subtitle": "Comprehensive healthcare coverage designed specifically for the Brazilian community",
+      "health_feature_1_title": "Hospital Coverage",
+      "health_feature_1_description": "Say goodbye to expensive and restrictive options.",
+      "health_feature_2_title": "Telemedicine",
+      "health_feature_2_description": "Fast online consultations.",
+      "health_feature_3_title": "Exam Discounts",
+      "health_feature_3_description": "Discounts on exams and laboratories.",
+      "health_feature_4_title": "Surgeries",
+      "health_feature_4_description": "Pre-approved surgeries can be performed in Brazil or the United States.",
+      "health_feature_5_title": "Fast Approval",
+      "health_feature_5_description": "No need for Social Security or Credit Score to be approved.",
+      "vimeo_video_url": "https://player.vimeo.com/video/1035717280?badge=0&autopause=0&player_id=0&app_id=58479&h=1bab1b87e8",
+      "video_fallback_title": "Watch Our Introduction Video",
+      "video_fallback_description": "Learn about our comprehensive health plan designed for Brazilians",
+      "video_fallback_button_text": "Watch on Vimeo",
+      "video_external_url": "https://vimeo.com/1035717280"
+    },
+
+    "testimonials": {
+      "testimonials_title": "What Our Members Say",
+      "testimonial_1_quote": "SaudeMAX saved our family thousands while providing excellent coverage.",
+      "testimonial_1_author": "Maria Santos",
+      "testimonial_1_location": "São Paulo, SP",
+      "testimonial_1_initial": "M",
+      "testimonial_2_quote": "SaudeMAX saved our family thousands while providing excellent coverage.",
+      "testimonial_2_author": "Maria Santos",
+      "testimonial_2_location": "São Paulo, SP", 
+      "testimonial_2_initial": "M",
+      "testimonial_3_quote": "SaudeMAX saved our family thousands while providing excellent coverage.",
+      "testimonial_3_author": "Maria Santos",
+      "testimonial_3_location": "São Paulo, SP",
+      "testimonial_3_initial": "M"
+    },
+
+    "cta": {
+      "cta_title": "Ready to Join Our Community?",
+      "cta_subtitle": "Start your application today and Cut Your Medical Costs and Gain Peace of Mind",
+      "cta_button_text": "Start Application",
+      "cta_button_url": "/enrollment"
+    },
+
+    "footer": {
+      "footer_brand_description": "Providing affordable healthcare sharing solutions for families across Brazil and beyond.",
+      "footer_quick_links_title": "Quick Links",
+      "footer_support_title": "Support",
+      "footer_contact_title": "Contact Us",
+      "footer_link_plans": "Health Plans",
+      "footer_link_about": "About Us",
+      "footer_link_contact": "Contact",
+      "footer_link_faq": "FAQs",
+      "footer_link_help": "Help Center",
+      "footer_link_claims": "Claims",
+      "footer_link_providers": "Find Providers",
+      "footer_link_portal": "Member Portal",
+      "footer_plans_url": "/plans",
+      "footer_about_url": "/about",
+      "footer_contact_url": "/contact",
+      "footer_faq_url": "/faq",
+      "footer_help_url": "/help",
+      "footer_claims_url": "/claims",
+      "footer_providers_url": "/providers",
+      "footer_portal_url": "/member-portal",
+      "footer_phone_number": "+55 11 9999-9999",
+      "footer_phone_url": "tel:+551199999999",
+      "footer_email_address": "support@saudemax.com",
+      "footer_email_url": "mailto:support@saudemax.com",
+      "footer_address_text": "São Paulo, SP",
+      "footer_copyright_text": "© 2024 SAUDEMAX. All rights reserved. | Privacy Policy | Terms of Service",
+      "footer_privacy_policy": "Privacy Policy",
+      "footer_terms_service": "Terms of Service",
+      "footer_privacy_url": "/privacy",
+      "footer_terms_url": "/terms",
+      "social_facebook_url": "#",
+      "social_twitter_url": "#",
+      "social_instagram_url": "#"
+    },
+
+    "whatsapp": {
+      "whatsapp_phone_number": "18001234567",
+      "whatsapp_default_message": "Hi there! I'm interested in learning more about SaudeMax plans.",
+      "whatsapp_tooltip_text": "Chat with us"
+    }
+  },
+
+  "technical_specifications": {
+    "framework_requirements": {
+      "react": "^18.3.1",
+      "typescript": "^5.2.2",
+      "tailwindcss": "^3.4.1",
+      "framer-motion": "^11.0.6",
+      "lucide-react": "^0.344.0",
+      "react-router-dom": "^6.22.0",
+      "react-i18next": "^14.0.5"
+    },
+    
+    "build_configuration": {
+      "vite": "Required for build system",
+      "typescript": "Strict mode enabled",
+      "tailwind": "JIT compilation enabled",
+      "optimization": "Tree shaking enabled for lucide-react icons"
+    },
+
+    "performance_optimizations": {
+      "lazy_loading": "All sections use whileInView animations",
+      "image_optimization": "Use optimized images with proper sizing",
+      "code_splitting": "Components can be lazy loaded",
+      "bundle_analysis": "Keep track of bundle size with each new component"
+    }
+  },
+
+  "internationalization": {
+    "supported_languages": ["en", "pt"],
+    "default_language": "en",
+    "translation_keys": {
+      "navigation": "nav.*",
+      "homepage": "home.*",
+      "features": "features.*",
+      "common": "common.*"
+    },
+    "language_toggle": {
+      "implementation": "useTranslation hook from react-i18next",
+      "toggle_function": "i18n.changeLanguage()",
+      "persistence": "Browser localStorage"
+    }
+  },
+
+  "implementation_notes": {
+    "required_steps": [
+      "1. Install all required dependencies from framework_requirements",
+      "2. Set up Tailwind CSS with the provided color scheme", 
+      "3. Configure Framer Motion for animations",
+      "4. Replace all {{placeholder}} values with actual content",
+      "5. Implement navigation routing with React Router",
+      "6. Set up i18next for internationalization",
+      "7. Configure proper image optimization and loading",
+      "8. Test responsive design on all breakpoints"
+    ],
+    
+    "component_architecture": {
+      "layout": "Use the provided layout structure with Header > Main > Footer",
+      "routing": "Each section link should route to appropriate pages",
+      "state_management": "Use React hooks for local state, context for global state",
+      "error_handling": "Implement proper error boundaries and fallback UI"
+    },
+
+    "styling_guidelines": {
+      "approach": "Utility-first with Tailwind CSS",
+      "custom_css": "Minimize custom CSS, prefer Tailwind utilities",
+      "consistency": "Use design tokens for consistent spacing, colors, and typography",
+      "responsiveness": "Mobile-first responsive design approach"
+    }
+  },
+
+  "quality_assurance": {
+    "testing_checklist": [
+      "✅ All navigation links work correctly",
+      "✅ Mobile menu functions properly", 
+      "✅ All buttons have proper hover states",
+      "✅ WhatsApp chat button opens correctly",
+      "✅ Video iframe loads and plays",
+      "✅ All animations trigger on scroll",
+      "✅ Language toggle works (if implemented)",
+      "✅ All sections are responsive on mobile/tablet/desktop",
+      "✅ Footer links are functional",
+      "✅ Social media links work"
+    ],
+    
+    "performance_checklist": [
+      "✅ Images are optimized and compressed",
+      "✅ Animations don't cause layout shift",
+      "✅ Bundle size is reasonable (<1MB initial)",
+      "✅ Lighthouse performance score >90",
+      "✅ No console errors in browser",
+      "✅ Fast loading on 3G networks"
+    ]
+  }
+}
