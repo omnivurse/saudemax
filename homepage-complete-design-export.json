@@ -1,0 +1,1048 @@
+{
+  "meta": {
+    "title": "SaudeMAX Landing Page Complete Design Export",
+    "description": "Full design system export including layout, styling, components, and animations",
+    "version": "1.0.0",
+    "framework": "React + Tailwind CSS + Framer Motion"
+  },
+  "layout": {
+    "container": "overflow-hidden",
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "className": "relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-green-700 flex items-center",
+        "overlay": {
+          "enabled": true,
+          "className": "absolute inset-0 bg-black/20"
+        },
+        "glassmorphism": {
+          "enabled": true,
+          "container": "absolute inset-0",
+          "elements": [
+            {
+              "className": "absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"
+            },
+            {
+              "className": "absolute bottom-20 right-20 w-96 h-96 bg-green-500/10 rounded-full blur-3xl"
+            }
+          ]
+        },
+        "content": {
+          "container": "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20",
+          "layout": "grid lg:grid-cols-2 gap-12 items-center",
+          "leftColumn": {
+            "className": "text-white",
+            "animation": {
+              "initial": { "opacity": 0, "x": -50 },
+              "animate": { "opacity": 1, "x": 0 },
+              "transition": { "duration": 0.8 }
+            },
+            "heading": {
+              "className": "text-5xl lg:text-7xl font-bold leading-tight mb-6",
+              "content": "{{title}}"
+            },
+            "subheading": {
+              "className": "text-xl lg:text-2xl mb-8 text-blue-100",
+              "content": "{{subtitle}}"
+            },
+            "buttons": {
+              "className": "flex flex-col sm:flex-row gap-4",
+              "primary": {
+                "className": "flex-1 inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500",
+                "content": "{{primaryButtonText}}",
+                "link": "{{primaryButtonLink}}",
+                "icon": "ArrowRight"
+              },
+              "secondary": {
+                "className": "flex-1 inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-blue-700 bg-white hover:bg-gray-50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white",
+                "content": "{{secondaryButtonText}}",
+                "link": "{{secondaryButtonLink}}"
+              }
+            }
+          },
+          "rightColumn": {
+            "className": "relative",
+            "animation": {
+              "initial": { "opacity": 0, "x": 50 },
+              "animate": { "opacity": 1, "x": 0 },
+              "transition": { "duration": 0.8, "delay": 0.2 }
+            },
+            "card": {
+              "className": "bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20",
+              "heading": {
+                "className": "text-center mb-6",
+                "title": {
+                  "className": "text-2xl font-bold text-white mb-2",
+                  "content": "{{cardTitle}}"
+                },
+                "subtitle": {
+                  "className": "text-blue-100",
+                  "content": "{{cardSubtitle}}"
+                }
+              },
+              "steps": {
+                "className": "space-y-4",
+                "items": [
+                  {
+                    "className": "flex items-center space-x-3 text-white",
+                    "icon": {
+                      "className": "w-6 h-6 bg-green-500 rounded-full flex items-center justify-center",
+                      "iconName": "Check"
+                    },
+                    "content": "{{step1}}"
+                  },
+                  {
+                    "className": "flex items-center space-x-3 text-white",
+                    "icon": {
+                      "className": "w-6 h-6 bg-green-500 rounded-full flex items-center justify-center",
+                      "iconName": "Check"
+                    },
+                    "content": "{{step2}}"
+                  },
+                  {
+                    "className": "flex items-center space-x-3 text-white",
+                    "icon": {
+                      "className": "w-6 h-6 bg-green-500 rounded-full flex items-center justify-center",
+                      "iconName": "Check"
+                    },
+                    "content": "{{step3}}"
+                  }
+                ]
+              },
+              "button": {
+                "className": "mt-6",
+                "buttonClassName": "{{buttonVariant}}",
+                "content": "{{cardButtonText}}",
+                "link": "{{cardButtonLink}}"
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "stats",
+        "type": "stats",
+        "className": "py-16 bg-white",
+        "content": {
+          "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+          "layout": "grid grid-cols-2 lg:grid-cols-4 gap-8",
+          "items": [
+            {
+              "animation": {
+                "initial": { "opacity": 0, "y": 20 },
+                "whileInView": { "opacity": 1, "y": 0 },
+                "transition": { "duration": 0.5, "delay": 0.0 },
+                "viewport": { "once": true }
+              },
+              "className": "text-center",
+              "value": {
+                "className": "text-4xl lg:text-5xl font-bold text-blue-700 mb-2",
+                "content": "{{stat1Value}}"
+              },
+              "label": {
+                "className": "text-gray-600",
+                "content": "{{stat1Label}}"
+              }
+            },
+            {
+              "animation": {
+                "initial": { "opacity": 0, "y": 20 },
+                "whileInView": { "opacity": 1, "y": 0 },
+                "transition": { "duration": 0.5, "delay": 0.1 },
+                "viewport": { "once": true }
+              },
+              "className": "text-center",
+              "value": {
+                "className": "text-4xl lg:text-5xl font-bold text-blue-700 mb-2",
+                "content": "{{stat2Value}}"
+              },
+              "label": {
+                "className": "text-gray-600",
+                "content": "{{stat2Label}}"
+              }
+            },
+            {
+              "animation": {
+                "initial": { "opacity": 0, "y": 20 },
+                "whileInView": { "opacity": 1, "y": 0 },
+                "transition": { "duration": 0.5, "delay": 0.2 },
+                "viewport": { "once": true }
+              },
+              "className": "text-center",
+              "value": {
+                "className": "text-4xl lg:text-5xl font-bold text-blue-700 mb-2",
+                "content": "{{stat3Value}}"
+              },
+              "label": {
+                "className": "text-gray-600",
+                "content": "{{stat3Label}}"
+              }
+            },
+            {
+              "animation": {
+                "initial": { "opacity": 0, "y": 20 },
+                "whileInView": { "opacity": 1, "y": 0 },
+                "transition": { "duration": 0.5, "delay": 0.3 },
+                "viewport": { "once": true }
+              },
+              "className": "text-center",
+              "value": {
+                "className": "text-4xl lg:text-5xl font-bold text-blue-700 mb-2",
+                "content": "{{stat4Value}}"
+              },
+              "label": {
+                "className": "text-gray-600",
+                "content": "{{stat4Label}}"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "features",
+        "type": "features",
+        "className": "py-20 bg-gray-50",
+        "content": {
+          "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+          "heading": {
+            "animation": {
+              "initial": { "opacity": 0, "y": 20 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6 },
+              "viewport": { "once": true }
+            },
+            "className": "text-center mb-16",
+            "title": {
+              "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
+              "content": "{{featuresTitle}}"
+            },
+            "subtitle": {
+              "className": "text-xl text-gray-600 max-w-3xl mx-auto",
+              "content": "{{featuresSubtitle}}"
+            }
+          },
+          "grid": {
+            "className": "grid md:grid-cols-3 gap-8",
+            "items": [
+              {
+                "animation": {
+                  "initial": { "opacity": 0, "y": 30 },
+                  "whileInView": { "opacity": 1, "y": 0 },
+                  "transition": { "duration": 0.6, "delay": 0.0 },
+                  "viewport": { "once": true }
+                },
+                "card": {
+                  "className": "text-center h-full",
+                  "hover": true,
+                  "icon": {
+                    "className": "w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center",
+                    "iconName": "{{feature1Icon}}",
+                    "iconClassName": "w-8 h-8 text-blue-700"
+                  },
+                  "title": {
+                    "className": "text-2xl font-bold text-gray-900 mb-4",
+                    "content": "{{feature1Title}}"
+                  },
+                  "description": {
+                    "className": "text-gray-600 text-lg",
+                    "content": "{{feature1Description}}"
+                  }
+                }
+              },
+              {
+                "animation": {
+                  "initial": { "opacity": 0, "y": 30 },
+                  "whileInView": { "opacity": 1, "y": 0 },
+                  "transition": { "duration": 0.6, "delay": 0.2 },
+                  "viewport": { "once": true }
+                },
+                "card": {
+                  "className": "text-center h-full",
+                  "hover": true,
+                  "icon": {
+                    "className": "w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center",
+                    "iconName": "{{feature2Icon}}",
+                    "iconClassName": "w-8 h-8 text-green-600"
+                  },
+                  "title": {
+                    "className": "text-2xl font-bold text-gray-900 mb-4",
+                    "content": "{{feature2Title}}"
+                  },
+                  "description": {
+                    "className": "text-gray-600 text-lg",
+                    "content": "{{feature2Description}}"
+                  }
+                }
+              },
+              {
+                "animation": {
+                  "initial": { "opacity": 0, "y": 30 },
+                  "whileInView": { "opacity": 1, "y": 0 },
+                  "transition": { "duration": 0.6, "delay": 0.4 },
+                  "viewport": { "once": true }
+                },
+                "card": {
+                  "className": "text-center h-full",
+                  "hover": true,
+                  "icon": {
+                    "className": "w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center",
+                    "iconName": "{{feature3Icon}}",
+                    "iconClassName": "w-8 h-8 text-orange-600"
+                  },
+                  "title": {
+                    "className": "text-2xl font-bold text-gray-900 mb-4",
+                    "content": "{{feature3Title}}"
+                  },
+                  "description": {
+                    "className": "text-gray-600 text-lg",
+                    "content": "{{feature3Description}}"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "affiliate",
+        "type": "affiliate",
+        "className": "py-20 bg-white",
+        "content": {
+          "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+          "heading": {
+            "animation": {
+              "initial": { "opacity": 0, "y": 20 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6 },
+              "viewport": { "once": true }
+            },
+            "className": "text-center mb-16",
+            "title": {
+              "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
+              "content": "{{affiliateTitle}}"
+            },
+            "subtitle": {
+              "className": "text-xl text-gray-600 max-w-3xl mx-auto",
+              "content": "{{affiliateSubtitle}}"
+            }
+          },
+          "grid": {
+            "className": "grid lg:grid-cols-2 gap-12 items-center",
+            "leftColumn": {
+              "animation": {
+                "initial": { "opacity": 0, "x": -20 },
+                "whileInView": { "opacity": 1, "x": 0 },
+                "transition": { "duration": 0.6 },
+                "viewport": { "once": true }
+              },
+              "content": {
+                "className": "space-y-6",
+                "heading": {
+                  "className": "text-2xl font-bold text-gray-900",
+                  "content": "{{affiliateLeftTitle}}"
+                },
+                "description": {
+                  "className": "text-gray-600",
+                  "content": "{{affiliateLeftDescription}}"
+                },
+                "features": {
+                  "className": "space-y-4",
+                  "items": [
+                    {
+                      "className": "flex items-start space-x-3",
+                      "icon": {
+                        "className": "w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mt-0.5",
+                        "iconName": "Check",
+                        "iconClassName": "w-4 h-4 text-green-600"
+                      },
+                      "content": {
+                        "title": {
+                          "className": "font-medium text-gray-900",
+                          "content": "{{affiliateFeature1Title}}"
+                        },
+                        "description": {
+                          "className": "text-sm text-gray-600",
+                          "content": "{{affiliateFeature1Description}}"
+                        }
+                      }
+                    },
+                    {
+                      "className": "flex items-start space-x-3",
+                      "icon": {
+                        "className": "w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mt-0.5",
+                        "iconName": "Check",
+                        "iconClassName": "w-4 h-4 text-green-600"
+                      },
+                      "content": {
+                        "title": {
+                          "className": "font-medium text-gray-900",
+                          "content": "{{affiliateFeature2Title}}"
+                        },
+                        "description": {
+                          "className": "text-sm text-gray-600",
+                          "content": "{{affiliateFeature2Description}}"
+                        }
+                      }
+                    },
+                    {
+                      "className": "flex items-start space-x-3",
+                      "icon": {
+                        "className": "w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mt-0.5",
+                        "iconName": "Check",
+                        "iconClassName": "w-4 h-4 text-green-600"
+                      },
+                      "content": {
+                        "title": {
+                          "className": "font-medium text-gray-900",
+                          "content": "{{affiliateFeature3Title}}"
+                        },
+                        "description": {
+                          "className": "text-sm text-gray-600",
+                          "content": "{{affiliateFeature3Description}}"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "button": {
+                  "className": "pt-4",
+                  "buttonClassName": "{{buttonVariant}}",
+                  "content": "{{affiliateButtonText}}",
+                  "link": "{{affiliateButtonLink}}",
+                  "icon": "Users"
+                }
+              }
+            },
+            "rightColumn": {
+              "animation": {
+                "initial": { "opacity": 0, "x": 20 },
+                "whileInView": { "opacity": 1, "x": 0 },
+                "transition": { "duration": 0.6, "delay": 0.2 },
+                "viewport": { "once": true }
+              },
+              "component": "AffiliateLeaderboardWidget",
+              "props": {
+                "limit": 5,
+                "showEarnings": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "healthPlan",
+        "type": "healthPlan",
+        "className": "py-20 bg-gray-50",
+        "content": {
+          "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+          "heading": {
+            "animation": {
+              "initial": { "opacity": 0, "y": 20 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6 },
+              "viewport": { "once": true }
+            },
+            "className": "text-center mb-16",
+            "title": {
+              "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
+              "content": "{{healthPlanTitle}}"
+            },
+            "subtitle": {
+              "className": "text-xl text-gray-600 max-w-3xl mx-auto",
+              "content": "{{healthPlanSubtitle}}"
+            }
+          },
+          "grid": {
+            "className": "grid lg:grid-cols-2 gap-12 items-center",
+            "leftColumn": {
+              "animation": {
+                "initial": { "opacity": 0, "x": -20 },
+                "whileInView": { "opacity": 1, "x": 0 },
+                "transition": { "duration": 0.6 },
+                "viewport": { "once": true }
+              },
+              "className": "space-y-8",
+              "features": [
+                {
+                  "animation": {
+                    "initial": { "opacity": 0, "y": 20 },
+                    "whileInView": { "opacity": 1, "y": 0 },
+                    "transition": { "duration": 0.6, "delay": 0.0 },
+                    "viewport": { "once": true }
+                  },
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "className": "w-16 h-16 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0",
+                    "iconName": "{{healthFeature1Icon}}",
+                    "iconClassName": "w-8 h-8 text-green-600"
+                  },
+                  "content": {
+                    "title": {
+                      "className": "text-xl font-bold text-gray-900 mb-2",
+                      "content": "{{healthFeature1Title}}"
+                    },
+                    "description": {
+                      "className": "text-gray-600",
+                      "content": "{{healthFeature1Description}}"
+                    }
+                  }
+                },
+                {
+                  "animation": {
+                    "initial": { "opacity": 0, "y": 20 },
+                    "whileInView": { "opacity": 1, "y": 0 },
+                    "transition": { "duration": 0.6, "delay": 0.1 },
+                    "viewport": { "once": true }
+                  },
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "className": "w-16 h-16 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0",
+                    "iconName": "{{healthFeature2Icon}}",
+                    "iconClassName": "w-8 h-8 text-green-600"
+                  },
+                  "content": {
+                    "title": {
+                      "className": "text-xl font-bold text-gray-900 mb-2",
+                      "content": "{{healthFeature2Title}}"
+                    },
+                    "description": {
+                      "className": "text-gray-600",
+                      "content": "{{healthFeature2Description}}"
+                    }
+                  }
+                },
+                {
+                  "animation": {
+                    "initial": { "opacity": 0, "y": 20 },
+                    "whileInView": { "opacity": 1, "y": 0 },
+                    "transition": { "duration": 0.6, "delay": 0.2 },
+                    "viewport": { "once": true }
+                  },
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "className": "w-16 h-16 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0",
+                    "iconName": "{{healthFeature3Icon}}",
+                    "iconClassName": "w-8 h-8 text-green-600"
+                  },
+                  "content": {
+                    "title": {
+                      "className": "text-xl font-bold text-gray-900 mb-2",
+                      "content": "{{healthFeature3Title}}"
+                    },
+                    "description": {
+                      "className": "text-gray-600",
+                      "content": "{{healthFeature3Description}}"
+                    }
+                  }
+                },
+                {
+                  "animation": {
+                    "initial": { "opacity": 0, "y": 20 },
+                    "whileInView": { "opacity": 1, "y": 0 },
+                    "transition": { "duration": 0.6, "delay": 0.3 },
+                    "viewport": { "once": true }
+                  },
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "className": "w-16 h-16 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0",
+                    "iconName": "{{healthFeature4Icon}}",
+                    "iconClassName": "w-8 h-8 text-green-600"
+                  },
+                  "content": {
+                    "title": {
+                      "className": "text-xl font-bold text-gray-900 mb-2",
+                      "content": "{{healthFeature4Title}}"
+                    },
+                    "description": {
+                      "className": "text-gray-600",
+                      "content": "{{healthFeature4Description}}"
+                    }
+                  }
+                },
+                {
+                  "animation": {
+                    "initial": { "opacity": 0, "y": 20 },
+                    "whileInView": { "opacity": 1, "y": 0 },
+                    "transition": { "duration": 0.6, "delay": 0.4 },
+                    "viewport": { "once": true }
+                  },
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "className": "w-16 h-16 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0",
+                    "iconName": "{{healthFeature5Icon}}",
+                    "iconClassName": "w-8 h-8 text-green-600"
+                  },
+                  "content": {
+                    "title": {
+                      "className": "text-xl font-bold text-gray-900 mb-2",
+                      "content": "{{healthFeature5Title}}"
+                    },
+                    "description": {
+                      "className": "text-gray-600",
+                      "content": "{{healthFeature5Description}}"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "pricing",
+        "type": "pricing",
+        "className": "py-20 bg-white",
+        "content": {
+          "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+          "component": "PricingPreview"
+        }
+      },
+      {
+        "id": "testimonials",
+        "type": "testimonials",
+        "className": "py-20 bg-blue-50",
+        "content": {
+          "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+          "heading": {
+            "animation": {
+              "initial": { "opacity": 0, "y": 20 },
+              "whileInView": { "opacity": 1, "y": 0 },
+              "transition": { "duration": 0.6 },
+              "viewport": { "once": true }
+            },
+            "className": "text-center mb-16",
+            "title": {
+              "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
+              "content": "{{testimonialsTitle}}"
+            }
+          },
+          "grid": {
+            "className": "grid md:grid-cols-2 lg:grid-cols-3 gap-8",
+            "items": [
+              {
+                "animation": {
+                  "initial": { "opacity": 0, "y": 30 },
+                  "whileInView": { "opacity": 1, "y": 0 },
+                  "transition": { "duration": 0.6, "delay": 0.0 },
+                  "viewport": { "once": true }
+                },
+                "card": {
+                  "className": "h-full",
+                  "stars": {
+                    "className": "flex mb-4",
+                    "count": 5,
+                    "starClassName": "w-5 h-5 text-yellow-400 fill-current"
+                  },
+                  "quote": {
+                    "className": "text-gray-700 mb-6 text-lg",
+                    "content": "{{testimonial1Text}}"
+                  },
+                  "author": {
+                    "className": "flex items-center space-x-3",
+                    "avatar": {
+                      "className": "w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center",
+                      "content": "{{testimonial1Initial}}"
+                    },
+                    "info": {
+                      "name": {
+                        "className": "font-semibold text-gray-900",
+                        "content": "{{testimonial1Author}}"
+                      },
+                      "location": {
+                        "className": "text-gray-600",
+                        "content": "{{testimonial1Location}}"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "animation": {
+                  "initial": { "opacity": 0, "y": 30 },
+                  "whileInView": { "opacity": 1, "y": 0 },
+                  "transition": { "duration": 0.6, "delay": 0.1 },
+                  "viewport": { "once": true }
+                },
+                "card": {
+                  "className": "h-full",
+                  "stars": {
+                    "className": "flex mb-4",
+                    "count": 5,
+                    "starClassName": "w-5 h-5 text-yellow-400 fill-current"
+                  },
+                  "quote": {
+                    "className": "text-gray-700 mb-6 text-lg",
+                    "content": "{{testimonial2Text}}"
+                  },
+                  "author": {
+                    "className": "flex items-center space-x-3",
+                    "avatar": {
+                      "className": "w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center",
+                      "content": "{{testimonial2Initial}}"
+                    },
+                    "info": {
+                      "name": {
+                        "className": "font-semibold text-gray-900",
+                        "content": "{{testimonial2Author}}"
+                      },
+                      "location": {
+                        "className": "text-gray-600",
+                        "content": "{{testimonial2Location}}"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "animation": {
+                  "initial": { "opacity": 0, "y": 30 },
+                  "whileInView": { "opacity": 1, "y": 0 },
+                  "transition": { "duration": 0.6, "delay": 0.2 },
+                  "viewport": { "once": true }
+                },
+                "card": {
+                  "className": "h-full",
+                  "stars": {
+                    "className": "flex mb-4",
+                    "count": 5,
+                    "starClassName": "w-5 h-5 text-yellow-400 fill-current"
+                  },
+                  "quote": {
+                    "className": "text-gray-700 mb-6 text-lg",
+                    "content": "{{testimonial3Text}}"
+                  },
+                  "author": {
+                    "className": "flex items-center space-x-3",
+                    "avatar": {
+                      "className": "w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center",
+                      "content": "{{testimonial3Initial}}"
+                    },
+                    "info": {
+                      "name": {
+                        "className": "font-semibold text-gray-900",
+                        "content": "{{testimonial3Author}}"
+                      },
+                      "location": {
+                        "className": "text-gray-600",
+                        "content": "{{testimonial3Location}}"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "className": "py-20 bg-gradient-to-r from-blue-700 to-green-600",
+        "content": {
+          "container": "max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8",
+          "animation": {
+            "initial": { "opacity": 0, "y": 20 },
+            "whileInView": { "opacity": 1, "y": 0 },
+            "transition": { "duration": 0.6 },
+            "viewport": { "once": true }
+          },
+          "heading": {
+            "className": "text-4xl lg:text-5xl font-bold text-white mb-6",
+            "content": "{{ctaTitle}}"
+          },
+          "subheading": {
+            "className": "text-xl text-blue-100 mb-8",
+            "content": "{{ctaSubtitle}}"
+          },
+          "button": {
+            "className": "{{buttonSize}} {{buttonVariant}}",
+            "content": "{{ctaButtonText}}",
+            "link": "{{ctaButtonLink}}",
+            "icon": "ArrowRight"
+          }
+        }
+      }
+    ]
+  },
+  "components": {
+    "Button": {
+      "base": "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2",
+      "variants": {
+        "primary": "bg-blue-700 hover:bg-blue-800 text-white focus:ring-blue-500",
+        "secondary": "bg-green-600 hover:bg-green-700 text-white focus:ring-green-500",
+        "outline": "border-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white focus:ring-blue-500",
+        "ghost": "text-gray-700 hover:bg-gray-100 focus:ring-gray-500"
+      },
+      "sizes": {
+        "sm": "px-4 py-2 text-sm",
+        "md": "px-6 py-3 text-base",
+        "lg": "px-8 py-4 text-lg"
+      }
+    },
+    "Card": {
+      "base": "bg-white rounded-xl border border-gray-200",
+      "hover": {
+        "scale": 1.02,
+        "boxShadow": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+      },
+      "padding": {
+        "sm": "p-4",
+        "md": "p-6",
+        "lg": "p-8"
+      }
+    }
+  },
+  "animations": {
+    "fadeIn": {
+      "initial": { "opacity": 0 },
+      "animate": { "opacity": 1 },
+      "transition": { "duration": 0.5 }
+    },
+    "slideUp": {
+      "initial": { "opacity": 0, "y": 20 },
+      "animate": { "opacity": 1, "y": 0 },
+      "transition": { "duration": 0.5 }
+    },
+    "slideInLeft": {
+      "initial": { "opacity": 0, "x": -20 },
+      "animate": { "opacity": 1, "x": 0 },
+      "transition": { "duration": 0.5 }
+    },
+    "slideInRight": {
+      "initial": { "opacity": 0, "x": 20 },
+      "animate": { "opacity": 1, "x": 0 },
+      "transition": { "duration": 0.5 }
+    },
+    "staggerChildren": {
+      "initial": { "opacity": 0, "y": 30 },
+      "whileInView": { "opacity": 1, "y": 0 },
+      "transition": { "duration": 0.6, "delay": "{{index * 0.1}}" },
+      "viewport": { "once": true }
+    }
+  },
+  "colorScheme": {
+    "primary": {
+      "50": "#eff6ff",
+      "100": "#dbeafe",
+      "200": "#bfdbfe",
+      "300": "#93c5fd",
+      "400": "#60a5fa",
+      "500": "#3b82f6",
+      "600": "#2563eb",
+      "700": "#1d4ed8",
+      "800": "#1e40af",
+      "900": "#1e3a8a"
+    },
+    "secondary": {
+      "50": "#ecfdf5",
+      "100": "#d1fae5",
+      "200": "#a7f3d0",
+      "300": "#6ee7b7",
+      "400": "#34d399",
+      "500": "#10b981",
+      "600": "#059669",
+      "700": "#047857",
+      "800": "#065f46",
+      "900": "#064e3b"
+    },
+    "gradients": {
+      "heroBackground": "bg-gradient-to-br from-blue-900 via-blue-800 to-green-700",
+      "ctaBackground": "bg-gradient-to-r from-blue-700 to-green-600",
+      "cardGradient": "bg-gradient-to-br from-blue-100 to-green-100",
+      "avatarGradient": "bg-gradient-to-br from-blue-500 to-green-500"
+    }
+  },
+  "typography": {
+    "headings": {
+      "h1": "text-5xl lg:text-7xl font-bold leading-tight",
+      "h2": "text-4xl lg:text-5xl font-bold",
+      "h3": "text-2xl font-bold",
+      "h4": "text-xl font-semibold"
+    },
+    "body": {
+      "large": "text-xl",
+      "medium": "text-base",
+      "small": "text-sm"
+    },
+    "colors": {
+      "heading": "text-gray-900",
+      "body": "text-gray-600",
+      "light": "text-gray-500",
+      "white": "text-white",
+      "blue": "text-blue-100"
+    }
+  },
+  "spacing": {
+    "sections": {
+      "default": "py-20",
+      "compact": "py-16",
+      "hero": "py-20"
+    },
+    "containers": {
+      "default": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "narrow": "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8",
+      "text": "max-w-3xl mx-auto"
+    },
+    "gaps": {
+      "xs": "gap-2",
+      "sm": "gap-4",
+      "md": "gap-6",
+      "lg": "gap-8",
+      "xl": "gap-12"
+    }
+  },
+  "responsiveBreakpoints": {
+    "sm": "640px",
+    "md": "768px", 
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1536px"
+  },
+  "interactiveStates": {
+    "hover": {
+      "scale": "hover:scale-105",
+      "shadow": "hover:shadow-lg",
+      "opacity": "hover:opacity-90",
+      "brightness": "hover:brightness-110"
+    },
+    "focus": {
+      "ring": "focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+      "outline": "focus:outline-none"
+    },
+    "active": {
+      "scale": "active:scale-95"
+    }
+  },
+  "contentPlaceholders": {
+    "hero": {
+      "title": "Flexible Healthcare Plans for Brazilians in the USA",
+      "subtitle": "Join thousands of families who have found quality health sharing solutions",
+      "primaryButtonText": "View Plans",
+      "primaryButtonLink": "/plans",
+      "secondaryButtonText": "Learn More",
+      "secondaryButtonLink": "/about",
+      "cardTitle": "Join Today",
+      "cardSubtitle": "Start your application in minutes",
+      "step1": "Quick 5-minute signup",
+      "step2": "Choose your perfect plan", 
+      "step3": "Get coverage immediately",
+      "cardButtonText": "Get Started",
+      "cardButtonLink": "/enrollment"
+    },
+    "stats": {
+      "stat1Value": "50,000+",
+      "stat1Label": "Active Members",
+      "stat2Value": "98%",
+      "stat2Label": "Satisfaction Rate",
+      "stat3Value": "$2.5B+",
+      "stat3Label": "Medical Bills Shared",
+      "stat4Value": "24/7",
+      "stat4Label": "Support Available"
+    },
+    "features": {
+      "featuresTitle": "Why Choose SaudeMAX?",
+      "featuresSubtitle": "Discover the benefits that make SaudeMAX the preferred choice for healthcare",
+      "feature1Icon": "Shield",
+      "feature1Title": "Affordable Rates",
+      "feature1Description": "Save up to 70% compared to traditional insurance",
+      "feature2Icon": "Users", 
+      "feature2Title": "Strong Community",
+      "feature2Description": "Join a caring community of health-conscious members",
+      "feature3Icon": "Heart",
+      "feature3Title": "Concierge Support",
+      "feature3Description": "Personal guidance to navigate your healthcare plan"
+    },
+    "affiliate": {
+      "affiliateTitle": "Top Affiliate Partners",
+      "affiliateSubtitle": "Join our growing network of affiliate partners who are helping more people access quality healthcare",
+      "affiliateLeftTitle": "Become a SaudeMAX Affiliate",
+      "affiliateLeftDescription": "Join our affiliate program and earn competitive commissions while helping others access quality healthcare solutions.",
+      "affiliateFeature1Title": "Earn up to 15% commission",
+      "affiliateFeature1Description": "On every successful referral",
+      "affiliateFeature2Title": "Recurring revenue",
+      "affiliateFeature2Description": "Earn from monthly subscriptions",
+      "affiliateFeature3Title": "Marketing materials provided",
+      "affiliateFeature3Description": "Get everything you need to succeed",
+      "affiliateButtonText": "Become an Affiliate",
+      "affiliateButtonLink": "/affiliate/register"
+    },
+    "healthPlan": {
+      "healthPlanTitle": "Health Plan for Brazilians",
+      "healthPlanSubtitle": "Comprehensive healthcare coverage designed specifically for the Brazilian community",
+      "healthFeature1Icon": "Ambulance",
+      "healthFeature1Title": "Hospital Coverage",
+      "healthFeature1Description": "Say goodbye to expensive and restrictive options.",
+      "healthFeature2Icon": "Stethoscope",
+      "healthFeature2Title": "Telemedicine",
+      "healthFeature2Description": "Fast online consultations.",
+      "healthFeature3Icon": "DollarSign",
+      "healthFeature3Title": "Exam Discounts",
+      "healthFeature3Description": "Discounts on exams and laboratories.",
+      "healthFeature4Icon": "Scissors",
+      "healthFeature4Title": "Surgeries",
+      "healthFeature4Description": "Pre-approved surgeries can be performed in Brazil or the United States.",
+      "healthFeature5Icon": "UserCheck",
+      "healthFeature5Title": "Fast Approval",
+      "healthFeature5Description": "No need for Social Security or Credit Score to be approved."
+    },
+    "testimonials": {
+      "testimonialsTitle": "What Our Members Say",
+      "testimonial1Text": "SaudeMAX saved our family thousands while providing excellent coverage.",
+      "testimonial1Author": "Maria Santos",
+      "testimonial1Location": "São Paulo, SP",
+      "testimonial1Initial": "M",
+      "testimonial2Text": "SaudeMAX saved our family thousands while providing excellent coverage.",
+      "testimonial2Author": "Maria Santos", 
+      "testimonial2Location": "São Paulo, SP",
+      "testimonial2Initial": "M",
+      "testimonial3Text": "SaudeMAX saved our family thousands while providing excellent coverage.",
+      "testimonial3Author": "Maria Santos",
+      "testimonial3Location": "São Paulo, SP", 
+      "testimonial3Initial": "M"
+    },
+    "cta": {
+      "ctaTitle": "Ready to Join Our Community?",
+      "ctaSubtitle": "Start your application today and Cut Your Medical Costs and Gain Peace of Mind",
+      "ctaButtonText": "Start Application",
+      "ctaButtonLink": "/enrollment"
+    }
+  },
+  "designTokens": {
+    "borderRadius": {
+      "sm": "rounded-md",
+      "default": "rounded-lg",
+      "lg": "rounded-xl",
+      "xl": "rounded-2xl",
+      "full": "rounded-full"
+    },
+    "shadows": {
+      "sm": "shadow-sm",
+      "default": "shadow",
+      "md": "shadow-md",
+      "lg": "shadow-lg",
+      "xl": "shadow-xl",
+      "2xl": "shadow-2xl"
+    },
+    "transitions": {
+      "fast": "transition-all duration-200",
+      "medium": "transition-all duration-300",
+      "slow": "transition-all duration-500"
+    }
+  },
+  "buildInstructions": {
+    "framework": "React with TypeScript",
+    "styling": "Tailwind CSS",
+    "animations": "Framer Motion",
+    "icons": "Lucide React",
+    "requirements": [
+      "Install framer-motion for animations",
+      "Install lucide-react for icons", 
+      "Configure Tailwind CSS with provided color scheme",
+      "Use motion.div components for animations",
+      "Replace {{placeholder}} values with actual content",
+      "Implement responsive design using provided breakpoints",
+      "Use provided button and card component variants"
+    ]
+  }
+}
