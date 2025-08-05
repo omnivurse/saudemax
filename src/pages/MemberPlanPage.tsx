@@ -96,10 +96,3 @@ export const MemberPlanPage: React.FC = () => {
     </MemberPageLayout>
   );
 };
-            </div>
-          </motion.div>
-        </main>
-      </div>
-    </div>
-  );
-};
