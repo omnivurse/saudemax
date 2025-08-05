@@ -76,24 +76,6 @@ export const MyPlan: React.FC = () => {
     fetchMemberPlan();
   }, []);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'suspended': return 'bg-orange-100 text-orange-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const formatDate = (dateString: string) => {
-    try {
-      return format(new Date(dateString), 'MMMM d, yyyy');
-    } catch (e) {
-      return dateString;
-    }
-  };
-
   // Get IUA level from plan_id if available
   const getIuaLevel = (planId?: string) => {
     if (!planId) return '1500'; // Default value

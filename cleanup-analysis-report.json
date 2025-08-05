@@ -1,0 +1,157 @@
+{
+  "cleanup_analysis": {
+    "scan_timestamp": "2025-01-27T00:00:00Z",
+    "project_name": "SaudeMAX Healthcare Platform",
+    "total_files_scanned": 89,
+    "restricted_files_count": 67,
+    "analyzable_files_count": 22,
+    
+    "duplicate_analysis": {
+      "file_duplicates": [
+        {
+          "type": "exact_content_match",
+          "files": [
+            "src/components/admin/EmailTemplateEditor.tsx",
+            "src/components/admin/EmailTemplateList.tsx"
+          ],
+          "issue": "Both contain extractPlaceholders function with identical logic",
+          "recommendation": "Extract to shared utility file",
+          "risk_level": "low"
+        },
+        {
+          "type": "near_duplicate_components", 
+          "files": [
+            "src/pages/AdvisorDashboard.tsx",
+            "src/pages/AffiliateDashboard.tsx"
+          ],
+          "issue": "AdvisorDashboard is just a wrapper around AffiliateDashboard",
+          "recommendation": "Remove wrapper, use single component",
+          "risk_level": "low"
+        }
+      ],
+      
+      "function_duplicates": [
+        {
+          "function_name": "extractPlaceholders",
+          "locations": [
+            "src/components/admin/EmailTemplateEditor.tsx:line_unknown",
+            "src/components/admin/EmailTemplateList.tsx:line_unknown"
+          ],
+          "logic_similarity": "100%",
+          "recommendation": "Move to src/lib/emailUtils.ts",
+          "risk_level": "low"
+        },
+        {
+          "function_name": "formatDate",
+          "locations": [
+            "src/components/member/MyPlan.tsx",
+            "src/components/member/BillingModule.tsx", 
+            "src/components/member/DocumentsModule.tsx",
+            "src/components/member/SupportMessagesModule.tsx"
+          ],
+          "logic_similarity": "95%",
+          "recommendation": "Consolidate into src/lib/dateUtils.ts",
+          "risk_level": "low"
+        },
+        {
+          "function_name": "getStatusColor",
+          "locations": [
+            "src/components/member/MyPlan.tsx",
+            "src/components/member/BillingModule.tsx",
+            "src/pages/MemberShareRequestsPage.tsx"
+          ],
+          "logic_similarity": "90%",
+          "recommendation": "Move to src/lib/statusUtils.ts",
+          "risk_level": "low"
+        }
+      ],
+      
+      "component_pattern_duplicates": [
+        {
+          "pattern": "sidebar_with_mobile_menu",
+          "components": [
+            "src/pages/MemberDashboard.tsx",
+            "src/pages/SupportPage.tsx",
+            "src/pages/BillingHistory.tsx",
+            "src/pages/DocumentsCenter.tsx",
+            "src/pages/MemberPlanPage.tsx",
+            "src/pages/NotificationsPage.tsx",
+            "src/pages/MemberShareRequestsPage.tsx",
+            "src/pages/AccountSettings.tsx"
+          ],
+          "issue": "Identical sidebar and mobile menu logic repeated 8 times",
+          "recommendation": "Create reusable MemberLayout component",
+          "risk_level": "medium"
+        }
+      ]
+    },
+    
+    "cleanup_recommendations": {
+      "immediate_actions": [
+        {
+          "action": "extract_shared_utilities",
+          "description": "Create shared utility files for common functions",
+          "files_to_create": [
+            "src/lib/emailUtils.ts",
+            "src/lib/dateUtils.ts", 
+            "src/lib/statusUtils.ts"
+          ],
+          "space_saved_estimate": "2-3KB",
+          "maintainability_improvement": "high"
+        },
+        {
+          "action": "remove_duplicate_components",
+          "description": "Remove unnecessary wrapper components",
+          "files_to_remove": [
+            "src/pages/AdvisorDashboard.tsx"
+          ],
+          "space_saved_estimate": "1KB",
+          "maintainability_improvement": "medium"
+        },
+        {
+          "action": "create_member_layout",
+          "description": "Extract common member page layout into reusable component",
+          "files_to_create": [
+            "src/components/layout/MemberPageLayout.tsx"
+          ],
+          "files_to_modify": [
+            "src/pages/MemberDashboard.tsx",
+            "src/pages/SupportPage.tsx",
+            "src/pages/BillingHistory.tsx",
+            "src/pages/DocumentsCenter.tsx",
+            "src/pages/MemberPlanPage.tsx",
+            "src/pages/NotificationsPage.tsx",
+            "src/pages/MemberShareRequestsPage.tsx"
+          ],
+          "space_saved_estimate": "15-20KB",
+          "maintainability_improvement": "very_high"
+        }
+      ],
+      
+      "optimization_opportunities": [
+        {
+          "type": "bundle_size_reduction",
+          "description": "Remove unused imports and dead code",
+          "estimated_impact": "5-10% bundle size reduction"
+        },
+        {
+          "type": "type_consolidation", 
+          "description": "Consolidate similar TypeScript interfaces",
+          "estimated_impact": "Better type safety and IntelliSense"
+        }
+      ]
+    },
+    
+    "restricted_files_analysis": {
+      "migration_files_count": 67,
+      "note": "Cannot analyze or modify Supabase migration files due to restrictions",
+      "impact": "Some duplicate SQL functions may remain unanalyzed"
+    },
+    
+    "safety_measures": {
+      "backup_strategy": "Git-based backups before any modifications",
+      "testing_requirements": "Verify all imports and component functionality after changes",
+      "rollback_plan": "Git revert if any functionality breaks"
+    }
+  }
+}

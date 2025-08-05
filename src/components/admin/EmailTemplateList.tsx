@@ -15,6 +15,7 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { supabase } from '../../lib/supabase';
 import { EmailTemplateEditor } from './EmailTemplateEditor';
+import { extractPlaceholders, generateSampleData, replacePlaceholders } from '../../lib/emailUtils';
 
 interface EmailTemplate {
   id: string;
@@ -182,50 +183,11 @@ export const EmailTemplateList: React.FC = () => {
     
     // Generate sample data for preview
     const placeholders = extractPlaceholders(template.html_body);
-    const sampleData: Record<string, string> = {};
-    
-    placeholders.forEach(placeholder => {
-      // Generate appropriate sample data based on placeholder name
-      if (placeholder.includes('name')) {
-        sampleData[placeholder] = 'John Doe';
-      } else if (placeholder.includes('email')) {
-        sampleData[placeholder] = 'john.doe@example.com';
-      } else if (placeholder.includes('amount')) {
-        sampleData[placeholder] = '100.00';
-      } else if (placeholder.includes('date')) {
-        sampleData[placeholder] = new Date().toLocaleDateString();
-      } else if (placeholder.includes('code')) {
-        sampleData[placeholder] = 'ABC123';
-      } else if (placeholder.includes('link') || placeholder.includes('url')) {
-        sampleData[placeholder] = 'https://example.com';
-      } else if (placeholder.includes('status')) {
-        sampleData[placeholder] = 'active';
-      } else {
-        sampleData[placeholder] = `[${placeholder}]`;
-      }
-    });
-    
-    setPreviewData(sampleData);
-  };
-
-  const extractPlaceholders = (template: string): string[] => {
-    const placeholderRegex = /{{([^{}]+)}}/g;
-    const matches = template.match(placeholderRegex) || [];
-    return matches
-      .map(match => match.replace(/{{|}}/g, '').trim())
-      .filter(placeholder => !placeholder.startsWith('#') && !placeholder.startsWith('/'));
+    setPreviewData(generateSampleData(placeholders));
   };
 
   const renderPreview = (template: EmailTemplate) => {
-    let previewHtml = template.html_body;
-    
-    // Replace placeholders with preview data
-    Object.entries(previewData).forEach(([key, value]) => {
-      const regex = new RegExp(`{{\\s*${key}\\s*}}`, 'g');
-      previewHtml = previewHtml.replace(regex, value);
-    });
-    
-    return previewHtml;
+    return replacePlaceholders(template.html_body, previewData);
   };
 
   const handlePreviewDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -13,7 +13,6 @@ import { AboutPage } from './pages/AboutPage';
 import { EnrollmentWizard } from './pages/EnrollmentWizard';
 import { PaymentPage } from './pages/PaymentPage';
 import { LoginPage } from './pages/LoginPage';
-import { AdvisorDashboard } from './pages/AdvisorDashboard';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { AdminWithdrawalQueue } from './pages/AdminWithdrawalQueue';
 import { AdminLeaderboard } from './pages/AdminLeaderboard';
@@ -260,8 +259,8 @@ function App() {
           <Route 
             path="/advisor" 
             element={
-              <ProtectedRoute allowedRoles={['advisor']}>
-                <AdvisorDashboard />
+              <ProtectedRoute allowedRoles={['advisor', 'affiliate']}>
+                <AffiliateDashboard />
               </ProtectedRoute>
             } 
           />

@@ -333,7 +333,7 @@ export const BillingModule: React.FC = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center w-fit space-x-1 ${getStatusColor(record.status)}`}>
-                            <StatusIcon />
+                            {React.createElement(require('lucide-react')[getStatusIcon(record.status)])}
                             <span>{record.status.charAt(0).toUpperCase() + record.status.slice(1)}</span>
                           </span>
                         </td>

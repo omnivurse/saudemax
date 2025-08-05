@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
+import { extractPlaceholders, validateTemplateSyntax, generateSampleData } from '../../lib/emailUtils';
 
 interface EmailTemplateEditorProps {
   templateId?: string;
@@ -109,16 +110,9 @@ export const EmailTemplateEditor: React.FC<EmailTemplateEditorProps> = ({
       }
       
       // Validate template syntax
-      try {
-        // Check for unclosed mustache tags
-        const openTags = (formData.html_body.match(/{{\s*[^}]+/g) || []).length;
-        const closeTags = (formData.html_body.match(/}}/g) || []).length;
-        
-        if (openTags !== closeTags) {
-          throw new Error('Template has unclosed mustache tags');
-        }
-      } catch (syntaxError: any) {
-        throw new Error(`Template syntax error: ${syntaxError.message}`);
+      const syntaxValidation = validateTemplateSyntax(formData.html_body);
+      if (!syntaxValidation.isValid) {
+        throw new Error(syntaxValidation.error);
       }
       
       setSaving(true);
