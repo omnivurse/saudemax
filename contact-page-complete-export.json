@@ -1,25 +1,45 @@
 {
   "meta": {
     "title": "SaudeMAX Contact Page Complete Design Export",
-    "description": "Full contact page design system export including layout, forms, animations, and business logic",
+    "description": "Full contact page design system export including layout, forms, animations, and business logic for migration to another Bolt project",
     "version": "1.0.0",
     "framework": "React + TypeScript + Tailwind CSS + Framer Motion",
-    "exportDate": "2025-01-27T00:00:00Z"
+    "exportDate": "2025-01-27T00:00:00Z",
+    "sourceProject": "SaudeMAX Healthcare Platform"
   },
   
   "dependencies": {
     "required": [
       "react",
+      "react-dom", 
+      "typescript",
       "framer-motion",
       "lucide-react",
-      "tailwindcss"
+      "tailwindcss",
+      "@tailwindcss/forms"
     ],
     "versions": {
       "react": "^18.3.1",
+      "react-dom": "^18.3.1",
+      "typescript": "^5.2.2",
       "framer-motion": "^11.0.6",
       "lucide-react": "^0.344.0",
-      "tailwindcss": "^3.4.1"
-    }
+      "tailwindcss": "^3.4.1",
+      "@tailwindcss/forms": "^0.5.7"
+    },
+    "installCommand": "npm install react react-dom typescript framer-motion lucide-react tailwindcss @tailwindcss/forms"
+  },
+  
+  "fileStructure": {
+    "requiredFiles": [
+      "src/pages/ContactPage.tsx",
+      "src/components/ui/Button.tsx", 
+      "src/components/ui/Card.tsx",
+      "tailwind.config.js",
+      "src/index.css"
+    ],
+    "directory": "src/",
+    "componentPath": "src/pages/ContactPage.tsx"
   },
   
   "pageStructure": {
@@ -31,7 +51,7 @@
     "sections": [
       {
         "id": "header",
-        "type": "header",
+        "type": "pageHeader",
         "component": "motion.div",
         "animation": {
           "initial": { "opacity": 0, "y": 20 },
@@ -41,10 +61,12 @@
         "className": "text-center mb-12",
         "content": {
           "heading": {
+            "element": "h1",
             "className": "text-4xl lg:text-5xl font-bold text-gray-900 mb-4",
             "text": "{{pageTitle}}"
           },
           "subheading": {
+            "element": "p", 
             "className": "text-xl text-gray-600 max-w-3xl mx-auto",
             "text": "{{pageSubtitle}}"
           }
@@ -53,8 +75,9 @@
       
       {
         "id": "mainContent",
-        "type": "twoColumn",
+        "type": "twoColumnLayout",
         "className": "grid lg:grid-cols-2 gap-12",
+        
         "leftColumn": {
           "component": "motion.div",
           "animation": {
@@ -64,137 +87,178 @@
           },
           "card": {
             "className": "h-full",
+            "padding": "p-6",
             "title": {
+              "element": "h2",
               "className": "text-2xl font-bold text-gray-900 mb-8",
-              "text": "{{contactSectionTitle}}"
+              "text": "{{contactDetailsTitle}}"
             },
-            "contactMethods": [
-              {
-                "id": "company",
-                "className": "flex items-start space-x-4",
-                "icon": {
-                  "className": "w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0",
-                  "iconName": "MessageCircle",
-                  "iconClassName": "w-6 h-6 text-blue-700"
-                },
-                "content": {
-                  "title": {
-                    "className": "font-semibold text-gray-900 mb-1",
-                    "text": "{{companyLabel}}"
+            "contactMethods": {
+              "className": "space-y-6",
+              "items": [
+                {
+                  "id": "company",
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "wrapper": "w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0",
+                    "iconName": "MessageCircle",
+                    "iconClassName": "w-6 h-6 text-blue-700"
                   },
-                  "value": {
-                    "className": "text-gray-600",
-                    "text": "{{companyName}}"
+                  "content": {
+                    "title": {
+                      "element": "h3",
+                      "className": "font-semibold text-gray-900 mb-1",
+                      "text": "{{companyLabel}}"
+                    },
+                    "value": {
+                      "element": "p",
+                      "className": "text-gray-600",
+                      "text": "{{companyName}}"
+                    }
+                  }
+                },
+                {
+                  "id": "phone",
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "wrapper": "w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0",
+                    "iconName": "Phone",
+                    "iconClassName": "w-6 h-6 text-green-700"
+                  },
+                  "content": {
+                    "title": {
+                      "element": "h3",
+                      "className": "font-semibold text-gray-900 mb-1",
+                      "text": "{{phoneLabel}}"
+                    },
+                    "value": {
+                      "element": "a",
+                      "className": "text-blue-700 hover:text-blue-800 transition-colors font-medium",
+                      "href": "tel:{{phoneNumberHref}}",
+                      "text": "{{phoneNumberDisplay}}"
+                    }
+                  }
+                },
+                {
+                  "id": "email",
+                  "className": "flex items-start space-x-4", 
+                  "icon": {
+                    "wrapper": "w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0",
+                    "iconName": "Mail",
+                    "iconClassName": "w-6 h-6 text-purple-700"
+                  },
+                  "content": {
+                    "title": {
+                      "element": "h3",
+                      "className": "font-semibold text-gray-900 mb-1",
+                      "text": "{{emailLabel}}"
+                    },
+                    "value": {
+                      "element": "a",
+                      "className": "text-blue-700 hover:text-blue-800 transition-colors font-medium",
+                      "href": "mailto:{{emailAddress}}",
+                      "text": "{{emailAddressDisplay}}"
+                    }
+                  }
+                },
+                {
+                  "id": "hours",
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "wrapper": "w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0",
+                    "iconName": "Clock",
+                    "iconClassName": "w-6 h-6 text-orange-700"
+                  },
+                  "content": {
+                    "title": {
+                      "element": "h3",
+                      "className": "font-semibold text-gray-900 mb-1",
+                      "text": "{{hoursLabel}}"
+                    },
+                    "value": {
+                      "element": "div",
+                      "className": "text-gray-600 space-y-1",
+                      "items": [
+                        {
+                          "element": "p",
+                          "text": "{{mondayFridayHours}}"
+                        },
+                        {
+                          "element": "p", 
+                          "text": "{{saturdayHours}}"
+                        },
+                        {
+                          "element": "p",
+                          "text": "{{sundayHours}}"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": "address",
+                  "className": "flex items-start space-x-4",
+                  "icon": {
+                    "wrapper": "w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0",
+                    "iconName": "MapPin",
+                    "iconClassName": "w-6 h-6 text-red-700"
+                  },
+                  "content": {
+                    "title": {
+                      "element": "h3",
+                      "className": "font-semibold text-gray-900 mb-1",
+                      "text": "{{addressLabel}}"
+                    },
+                    "value": {
+                      "element": "div",
+                      "className": "text-gray-600",
+                      "items": [
+                        {
+                          "element": "p",
+                          "text": "{{addressLine1}}"
+                        },
+                        {
+                          "element": "p",
+                          "text": "{{addressLine2}}"
+                        }
+                      ]
+                    }
                   }
                 }
-              },
-              {
-                "id": "phone",
-                "className": "flex items-start space-x-4",
-                "icon": {
-                  "className": "w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0",
-                  "iconName": "Phone",
-                  "iconClassName": "w-6 h-6 text-green-700"
-                },
-                "content": {
-                  "title": {
-                    "className": "font-semibold text-gray-900 mb-1",
-                    "text": "{{phoneLabel}}"
-                  },
-                  "value": {
-                    "className": "text-blue-700 hover:text-blue-800 transition-colors font-medium",
-                    "text": "{{phoneNumber}}",
-                    "href": "tel:{{phoneNumberHref}}"
-                  }
-                }
-              },
-              {
-                "id": "email",
-                "className": "flex items-start space-x-4",
-                "icon": {
-                  "className": "w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0",
-                  "iconName": "Mail",
-                  "iconClassName": "w-6 h-6 text-purple-700"
-                },
-                "content": {
-                  "title": {
-                    "className": "font-semibold text-gray-900 mb-1",
-                    "text": "{{emailLabel}}"
-                  },
-                  "value": {
-                    "className": "text-blue-700 hover:text-blue-800 transition-colors font-medium",
-                    "text": "{{emailAddress}}",
-                    "href": "mailto:{{emailAddress}}"
-                  }
-                }
-              },
-              {
-                "id": "hours",
-                "className": "flex items-start space-x-4",
-                "icon": {
-                  "className": "w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0",
-                  "iconName": "Clock",
-                  "iconClassName": "w-6 h-6 text-orange-700"
-                },
-                "content": {
-                  "title": {
-                    "className": "font-semibold text-gray-900 mb-1",
-                    "text": "{{hoursLabel}}"
-                  },
-                  "value": {
-                    "className": "text-gray-600 space-y-1",
-                    "items": [
-                      "{{mondayFridayHours}}",
-                      "{{saturdayHours}}",
-                      "{{sundayHours}}"
-                    ]
-                  }
-                }
-              },
-              {
-                "id": "address",
-                "className": "flex items-start space-x-4",
-                "icon": {
-                  "className": "w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0",
-                  "iconName": "MapPin",
-                  "iconClassName": "w-6 h-6 text-red-700"
-                },
-                "content": {
-                  "title": {
-                    "className": "font-semibold text-gray-900 mb-1",
-                    "text": "{{addressLabel}}"
-                  },
-                  "value": {
-                    "className": "text-gray-600",
-                    "lines": [
-                      "{{addressLine1}}",
-                      "{{addressLine2}}"
-                    ]
-                  }
-                }
-              }
-            ],
+              ]
+            },
             "quickContactSection": {
               "className": "mt-8 pt-8 border-t border-gray-200",
               "title": {
+                "element": "h3",
                 "className": "font-semibold text-gray-900 mb-4",
                 "text": "{{quickContactTitle}}"
               },
               "buttons": {
                 "className": "flex flex-col sm:flex-row gap-3",
                 "callButton": {
+                  "element": "a",
                   "className": "flex-1 inline-flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors",
                   "href": "tel:{{phoneNumberHref}}",
-                  "icon": "Phone",
-                  "iconClassName": "w-4 h-4 mr-2",
-                  "text": "{{callButtonText}}"
+                  "content": {
+                    "icon": {
+                      "iconName": "Phone",
+                      "className": "w-4 h-4 mr-2"
+                    },
+                    "text": "{{callButtonText}}"
+                  }
                 },
                 "emailButton": {
+                  "element": "a",
                   "className": "flex-1 inline-flex items-center justify-center px-4 py-3 border border-blue-700 text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors",
                   "href": "mailto:{{emailAddress}}",
-                  "icon": "Mail",
-                  "iconClassName": "w-4 h-4 mr-2",
-                  "text": "{{emailButtonText}}"
+                  "content": {
+                    "icon": {
+                      "iconName": "Mail",
+                      "className": "w-4 h-4 mr-2"
+                    },
+                    "text": "{{emailButtonText}}"
+                  }
                 }
               }
             }
@@ -210,20 +274,24 @@
           },
           "card": {
             "className": "h-full",
+            "padding": "p-6",
             "title": {
+              "element": "h3",
               "className": "text-2xl font-bold text-gray-900 mb-6",
               "text": "{{formTitle}}"
             },
             "statusMessages": {
               "success": {
                 "className": "mb-6 p-4 bg-green-50 border border-green-200 rounded-lg",
+                "condition": "submitStatus === 'success'",
                 "content": {
                   "className": "text-green-800 font-medium",
                   "text": "{{successMessage}}"
                 }
               },
               "error": {
-                "className": "mb-6 p-4 bg-red-50 border border-red-200 rounded-lg",
+                "className": "mb-6 p-4 bg-red-50 border border-red-200 rounded-lg", 
+                "condition": "submitStatus === 'error'",
                 "content": {
                   "className": "text-red-800 font-medium",
                   "text": "{{errorMessage}}"
@@ -231,67 +299,102 @@
               }
             },
             "form": {
+              "element": "form",
               "className": "space-y-6",
+              "onSubmit": "handleSubmit",
               "fields": [
                 {
                   "id": "name",
                   "type": "text",
                   "required": true,
+                  "wrapper": "div",
                   "label": {
+                    "element": "label",
+                    "htmlFor": "name",
                     "className": "block text-sm font-medium text-gray-700 mb-2",
                     "text": "{{nameLabel}}"
                   },
                   "input": {
+                    "element": "input",
+                    "type": "text",
+                    "id": "name",
+                    "name": "name",
                     "className": "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all",
-                    "placeholder": "{{namePlaceholder}}"
+                    "placeholder": "{{namePlaceholder}}",
+                    "required": true,
+                    "onChange": "handleInputChange"
                   }
                 },
                 {
                   "id": "email",
                   "type": "email",
                   "required": true,
+                  "wrapper": "div",
                   "label": {
+                    "element": "label",
+                    "htmlFor": "email",
                     "className": "block text-sm font-medium text-gray-700 mb-2",
                     "text": "{{emailLabel}}"
                   },
                   "input": {
+                    "element": "input",
+                    "type": "email",
+                    "id": "email", 
+                    "name": "email",
                     "className": "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all",
-                    "placeholder": "{{emailPlaceholder}}"
+                    "placeholder": "{{emailPlaceholder}}",
+                    "required": true,
+                    "onChange": "handleInputChange"
                   }
                 },
                 {
                   "id": "message",
                   "type": "textarea",
                   "required": true,
-                  "rows": 5,
+                  "wrapper": "div",
                   "label": {
+                    "element": "label",
+                    "htmlFor": "message",
                     "className": "block text-sm font-medium text-gray-700 mb-2",
                     "text": "{{messageLabel}}"
                   },
                   "input": {
+                    "element": "textarea",
+                    "id": "message",
+                    "name": "message",
+                    "rows": 5,
                     "className": "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-vertical",
-                    "placeholder": "{{messagePlaceholder}}"
+                    "placeholder": "{{messagePlaceholder}}",
+                    "required": true,
+                    "onChange": "handleInputChange"
                   }
                 }
               ],
               "submitButton": {
+                "element": "Button",
+                "type": "submit",
                 "className": "w-full",
                 "variant": "primary",
-                "loadingStates": {
-                  "idle": "{{submitButtonText}}",
-                  "submitting": "{{submittingText}}"
-                },
-                "icon": {
-                  "name": "Send",
-                  "className": "w-4 h-4 mr-2"
+                "loading": "isSubmitting",
+                "disabled": "isSubmitting",
+                "content": {
+                  "icon": {
+                    "iconName": "Send",
+                    "className": "w-4 h-4 mr-2"
+                  },
+                  "text": {
+                    "idle": "{{submitButtonText}}",
+                    "loading": "{{submittingText}}"
+                  }
                 }
               }
             },
             "responseTimeNote": {
               "className": "mt-6 pt-6 border-t border-gray-200",
               "content": {
+                "element": "p",
                 "className": "text-sm text-gray-600",
-                "text": "{{responseTimeNote}}"
+                "html": "{{responseTimeNote}}"
               }
             }
           }
@@ -309,25 +412,40 @@
         },
         "className": "mt-12",
         "card": {
+          "padding": "p-6",
           "title": {
+            "element": "h3",
             "className": "text-xl font-bold text-gray-900 mb-6",
             "text": "{{mapSectionTitle}}"
           },
-          "placeholder": {
+          "mapContainer": {
             "className": "bg-gray-100 rounded-lg h-64 flex items-center justify-center",
-            "content": {
+            "placeholder": {
               "className": "text-center",
               "icon": {
-                "name": "MapPin",
+                "iconName": "MapPin",
                 "className": "w-12 h-12 text-gray-400 mx-auto mb-4"
               },
               "mainText": {
+                "element": "p",
                 "className": "text-gray-600",
                 "text": "{{mapPlaceholderText}}"
               },
               "subText": {
+                "element": "p", 
                 "className": "text-sm text-gray-500 mt-2",
                 "text": "{{mapSubText}}"
+              }
+            },
+            "googleMapsIntegration": {
+              "iframe": {
+                "src": "{{googleMapsEmbedUrl}}",
+                "width": "100%",
+                "height": "256",
+                "style": "border:0",
+                "allowfullscreen": "",
+                "loading": "lazy",
+                "referrerpolicy": "no-referrer-when-downgrade"
               }
             }
           }
@@ -345,7 +463,9 @@
         },
         "className": "mt-12",
         "card": {
+          "padding": "p-6",
           "title": {
+            "element": "h3",
             "className": "text-xl font-bold text-gray-900 mb-6 text-center",
             "text": "{{supportOptionsTitle}}"
           },
@@ -356,66 +476,78 @@
                 "id": "liveChat",
                 "className": "text-center",
                 "icon": {
-                  "className": "w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4",
+                  "wrapper": "w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4",
                   "iconName": "MessageCircle",
                   "iconClassName": "w-8 h-8 text-blue-700"
                 },
                 "title": {
+                  "element": "h4",
                   "className": "font-semibold text-gray-900 mb-2",
                   "text": "{{liveChatTitle}}"
                 },
                 "description": {
+                  "element": "p",
                   "className": "text-gray-600 text-sm mb-4",
                   "text": "{{liveChatDescription}}"
                 },
                 "button": {
+                  "element": "Button",
                   "variant": "outline",
                   "size": "sm",
-                  "text": "{{liveChatButtonText}}"
+                  "text": "{{liveChatButtonText}}",
+                  "onClick": "{{liveChatAction}}"
                 }
               },
               {
                 "id": "memberPortal",
                 "className": "text-center",
                 "icon": {
-                  "className": "w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4",
+                  "wrapper": "w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4",
                   "iconName": "Phone",
                   "iconClassName": "w-8 h-8 text-green-700"
                 },
                 "title": {
+                  "element": "h4",
                   "className": "font-semibold text-gray-900 mb-2",
                   "text": "{{memberPortalTitle}}"
                 },
                 "description": {
+                  "element": "p",
                   "className": "text-gray-600 text-sm mb-4",
                   "text": "{{memberPortalDescription}}"
                 },
                 "button": {
-                  "variant": "outline",
+                  "element": "Button",
+                  "variant": "outline", 
                   "size": "sm",
-                  "text": "{{memberPortalButtonText}}"
+                  "text": "{{memberPortalButtonText}}",
+                  "onClick": "{{memberPortalAction}}"
                 }
               },
               {
                 "id": "faqCenter",
                 "className": "text-center",
                 "icon": {
-                  "className": "w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4",
+                  "wrapper": "w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4",
                   "iconName": "Mail",
                   "iconClassName": "w-8 h-8 text-purple-700"
                 },
                 "title": {
+                  "element": "h4",
                   "className": "font-semibold text-gray-900 mb-2",
                   "text": "{{faqCenterTitle}}"
                 },
                 "description": {
+                  "element": "p",
                   "className": "text-gray-600 text-sm mb-4",
                   "text": "{{faqCenterDescription}}"
                 },
                 "button": {
+                  "element": "Button",
                   "variant": "outline",
-                  "size": "sm",
-                  "text": "{{faqCenterButtonText}}"
+                  "size": "sm", 
+                  "text": "{{faqCenterButtonText}}",
+                  "onClick": "{{faqCenterAction}}"
                 }
               }
             ]
@@ -425,36 +557,19 @@
     ]
   },
   
-  "formLogic": {
-    "state": {
-      "formData": {
-        "name": "string",
-        "email": "string",
-        "message": "string"
-      },
-      "isSubmitting": "boolean",
-      "submitStatus": "'idle' | 'success' | 'error'"
-    },
-    "validation": {
-      "required": ["name", "email", "message"],
-      "patterns": {
-        "email": "/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/"
-      }
-    },
-    "submitHandler": {
-      "endpoint": "{{formEndpoint}}",
-      "method": "POST",
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "successCallback": "Reset form and show success message",
-      "errorCallback": "Show error message, keep form data"
-    }
-  },
-  
-  "components": {
+  "componentLibrary": {
     "Button": {
-      "base": "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2",
+      "filePath": "src/components/ui/Button.tsx",
+      "props": {
+        "variant": "'primary' | 'secondary' | 'outline' | 'ghost'",
+        "size": "'sm' | 'md' | 'lg'",
+        "loading": "boolean",
+        "disabled": "boolean",
+        "className": "string",
+        "onClick": "() => void",
+        "children": "React.ReactNode"
+      },
+      "base": "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 w-full",
       "variants": {
         "primary": "bg-blue-700 hover:bg-blue-800 text-white focus:ring-blue-500",
         "secondary": "bg-green-600 hover:bg-green-700 text-white focus:ring-green-500",
@@ -463,16 +578,21 @@
       },
       "sizes": {
         "sm": "px-4 py-2 text-sm",
-        "md": "px-6 py-3 text-base",
+        "md": "px-6 py-3 text-base", 
         "lg": "px-8 py-4 text-lg"
       },
-      "loading": {
-        "spinner": "mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-      }
+      "loadingSpinner": "mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
     },
     
     "Card": {
-      "base": "bg-white rounded-xl border border-gray-200 p-6",
+      "filePath": "src/components/ui/Card.tsx",
+      "props": {
+        "children": "React.ReactNode",
+        "className": "string",
+        "hover": "boolean",
+        "padding": "'sm' | 'md' | 'lg'"
+      },
+      "base": "bg-white rounded-xl border border-gray-200",
       "hover": {
         "scale": 1.02,
         "boxShadow": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
@@ -482,13 +602,62 @@
         "md": "p-6",
         "lg": "p-8"
       }
+    }
+  },
+  
+  "reactLogic": {
+    "imports": [
+      "import React, { useState } from 'react';",
+      "import { motion } from 'framer-motion';",
+      "import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from 'lucide-react';",
+      "import { Card } from '../components/ui/Card';",
+      "import { Button } from '../components/ui/Button';"
+    ],
+    
+    "stateManagement": {
+      "formData": {
+        "type": "{ name: string; email: string; message: string }",
+        "initialValue": "{ name: '', email: '', message: '' }"
+      },
+      "isSubmitting": {
+        "type": "boolean",
+        "initialValue": "false"
+      },
+      "submitStatus": {
+        "type": "'idle' | 'success' | 'error'",
+        "initialValue": "'idle'"
+      }
     },
     
-    "FormField": {
-      "base": "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all",
-      "label": "block text-sm font-medium text-gray-700 mb-2",
-      "error": "border-red-500 focus:ring-red-500",
-      "errorMessage": "mt-1 text-sm text-red-600"
+    "eventHandlers": {
+      "handleInputChange": {
+        "signature": "(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void",
+        "implementation": "const { name, value } = e.target; setFormData(prev => ({ ...prev, [name]: value }));"
+      },
+      "handleSubmit": {
+        "signature": "(e: React.FormEvent) => Promise<void>",
+        "implementation": [
+          "e.preventDefault();",
+          "setIsSubmitting(true);",
+          "try {",
+          "  const response = await fetch('{{contactFormEndpoint}}', {",
+          "    method: 'POST',",
+          "    headers: { 'Content-Type': 'application/json' },",
+          "    body: JSON.stringify(formData)",
+          "  });",
+          "  if (response.ok) {",
+          "    setSubmitStatus('success');",
+          "    setFormData({ name: '', email: '', message: '' });",
+          "  } else {",
+          "    setSubmitStatus('error');",
+          "  }",
+          "} catch (error) {",
+          "  setSubmitStatus('error');",
+          "} finally {",
+          "  setIsSubmitting(false);",
+          "}"
+        ]
+      }
     }
   },
   
@@ -511,7 +680,7 @@
     "slideUp": {
       "initial": { "opacity": 0, "y": 20 },
       "animate": { "opacity": 1, "y": 0 },
-      "transition": { "duration": 0.6, "delay": "{{index * 0.1 + 0.3}}" }
+      "transition": { "duration": 0.6, "delay": "{{delay}}" }
     },
     "buttonHover": {
       "whileHover": { "scale": 1.02 },
@@ -519,241 +688,395 @@
     }
   },
   
-  "colorScheme": {
-    "primary": {
-      "50": "#eff6ff",
-      "100": "#dbeafe",
-      "200": "#bfdbfe",
-      "300": "#93c5fd",
-      "400": "#60a5fa",
-      "500": "#3b82f6",
-      "600": "#2563eb",
-      "700": "#1d4ed8",
-      "800": "#1e40af",
-      "900": "#1e3a8a"
-    },
-    "success": {
-      "50": "#ecfdf5",
-      "100": "#d1fae5",
-      "600": "#059669",
-      "700": "#047857",
-      "800": "#065f46"
-    },
-    "warning": {
-      "50": "#fefce8",
-      "100": "#fef3c7",
-      "600": "#d97706",
-      "700": "#b45309"
-    },
-    "error": {
-      "50": "#fef2f2",
-      "100": "#fee2e2",
-      "600": "#dc2626",
-      "700": "#b91c1c",
-      "800": "#991b1b"
-    },
-    "gray": {
-      "50": "#f9fafb",
-      "100": "#f3f4f6",
-      "200": "#e5e7eb",
-      "300": "#d1d5db",
-      "400": "#9ca3af",
-      "500": "#6b7280",
-      "600": "#4b5563",
-      "700": "#374151",
-      "800": "#1f2937",
-      "900": "#111827"
-    }
-  },
-  
-  "typography": {
-    "headings": {
-      "h1": "text-4xl lg:text-5xl font-bold",
-      "h2": "text-2xl font-bold",
-      "h3": "text-xl font-bold",
-      "h4": "font-semibold"
-    },
-    "body": {
-      "large": "text-xl",
-      "medium": "text-base",
-      "small": "text-sm"
-    },
+  "designTokens": {
     "colors": {
-      "heading": "text-gray-900",
-      "body": "text-gray-600",
-      "muted": "text-gray-500",
-      "accent": "text-blue-700"
-    }
-  },
-  
-  "spacing": {
-    "sections": {
-      "default": "py-12",
-      "large": "py-16",
-      "small": "py-8"
-    },
-    "containers": {
-      "default": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
-      "narrow": "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
-    },
-    "gaps": {
-      "xs": "gap-2",
-      "sm": "gap-3", 
-      "md": "gap-4",
-      "lg": "gap-6",
-      "xl": "gap-12"
-    }
-  },
-  
-  "responsiveBreakpoints": {
-    "sm": "640px",
-    "md": "768px",
-    "lg": "1024px",
-    "xl": "1280px",
-    "2xl": "1536px"
-  },
-  
-  "contentPlaceholders": {
-    "pageTitle": "Contact Us",
-    "pageSubtitle": "Get in touch with our team. We're here to help with your healthcare sharing questions and support needs.",
-    
-    "contactSectionTitle": "Get In Touch",
-    "companyLabel": "Company",
-    "companyName": "SaudeMax",
-    "phoneLabel": "Phone",
-    "phoneNumber": "(561) 466‑9558",
-    "phoneNumberHref": "+15614669558",
-    "emailLabel": "Email", 
-    "emailAddress": "info@saude-max.com",
-    "hoursLabel": "Office Hours",
-    "mondayFridayHours": "Monday - Friday: 8:00 AM - 6:00 PM EST",
-    "saturdayHours": "Saturday: 9:00 AM - 2:00 PM EST",
-    "sundayHours": "Sunday: Closed",
-    "addressLabel": "Address",
-    "addressLine1": "SaudeMax Headquarters",
-    "addressLine2": "Florida, United States",
-    
-    "quickContactTitle": "Quick Contact",
-    "callButtonText": "Call Now",
-    "emailButtonText": "Email Us",
-    
-    "formTitle": "Send Us a Message",
-    "nameLabel": "Name *",
-    "namePlaceholder": "Your full name",
-    "emailLabel": "Email *",
-    "emailPlaceholder": "your.email@example.com", 
-    "messageLabel": "Message *",
-    "messagePlaceholder": "How can we help you? Please provide details about your question or concern...",
-    "submitButtonText": "Send Message",
-    "submittingText": "Sending...",
-    
-    "successMessage": "Thank you! Your message has been sent successfully. We'll get back to you soon.",
-    "errorMessage": "Sorry, there was an error sending your message. Please try again or contact us directly.",
-    "responseTimeNote": "Response Time: We typically respond to messages within 24 hours during business days. For urgent matters, please call us directly.",
-    
-    "mapSectionTitle": "Our Location",
-    "mapPlaceholderText": "Interactive map will be available soon",
-    "mapSubText": "Serving members across Florida and beyond",
-    
-    "supportOptionsTitle": "Other Ways to Get Support",
-    "liveChatTitle": "Live Chat",
-    "liveChatDescription": "Chat with our support team in real-time",
-    "liveChatButtonText": "Start Chat",
-    "memberPortalTitle": "Member Portal", 
-    "memberPortalDescription": "Access your account and submit requests",
-    "memberPortalButtonText": "Login",
-    "faqCenterTitle": "FAQ Center",
-    "faqCenterDescription": "Find answers to common questions",
-    "faqCenterButtonText": "Browse FAQ"
-  },
-  
-  "businessLogic": {
-    "formHandling": {
-      "validation": {
-        "nameRequired": "Name is required",
-        "emailRequired": "Email is required", 
-        "emailInvalid": "Please enter a valid email address",
-        "messageRequired": "Message is required"
+      "primary": {
+        "50": "#eff6ff",
+        "100": "#dbeafe",
+        "200": "#bfdbfe",
+        "300": "#93c5fd",
+        "400": "#60a5fa",
+        "500": "#3b82f6",
+        "600": "#2563eb",
+        "700": "#1d4ed8",
+        "800": "#1e40af",
+        "900": "#1e3a8a"
       },
-      "submitFlow": [
-        "1. Validate all required fields",
-        "2. Set isSubmitting to true",
-        "3. Send POST request to form endpoint",
-        "4. Handle success: Reset form, show success message",
-        "5. Handle error: Show error message, keep form data",
-        "6. Set isSubmitting to false"
-      ],
-      "apiIntegration": {
-        "endpoint": "{{contactFormEndpoint}}",
-        "method": "POST",
-        "requestBody": {
-          "name": "formData.name",
-          "email": "formData.email", 
-          "message": "formData.message"
+      "secondary": {
+        "50": "#ecfdf5",
+        "100": "#d1fae5",
+        "200": "#a7f3d0",
+        "300": "#6ee7b7",
+        "400": "#34d399",
+        "500": "#10b981",
+        "600": "#059669",
+        "700": "#047857",
+        "800": "#065f46",
+        "900": "#064e3b"
+      },
+      "gray": {
+        "50": "#f9fafb",
+        "100": "#f3f4f6",
+        "200": "#e5e7eb",
+        "300": "#d1d5db",
+        "400": "#9ca3af",
+        "500": "#6b7280",
+        "600": "#4b5563",
+        "700": "#374151",
+        "800": "#1f2937",
+        "900": "#111827"
+      },
+      "semantic": {
+        "success": {
+          "50": "#ecfdf5",
+          "100": "#d1fae5",
+          "600": "#059669",
+          "700": "#047857",
+          "800": "#065f46"
         },
-        "responseHandling": {
-          "success": "response.ok === true",
-          "error": "response.ok === false || network error"
+        "warning": {
+          "50": "#fefce8",
+          "100": "#fef3c7",
+          "600": "#d97706",
+          "700": "#b45309"
+        },
+        "error": {
+          "50": "#fef2f2",
+          "100": "#fee2e2",
+          "600": "#dc2626",
+          "700": "#b91c1c",
+          "800": "#991b1b"
         }
       }
     },
     
-    "contactMethods": {
-      "phone": {
-        "display": "(561) 466‑9558",
-        "href": "tel:+15614669558",
-        "international": "+1 561 466 9558"
+    "typography": {
+      "fontFamily": "system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif",
+      "headings": {
+        "h1": {
+          "fontSize": "text-4xl lg:text-5xl",
+          "fontWeight": "font-bold",
+          "lineHeight": "leading-tight",
+          "color": "text-gray-900",
+          "marginBottom": "mb-4"
+        },
+        "h2": {
+          "fontSize": "text-2xl",
+          "fontWeight": "font-bold", 
+          "color": "text-gray-900",
+          "marginBottom": "mb-8"
+        },
+        "h3": {
+          "fontSize": "text-xl",
+          "fontWeight": "font-bold",
+          "color": "text-gray-900",
+          "marginBottom": "mb-6"
+        },
+        "h4": {
+          "fontSize": "text-lg",
+          "fontWeight": "font-semibold",
+          "color": "text-gray-900",
+          "marginBottom": "mb-2"
+        }
+      },
+      "body": {
+        "large": {
+          "fontSize": "text-xl",
+          "color": "text-gray-600",
+          "lineHeight": "leading-relaxed"
+        },
+        "medium": {
+          "fontSize": "text-base",
+          "color": "text-gray-600",
+          "lineHeight": "leading-normal"
+        },
+        "small": {
+          "fontSize": "text-sm",
+          "color": "text-gray-600",
+          "lineHeight": "leading-normal"
+        }
+      }
+    },
+    
+    "spacing": {
+      "sections": {
+        "default": "py-12",
+        "large": "py-16",
+        "small": "py-8"
+      },
+      "containers": {
+        "default": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "narrow": "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8",
+        "wide": "max-w-8xl mx-auto px-4 sm:px-6 lg:px-8"
+      },
+      "gaps": {
+        "xs": "gap-2",
+        "sm": "gap-3",
+        "md": "gap-4", 
+        "lg": "gap-6",
+        "xl": "gap-8",
+        "2xl": "gap-12"
+      }
+    },
+    
+    "borderRadius": {
+      "sm": "rounded-md",
+      "default": "rounded-lg",
+      "lg": "rounded-xl",
+      "xl": "rounded-2xl",
+      "full": "rounded-full"
+    },
+    
+    "shadows": {
+      "sm": "shadow-sm",
+      "default": "shadow",
+      "md": "shadow-md",
+      "lg": "shadow-lg",
+      "xl": "shadow-xl",
+      "2xl": "shadow-2xl"
+    },
+    
+    "transitions": {
+      "fast": "transition-all duration-200",
+      "medium": "transition-all duration-300",
+      "slow": "transition-all duration-500"
+    }
+  },
+  
+  "responsiveDesign": {
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    },
+    "mobileFirst": true,
+    "gridSystem": {
+      "sm": "grid-cols-1",
+      "md": "md:grid-cols-2",
+      "lg": "lg:grid-cols-3",
+      "xl": "xl:grid-cols-4"
+    },
+    "textSizes": {
+      "responsive": {
+        "headings": "text-4xl lg:text-5xl",
+        "subheadings": "text-xl",
+        "body": "text-base"
+      }
+    }
+  },
+  
+  "contentPlaceholders": {
+    "page": {
+      "pageTitle": "Contact Us",
+      "pageSubtitle": "Get in touch with our team. We're here to help with your healthcare sharing questions and support needs."
+    },
+    
+    "contactDetails": {
+      "contactDetailsTitle": "Get In Touch",
+      "companyLabel": "Company",
+      "companyName": "SaudeMax",
+      "phoneLabel": "Phone",
+      "phoneNumberDisplay": "(561) 466‑9558",
+      "phoneNumberHref": "+15614669558",
+      "emailLabel": "Email",
+      "emailAddress": "info@saude-max.com", 
+      "emailAddressDisplay": "info@saude‑max.com",
+      "hoursLabel": "Office Hours",
+      "mondayFridayHours": "Monday - Friday: 8:00 AM - 6:00 PM EST",
+      "saturdayHours": "Saturday: 9:00 AM - 2:00 PM EST",
+      "sundayHours": "Sunday: Closed",
+      "addressLabel": "Address",
+      "addressLine1": "SaudeMax Headquarters",
+      "addressLine2": "Florida, United States"
+    },
+    
+    "quickContact": {
+      "quickContactTitle": "Quick Contact",
+      "callButtonText": "Call Now",
+      "emailButtonText": "Email Us"
+    },
+    
+    "contactForm": {
+      "formTitle": "Send Us a Message",
+      "nameLabel": "Name *",
+      "namePlaceholder": "Your full name",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "your.email@example.com",
+      "messageLabel": "Message *",
+      "messagePlaceholder": "How can we help you? Please provide details about your question or concern...",
+      "submitButtonText": "Send Message",
+      "submittingText": "Sending...",
+      "successMessage": "Thank you! Your message has been sent successfully. We'll get back to you soon.",
+      "errorMessage": "Sorry, there was an error sending your message. Please try again or contact us directly.",
+      "responseTimeNote": "<strong>Response Time:</strong> We typically respond to messages within 24 hours during business days. For urgent matters, please call us directly."
+    },
+    
+    "mapSection": {
+      "mapSectionTitle": "Our Location",
+      "mapPlaceholderText": "Interactive map will be available soon",
+      "mapSubText": "Serving members across Florida and beyond",
+      "googleMapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.5..."
+    },
+    
+    "supportOptions": {
+      "supportOptionsTitle": "Other Ways to Get Support",
+      "liveChatTitle": "Live Chat",
+      "liveChatDescription": "Chat with our support team in real-time",
+      "liveChatButtonText": "Start Chat",
+      "liveChatAction": "startLiveChat",
+      "memberPortalTitle": "Member Portal",
+      "memberPortalDescription": "Access your account and submit requests",
+      "memberPortalButtonText": "Login",
+      "memberPortalAction": "goToLogin", 
+      "faqCenterTitle": "FAQ Center",
+      "faqCenterDescription": "Find answers to common questions",
+      "faqCenterButtonText": "Browse FAQ",
+      "faqCenterAction": "goToFAQ"
+    }
+  },
+  
+  "formValidation": {
+    "rules": {
+      "name": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 100,
+        "pattern": "^[a-zA-Z\\s]+$",
+        "errorMessages": {
+          "required": "Name is required",
+          "minLength": "Name must be at least 2 characters",
+          "maxLength": "Name must be less than 100 characters",
+          "pattern": "Name can only contain letters and spaces"
+        }
       },
       "email": {
-        "display": "info@saude‑max.com",
-        "href": "mailto:info@saude-max.com"
+        "required": true,
+        "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+        "errorMessages": {
+          "required": "Email is required",
+          "pattern": "Please enter a valid email address"
+        }
       },
-      "address": {
-        "line1": "SaudeMax Headquarters",
-        "line2": "Florida, United States",
-        "googleMapsQuery": "SaudeMax+Florida"
-      },
-      "hours": {
-        "weekdays": "Monday - Friday: 8:00 AM - 6:00 PM EST",
-        "saturday": "Saturday: 9:00 AM - 2:00 PM EST", 
-        "sunday": "Sunday: Closed",
-        "timezone": "EST"
+      "message": {
+        "required": true,
+        "minLength": 10,
+        "maxLength": 2000,
+        "errorMessages": {
+          "required": "Message is required",
+          "minLength": "Message must be at least 10 characters",
+          "maxLength": "Message must be less than 2000 characters"
+        }
       }
+    },
+    "validateFunction": {
+      "name": "validateForm",
+      "returnType": "boolean",
+      "implementation": "Check all fields against rules, set error states, return true if valid"
+    }
+  },
+  
+  "apiIntegration": {
+    "contactForm": {
+      "endpoint": "{{contactFormEndpoint}}",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "requestBody": {
+        "name": "formData.name",
+        "email": "formData.email",
+        "message": "formData.message",
+        "timestamp": "new Date().toISOString()",
+        "source": "contact_page"
+      },
+      "responseHandling": {
+        "success": {
+          "condition": "response.ok === true",
+          "action": "setSubmitStatus('success'), reset form"
+        },
+        "error": {
+          "condition": "response.ok === false || network error",
+          "action": "setSubmitStatus('error'), maintain form data"
+        }
+      }
+    },
+    
+    "analytics": {
+      "trackingEvents": [
+        {
+          "event": "contact_page_view",
+          "trigger": "Component mount",
+          "data": "{ page: 'contact', timestamp: Date.now() }"
+        },
+        {
+          "event": "contact_form_start",
+          "trigger": "First form field interaction",
+          "data": "{ field: fieldName }"
+        },
+        {
+          "event": "contact_form_submit",
+          "trigger": "Form submission attempt",
+          "data": "{ hasName: !!formData.name, hasEmail: !!formData.email }"
+        },
+        {
+          "event": "contact_method_click",
+          "trigger": "Phone/email link click",
+          "data": "{ method: 'phone' | 'email' }"
+        }
+      ]
     }
   },
   
   "integrations": {
-    "analytics": {
-      "trackEvents": [
-        "contact_form_view",
-        "contact_form_submit", 
-        "contact_form_success",
-        "contact_form_error",
-        "phone_click",
-        "email_click",
-        "quick_contact_call",
-        "quick_contact_email"
-      ]
-    },
-    
     "thirdPartyServices": {
       "googleMaps": {
-        "embedCode": "{{googleMapsEmbedCode}}",
-        "apiKey": "{{googleMapsApiKey}}",
-        "center": "{{businessLatitude}}, {{businessLongitude}}"
+        "setup": {
+          "apiKey": "{{googleMapsApiKey}}",
+          "center": "{{businessLatitude}}, {{businessLongitude}}",
+          "zoom": 15,
+          "marker": true
+        },
+        "embedUrl": "{{googleMapsEmbedUrl}}",
+        "fallback": "Static map placeholder with address"
       },
+      
       "liveChatWidget": {
-        "provider": "{{chatProvider}}",
-        "widgetId": "{{chatWidgetId}}",
-        "customization": {
-          "color": "#1d4ed8",
-          "position": "bottom-right"
+        "providers": {
+          "intercom": {
+            "setup": "window.Intercom('boot', { app_id: '{{intercomAppId}}' });",
+            "integration": "Intercom widget SDK"
+          },
+          "zendesk": {
+            "setup": "zE('webWidget', 'open');",
+            "integration": "Zendesk Chat Widget"
+          },
+          "custom": {
+            "setup": "Custom chat implementation",
+            "integration": "Socket.io or WebSocket connection"
+          }
         }
       },
+      
       "emailService": {
-        "provider": "{{emailProvider}}",
-        "apiKey": "{{emailApiKey}}",
-        "fromEmail": "{{fromEmailAddress}}"
+        "providers": {
+          "sendgrid": {
+            "endpoint": "https://api.sendgrid.com/v3/mail/send",
+            "apiKey": "{{sendgridApiKey}}",
+            "fromEmail": "{{fromEmailAddress}}"
+          },
+          "resend": {
+            "endpoint": "https://api.resend.com/emails",
+            "apiKey": "{{resendApiKey}}",
+            "fromEmail": "{{fromEmailAddress}}"
+          },
+          "custom": {
+            "endpoint": "{{customEmailEndpoint}}",
+            "method": "POST",
+            "authentication": "Bearer {{apiKey}}"
+          }
+        }
       }
     }
   },
@@ -762,86 +1085,365 @@
     "ariaLabels": {
       "contactForm": "Contact form",
       "nameField": "Your full name",
-      "emailField": "Your email address", 
-      "messageField": "Your message",
-      "submitButton": "Send message",
-      "phoneLink": "Call SaudeMax",
-      "emailLink": "Email SaudeMax"
+      "emailField": "Your email address",
+      "messageField": "Your message to us",
+      "submitButton": "Send your message",
+      "phoneLink": "Call SaudeMax phone number",
+      "emailLink": "Send email to SaudeMax",
+      "liveChatButton": "Start live chat conversation",
+      "mapSection": "Company location map"
     },
-    "keyboardNavigation": "All interactive elements are keyboard accessible",
-    "screenReader": "All form fields have proper labels and descriptions",
-    "colorContrast": "All text meets WCAG AA contrast ratios"
-  },
-  
-  "performance": {
-    "optimization": [
-      "Lazy load iframe for map section",
-      "Optimize image loading",
-      "Minimize bundle size with tree shaking",
-      "Use React.memo for static components"
-    ],
-    "loadingStates": {
-      "form": "Show spinner on submit button",
-      "page": "Show skeleton loaders if needed"
+    "keyboardNavigation": {
+      "tabOrder": [
+        "Name field",
+        "Email field", 
+        "Message field",
+        "Submit button",
+        "Phone link",
+        "Email link",
+        "Live chat button",
+        "Member portal button",
+        "FAQ button"
+      ],
+      "focusVisible": "focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+      "skipLinks": "Skip to main content, Skip to contact form"
+    },
+    "screenReader": {
+      "announcements": [
+        "Page loaded: Contact page",
+        "Form submission: Sending message",
+        "Form success: Message sent successfully", 
+        "Form error: Error sending message"
+      ],
+      "landmarks": {
+        "main": "main",
+        "form": "form",
+        "contactInfo": "complementary"
+      }
+    },
+    "colorContrast": {
+      "textColors": {
+        "heading": "4.5:1 (AA compliant)",
+        "body": "4.5:1 (AA compliant)",
+        "links": "4.5:1 (AA compliant)"
+      },
+      "buttonContrast": "7:1 (AAA compliant)"
     }
   },
   
-  "buildInstructions": {
-    "framework": "React with TypeScript",
-    "styling": "Tailwind CSS",
-    "animations": "Framer Motion",
-    "icons": "Lucide React",
-    "dependencies": [
-      "npm install react react-dom typescript",
-      "npm install tailwindcss @tailwindcss/forms",
-      "npm install framer-motion",
-      "npm install lucide-react"
+  "performance": {
+    "optimization": {
+      "lazyLoading": [
+        "Google Maps iframe",
+        "Support option icons",
+        "Contact method icons"
+      ],
+      "codesplitting": "Dynamic imports for heavy components",
+      "bundleOptimization": "Tree shaking for unused utilities",
+      "imageOptimization": "WebP format with fallbacks"
+    },
+    "loadingStates": {
+      "form": {
+        "submitting": "Spinner on submit button",
+        "success": "Success message display",
+        "error": "Error message display"
+      },
+      "page": {
+        "skeleton": "Skeleton loaders for heavy sections",
+        "progressive": "Staggered section animations"
+      }
+    },
+    "metrics": {
+      "targetLCP": "< 2.5s",
+      "targetFID": "< 100ms",
+      "targetCLS": "< 0.1"
+    }
+  },
+  
+  "seoOptimization": {
+    "metaTags": {
+      "title": "{{metaTitle}}",
+      "description": "{{metaDescription}}",
+      "keywords": "{{metaKeywords}}",
+      "ogTitle": "{{ogTitle}}",
+      "ogDescription": "{{ogDescription}}",
+      "ogImage": "{{ogImageUrl}}",
+      "ogType": "website",
+      "twitterCard": "summary_large_image"
+    },
+    "structuredData": {
+      "organization": {
+        "@type": "Organization",
+        "name": "{{organizationName}}",
+        "url": "{{websiteUrl}}",
+        "logo": "{{logoUrl}}",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "{{phoneNumber}}",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Portuguese"]
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "{{city}}",
+          "addressRegion": "{{state}}",
+          "addressCountry": "{{country}}"
+        }
+      }
+    }
+  },
+  
+  "testingGuidelines": {
+    "functionalTests": [
+      {
+        "test": "Form submission with valid data",
+        "expected": "Success message displays, form resets"
+      },
+      {
+        "test": "Form submission with invalid email",
+        "expected": "Email validation error displays"
+      },
+      {
+        "test": "Form submission with empty required fields",
+        "expected": "Required field errors display"
+      },
+      {
+        "test": "Phone number click",
+        "expected": "Phone dialer opens (mobile) or tel: URL handled"
+      },
+      {
+        "test": "Email address click", 
+        "expected": "Email client opens with pre-filled recipient"
+      },
+      {
+        "test": "Form submission while already submitting",
+        "expected": "Duplicate submission prevented"
+      }
     ],
-    "setup": [
-      "1. Install dependencies listed above",
-      "2. Configure Tailwind CSS with provided color scheme",
-      "3. Create ContactPage component using the structure",
-      "4. Replace all {{placeholder}} values with actual content",
-      "5. Implement form submission handler",
-      "6. Add analytics tracking if needed",
-      "7. Test responsiveness across devices",
-      "8. Integrate with your backend contact form endpoint"
+    
+    "visualTests": [
+      {
+        "test": "Mobile responsive layout",
+        "viewports": ["375px", "768px", "1024px", "1440px"],
+        "expected": "Layout adapts properly at all breakpoints"
+      },
+      {
+        "test": "Animation performance",
+        "expected": "Smooth 60fps animations, no jank"
+      },
+      {
+        "test": "Color contrast",
+        "expected": "All text meets WCAG AA standards"
+      },
+      {
+        "test": "Interactive states",
+        "expected": "Hover, focus, active states work correctly"
+      }
     ],
-    "files": [
-      "ContactPage.tsx - Main component file",
-      "Button.tsx - Reusable button component", 
-      "Card.tsx - Reusable card component",
-      "tailwind.config.js - Tailwind configuration with color scheme"
+    
+    "accessibilityTests": [
+      {
+        "test": "Keyboard navigation",
+        "expected": "All interactive elements accessible via keyboard"
+      },
+      {
+        "test": "Screen reader compatibility",
+        "expected": "Proper labels and announcements"
+      },
+      {
+        "test": "Focus management",
+        "expected": "Focus indicators visible and logical tab order"
+      }
+    ],
+    
+    "performanceTests": [
+      {
+        "test": "Page load speed",
+        "expected": "< 3 seconds on 3G connection"
+      },
+      {
+        "test": "Bundle size",
+        "expected": "< 500KB initial bundle"
+      },
+      {
+        "test": "Runtime performance",
+        "expected": "No memory leaks, efficient re-renders"
+      }
     ]
+  },
+  
+  "deploymentConfiguration": {
+    "buildCommands": [
+      "npm install",
+      "npm run build"
+    ],
+    "environmentVariables": {
+      "required": [
+        "{{contactFormEndpoint}}",
+        "{{googleMapsApiKey}}"
+      ],
+      "optional": [
+        "{{analyticsId}}",
+        "{{liveChatApiKey}}",
+        "{{emailServiceApiKey}}"
+      ]
+    },
+    "staticAssets": [
+      "Company logo",
+      "Favicon",
+      "OpenGraph image"
+    ]
+  },
+  
+  "migrationInstructions": {
+    "prerequisites": [
+      "Node.js 18+ installed",
+      "React project initialized",
+      "Tailwind CSS configured"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "action": "Install dependencies",
+        "command": "npm install react react-dom typescript framer-motion lucide-react tailwindcss @tailwindcss/forms"
+      },
+      {
+        "step": 2,
+        "action": "Configure Tailwind CSS",
+        "files": ["tailwind.config.js", "src/index.css"],
+        "note": "Add color scheme and component classes"
+      },
+      {
+        "step": 3,
+        "action": "Create UI components",
+        "files": ["src/components/ui/Button.tsx", "src/components/ui/Card.tsx"],
+        "note": "Use component specifications from this export"
+      },
+      {
+        "step": 4,
+        "action": "Create ContactPage component",
+        "file": "src/pages/ContactPage.tsx",
+        "note": "Follow the structure defined in pageStructure section"
+      },
+      {
+        "step": 5,
+        "action": "Replace placeholders",
+        "note": "Replace all {{placeholder}} values with your actual content"
+      },
+      {
+        "step": 6,
+        "action": "Configure form endpoint",
+        "note": "Set up backend endpoint for form submissions"
+      },
+      {
+        "step": 7,
+        "action": "Test functionality",
+        "note": "Run through all test cases in testingGuidelines"
+      }
+    ],
+    "postMigration": {
+      "verification": [
+        "All animations work smoothly",
+        "Form submission works end-to-end",
+        "All links and contact methods function",
+        "Page is fully responsive",
+        "Accessibility requirements met"
+      ],
+      "customization": [
+        "Add your business contact information",
+        "Configure Google Maps with your location",
+        "Set up live chat widget",
+        "Customize color scheme if needed",
+        "Add analytics tracking"
+      ]
+    }
+  },
+  
+  "technicalNotes": {
+    "bundleSize": "Estimated ~8KB gzipped for contact page",
+    "dependencies": "All dependencies are widely supported and stable",
+    "browserSupport": "Modern browsers (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)",
+    "mobileSupport": "iOS 12+ Safari, Android 8+ Chrome",
+    "performanceOptimizations": [
+      "Lazy loading for non-critical elements",
+      "Efficient re-renders with React.memo",
+      "Optimized animation performance with GPU acceleration",
+      "Minimal DOM manipulations"
+    ]
+  },
+  
+  "businessLogic": {
+    "contactWorkflow": [
+      {
+        "step": "User visits contact page",
+        "actions": ["Track page view", "Load contact information"]
+      },
+      {
+        "step": "User fills out form",
+        "actions": ["Validate fields in real-time", "Track form engagement"]
+      },
+      {
+        "step": "User submits form", 
+        "actions": ["Validate all fields", "Send to backend", "Show loading state"]
+      },
+      {
+        "step": "Form processed successfully",
+        "actions": ["Show success message", "Reset form", "Track conversion"]
+      },
+      {
+        "step": "Form processing fails",
+        "actions": ["Show error message", "Maintain form data", "Track error"]
+      }
+    ],
+    
+    "fallbackStrategies": {
+      "formSubmissionFailure": "Show error message with direct contact information",
+      "emailLinkFailure": "Provide manual email address copy",
+      "phoneLinkFailure": "Display phone number for manual dialing",
+      "mapLoadFailure": "Show text address with directions link"
+    }
   },
   
   "qualityAssurance": {
-    "testCases": [
-      "Form validation works for all required fields",
-      "Email validation accepts valid emails and rejects invalid ones",
-      "Form submission shows loading state",
-      "Success message displays after successful submission",
-      "Error message displays when submission fails",
-      "Phone and email links work correctly",
-      "Page is responsive on mobile, tablet, and desktop",
-      "All animations play smoothly",
-      "Accessibility: Can navigate entire page with keyboard",
-      "Performance: Page loads in under 3 seconds"
-    ],
-    "browserTesting": [
-      "Chrome (latest)",
-      "Firefox (latest)", 
-      "Safari (latest)",
-      "Edge (latest)",
-      "Mobile Safari (iOS)",
-      "Chrome Mobile (Android)"
-    ]
-  },
-  
-  "migrationNotes": {
-    "fromSaudeMAX": "This export contains the complete ContactPage component design from the SaudeMAX healthcare platform",
-    "usage": "Use this JSON to recreate the exact same contact page experience in any React project",
-    "customization": "Replace all {{placeholder}} values with your specific business information",
-    "extensions": "Add additional contact methods, integrate with CRM, add captcha, etc."
+    "codeQuality": {
+      "typescript": "Strict TypeScript configuration",
+      "linting": "ESLint with accessibility rules",
+      "formatting": "Prettier for consistent formatting",
+      "testing": "Jest/React Testing Library for unit tests"
+    },
+    
+    "userExperience": {
+      "formUsability": [
+        "Clear field labels and placeholders", 
+        "Real-time validation feedback",
+        "Loading states during submission",
+        "Success/error message clarity",
+        "Logical tab order"
+      ],
+      "visualDesign": [
+        "Consistent spacing and alignment",
+        "Appropriate color contrast",
+        "Smooth hover and focus states",
+        "Professional appearance",
+        "Mobile-friendly touch targets"
+      ]
+    },
+    
+    "technicalQuality": {
+      "performance": [
+        "Fast initial page load",
+        "Smooth animations", 
+        "Efficient form handling",
+        "Optimized bundle size",
+        "No console errors"
+      ],
+      "reliability": [
+        "Graceful error handling",
+        "Network failure resilience",
+        "Cross-browser compatibility",
+        "Input sanitization",
+        "XSS prevention"
+      ]
+    }
   }
 }
