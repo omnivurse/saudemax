@@ -79,7 +79,7 @@ export const AffiliateRegister: React.FC = () => {
 
       // Redirect after a delay
       setTimeout(() => {
-        navigate('/agent');
+        navigate('/affiliate');
       }, 2000);
     } catch (err: any) {
       console.error("Error details:", {
@@ -127,7 +127,7 @@ export const AffiliateRegister: React.FC = () => {
 
   // If user is already logged in, redirect to affiliate dashboard
   if (user) {
-    navigate('/agent');
+    navigate('/affiliate');
     return null;
   }
 
@@ -402,7 +402,7 @@ export const AffiliateRegister: React.FC = () => {
 
               <div className="mt-6 pt-6 border-t border-gray-200 text-center">
                 <p className="text-sm text-gray-600">
-                  Already an affiliate? <Link to="/agent-login" className="text-blue-600 hover:text-blue-800 font-medium">Login here</Link>
+                  Already an affiliate? <Link to="/affiliate-login" className="text-blue-600 hover:text-blue-800 font-medium">Login here</Link>
                 </p>
               </div>
             </Card>
